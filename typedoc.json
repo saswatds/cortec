@@ -5,6 +5,7 @@
     "packages/cassandra",
     "packages/config",
     "packages/load",
+    "packages/mongodb",
     "packages/redis",
     "packages/sentry",
     "packages/types"

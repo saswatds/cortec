@@ -7,9 +7,9 @@ A lightweight opinionated framework for building services in Node.js
 - [x] BullMQ
 - [x] Redis
 - [x] Cassandra
+- [x] Sentry
+- [x] MongoDB
 - [ ] Logger
-- [ ] MongoDB
 - [ ] Newrelic
 - [ ] Request
-- [x] Sentry
 - [ ] Storage
