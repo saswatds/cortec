@@ -1,6 +1,6 @@
 {
   "name": "@cortes/config",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortes/types": "^1.1.0",
+    "@cortes/types": "^1.2.0",
     "typed-inject": "^3.0.1"
   },
   "typedoc": {
