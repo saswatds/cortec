@@ -11,6 +11,9 @@
       "path": "packages/core"
     },
     {
+      "path": "packages/sentry"
+    },
+    {
       "path": "packages/types"
     }
   ]

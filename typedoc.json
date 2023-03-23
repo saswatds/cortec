@@ -3,6 +3,7 @@
   "entryPoints": [
     "packages/config",
     "packages/core",
+    "packages/sentry",
     "packages/types"
   ],
   "out": "doc"
