@@ -4,9 +4,15 @@
 import type { Ctx, Exit, IContextProvide, OnExit } from '@cortes/types';
 import { applyEachSeries, series } from 'async';
 
+export type Service = {
+  pkg: any;
+  env: string;
+};
+
 const ctx: Ctx = new Map();
 
 export function load(
+  service: Service,
   plugins: IContextProvide[],
   done: (exit: Exit, x: Ctx<any>) => void
 ) {
@@ -16,6 +22,8 @@ export function load(
       code !== undefined && process.exit(code);
     });
   };
+
+  ctx.set('service', service);
 
   (applyEachSeries(plugins, ctx, onExit) as any)(
     (err: Error, data: OnExit[]) => {
