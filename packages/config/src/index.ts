@@ -1,16 +1,7 @@
-import type { Disposer } from '@cortes/types';
-import c from 'config';
-import type { Injector } from 'typed-inject';
+import type { Cb, Ctx } from '@cortes/types';
+import config from 'config';
 
-export const id = 'config';
-/**
- * The config package provides the ability to load configuration files
- * @param injector container for dependency injection
- * @param exit A function to call to exit the process
- */
-export async function config(injector: Injector): Promise<Disposer> {
-  injector.provideValue(id, c);
-  return async () => {
-    /* No op */
-  };
+export default function (ctx: Ctx, _: unknown, done: Cb) {
+  ctx.set('config', config);
+  return done();
 }

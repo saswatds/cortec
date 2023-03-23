@@ -1,5 +1,5 @@
 {
-  "name": "@cortes/sentry",
+  "name": "@cortes/bullmq",
   "version": "1.0.0",
   "description": "<description>",
   "main": "dist/index.js",
@@ -25,12 +25,12 @@
   },
   "peerDependencies": {
     "config": "^3.3.9",
-    "@sentry/node": "^7.44.2"
+    "bullmq": "^3.10.2"
   },
   "devDependencies": {
     "@types/config": "^3.3.0",
-    "config": "^3.3.9",
-    "@sentry/node": "^7.44.2"
+    "bullmq": "^3.10.2",
+    "config": "^3.3.9"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
