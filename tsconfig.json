@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages"
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "packages/core"
+    }
+  ]
+}

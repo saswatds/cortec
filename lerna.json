@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/lerna/schemas/lerna-schema.json",
+  "useWorkspaces": true,
+  "npmClient": "yarn",
+  "version": "independent",
+  "message": "chore: publish",
+  "graphType": "dependencies",
+  "conventionalCommits": true,
+  "changelogPreset": "conventional-changelog-conventionalcommits",
+  "ignoreChanges": [
+    "**/__tests__/**",
+    "**/*.md"
+  ],
+  "allowBranch": [
+    "develop"
+  ]
+}
