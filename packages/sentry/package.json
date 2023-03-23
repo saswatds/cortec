@@ -1,0 +1,40 @@
+{
+  "name": "@cortes/sentry",
+  "version": "1.0.0",
+  "description": "<description>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:saswatds/cortes.git",
+  "author": "Saswat Das <saswatds@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/saswatds/cortes/blob/main/README.md",
+  "scripts": {
+    "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "prepack": "yarn build",
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc --build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "test": "yarn build && jest --passWithNoTests",
+    "ci": "jest --passWithNoTests --maxWorker=20%"
+  },
+  "files": [
+    "./dist"
+  ],
+  "dependencies": {
+    "typed-inject": "^3.0.1",
+    "@cortes/types": "*"
+  },
+  "peerDependencies": {
+    "config": "^3.3.9",
+    "@sentry/node": "^7.44.2"
+  },
+  "devDependencies": {
+    "@types/config": "^3.3.0",
+    "config": "^3.3.9",
+    "@sentry/node": "^7.44.2"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "tsconfig": "./tsconfig.json"
+  }
+}
