@@ -1,7 +1,9 @@
 {
   "entryPointStrategy": "packages",
   "entryPoints": [
-    "packages/core"
+    "packages/config",
+    "packages/core",
+    "packages/types"
   ],
   "out": "doc"
 }

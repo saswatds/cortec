@@ -1,5 +1,5 @@
 {
-  "name": "@cortes/core",
+  "name": "@cortes/types",
   "version": "1.0.0",
   "description": "<description>",
   "main": "dist/index.js",
@@ -21,10 +21,7 @@
     "./dist"
   ],
   "dependencies": {
-    "p-series": "^2.0.0",
-    "tasuku": "^2.0.1",
-    "typed-inject": "^3.0.1",
-    "@cortes/types": "*"
+    "typed-inject": "^3.0.1"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
