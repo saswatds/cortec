@@ -31,5 +31,8 @@
   },
   "devDependencies": {
     "@types/async": "^3.2.18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
