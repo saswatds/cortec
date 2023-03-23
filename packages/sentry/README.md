@@ -1,1 +1,1 @@
-# @cortes/sentry
+# @cortec/sentry

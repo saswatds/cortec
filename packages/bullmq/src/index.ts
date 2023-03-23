@@ -1,4 +1,4 @@
-import type { Cb, Ctx } from '@cortes/types';
+import type { Cb, Ctx } from '@cortec/types';
 import { FlowProducer, Queue } from 'bullmq';
 import config from 'config';
 

@@ -1,4 +1,4 @@
-import type { Cb, Ctx, Exit } from '@cortes/types';
+import type { Cb, Ctx, Exit } from '@cortec/types';
 // eslint-disable-next-line import/default
 import newrelic from 'newrelic';
 

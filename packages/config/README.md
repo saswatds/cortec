@@ -1,1 +1,1 @@
-# @cortes/config
+# @cortec/config

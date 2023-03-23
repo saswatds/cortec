@@ -1,5 +1,5 @@
 {
-  "name": "@cortes/types",
+  "name": "@cortec/types",
   "version": "1.2.0",
   "description": "<description>",
   "main": "dist/index.js",
@@ -29,5 +29,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "8d2614cc04f339084ab02d832bdaf807246f7059"
 }

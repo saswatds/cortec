@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.2.0](https://github.com/saswatds/cortes/compare/@cortes/cassandra@1.1.0...@cortes/cassandra@1.2.0) (2023-03-23)
+## [1.2.0](https://github.com/saswatds/cortes/compare/@cortec/cassandra@1.1.0...@cortec/cassandra@1.2.0) (2023-03-23)
 
 ### Features
 

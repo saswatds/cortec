@@ -1,4 +1,4 @@
-import type { Cb, Ctx, Exit } from '@cortes/types';
+import type { Cb, Ctx, Exit } from '@cortec/types';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import sigV4 from 'aws-sigv4-auth-cassandra-plugin';

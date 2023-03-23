@@ -1,4 +1,4 @@
-import type { Ctx, OnExit } from '@cortes/types';
+import type { Ctx, OnExit } from '@cortec/types';
 import config from 'config';
 import type { Db, MongoClientOptions } from 'mongodb';
 import { MongoClient } from 'mongodb';

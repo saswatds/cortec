@@ -1,1 +1,1 @@
-# @cortes/types
+# @cortec/types

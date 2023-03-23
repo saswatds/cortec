@@ -1,4 +1,4 @@
-# @cortes/core
+# @cortec/core
 
 ```typescript
 load(

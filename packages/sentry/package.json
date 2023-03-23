@@ -1,5 +1,5 @@
 {
-  "name": "@cortes/sentry",
+  "name": "@cortec/sentry",
   "version": "1.2.0",
   "description": "<description>",
   "main": "dist/index.js",
@@ -21,7 +21,7 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortes/types": "^1.2.0"
+    "@cortec/types": "^1.2.0"
   },
   "peerDependencies": {
     "@sentry/node": "^7.44.2",
@@ -38,5 +38,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "8d2614cc04f339084ab02d832bdaf807246f7059"
 }

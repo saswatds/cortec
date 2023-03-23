@@ -1,1 +1,1 @@
-# @cortes/cassandra
+# @cortec/cassandra

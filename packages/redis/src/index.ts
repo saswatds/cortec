@@ -1,4 +1,4 @@
-import type { Cb, Ctx } from '@cortes/types';
+import type { Cb, Ctx } from '@cortec/types';
 import config from 'config';
 import type { Cluster } from 'ioredis';
 import Redis from 'ioredis';

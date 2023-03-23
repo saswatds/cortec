@@ -1,4 +1,4 @@
-import type { Cb, Ctx } from '@cortes/types';
+import type { Cb, Ctx } from '@cortec/types';
 import * as sentry from '@sentry/node';
 import type { IConfig } from 'config';
 

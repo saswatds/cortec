@@ -1,1 +1,1 @@
-# @cortes/redis
+# @cortec/redis

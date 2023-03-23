@@ -1,7 +1,7 @@
 /**
  * The core package provides the foundation for loading various dependencies
  */
-import type { Ctx, Exit, IContextProvide, OnExit } from '@cortes/types';
+import type { Ctx, Exit, IContextProvide, OnExit } from '@cortec/types';
 import { applyEachSeries, series } from 'async';
 
 export type Service = {
