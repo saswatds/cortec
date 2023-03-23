@@ -6,7 +6,7 @@ A lightweight opinionated framework for building services in Node.js
 - [x] Config
 - [x] BullMQ
 - [x] Redis
-- [ ] Cassandra
+- [x] Cassandra
 - [ ] Logger
 - [ ] MongoDB
 - [ ] Newrelic

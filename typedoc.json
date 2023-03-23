@@ -2,6 +2,7 @@
   "entryPointStrategy": "packages",
   "entryPoints": [
     "packages/bullmq",
+    "packages/cassandra",
     "packages/config",
     "packages/load",
     "packages/redis",
