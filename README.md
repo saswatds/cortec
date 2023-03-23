@@ -9,7 +9,10 @@ A lightweight opinionated framework for building services in Node.js
 - [x] Cassandra
 - [x] Sentry
 - [x] MongoDB
-- [ ] Logger
-- [ ] Newrelic
-- [ ] Request
+- [x] Newrelic
+
+  
+### Need better api
 - [ ] Storage
+- [ ] Got
+- [ ] Logger
