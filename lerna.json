@@ -12,6 +12,6 @@
     "**/*.md"
   ],
   "allowBranch": [
-    "develop"
+    "main"
   ]
 }
