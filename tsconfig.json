@@ -5,10 +5,16 @@
   "files": [],
   "references": [
     {
+      "path": "packages/bullmq"
+    },
+    {
       "path": "packages/config"
     },
     {
-      "path": "packages/core"
+      "path": "packages/load"
+    },
+    {
+      "path": "packages/redis"
     },
     {
       "path": "packages/sentry"
