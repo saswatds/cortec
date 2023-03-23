@@ -20,6 +20,9 @@
       "path": "packages/mongodb"
     },
     {
+      "path": "packages/newrelic"
+    },
+    {
       "path": "packages/redis"
     },
     {

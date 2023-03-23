@@ -6,6 +6,7 @@
     "packages/config",
     "packages/load",
     "packages/mongodb",
+    "packages/newrelic",
     "packages/redis",
     "packages/sentry",
     "packages/types"
