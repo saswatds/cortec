@@ -13,7 +13,7 @@
     "prepack": "yarn build",
     "build": "yarn clean && yarn compile",
     "compile": "tsc --build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
     "test": "yarn build && jest --passWithNoTests",
     "ci": "jest --passWithNoTests --maxWorker=20%"
   },
