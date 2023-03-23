@@ -1,8 +1,10 @@
 {
   "entryPointStrategy": "packages",
   "entryPoints": [
+    "packages/bullmq",
     "packages/config",
-    "packages/core",
+    "packages/load",
+    "packages/redis",
     "packages/sentry",
     "packages/types"
   ],
