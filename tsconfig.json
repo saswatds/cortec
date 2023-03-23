@@ -17,6 +17,9 @@
       "path": "packages/load"
     },
     {
+      "path": "packages/mongodb"
+    },
+    {
       "path": "packages/redis"
     },
     {
