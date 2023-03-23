@@ -8,6 +8,7 @@ node_modules/
 dist/
 doc/
 coverage/
+config/
 
 packages/**/dist/
 packages/**/tsconfig.tsbuildinfo
