@@ -8,7 +8,6 @@ node_modules/
 dist/
 doc/
 coverage/
-config/
 
 packages/**/dist/
 packages/**/tsconfig.tsbuildinfo
@@ -54,5 +53,3 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
-packages/fql/__tests__/scratch.test.ts
