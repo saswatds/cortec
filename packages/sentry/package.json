@@ -1,6 +1,6 @@
 {
   "name": "@cortes/sentry",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,16 +21,16 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortes/types": "*"
+    "@cortes/types": "^1.1.0"
   },
   "peerDependencies": {
-    "config": "^3.3.9",
-    "@sentry/node": "^7.44.2"
+    "@sentry/node": "^7.44.2",
+    "config": "^3.3.9"
   },
   "devDependencies": {
+    "@sentry/node": "^7.44.2",
     "@types/config": "^3.3.0",
-    "config": "^3.3.9",
-    "@sentry/node": "^7.44.2"
+    "config": "^3.3.9"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

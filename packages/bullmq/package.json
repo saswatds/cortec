@@ -1,6 +1,6 @@
 {
   "name": "@cortes/bullmq",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,11 +21,11 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortes/types": "*"
+    "@cortes/types": "^1.1.0"
   },
   "peerDependencies": {
-    "config": "^3.3.9",
-    "bullmq": "^3.10.2"
+    "bullmq": "^3.10.2",
+    "config": "^3.3.9"
   },
   "devDependencies": {
     "@types/config": "^3.3.0",

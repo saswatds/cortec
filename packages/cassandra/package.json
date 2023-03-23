@@ -1,6 +1,6 @@
 {
   "name": "@cortes/cassandra",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,12 +21,12 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortes/types": "*"
+    "@cortes/types": "^1.1.0"
   },
   "peerDependencies": {
-    "config": "^3.3.9",
     "aws-sigv4-auth-cassandra-plugin": "^1.0.4",
-    "cassandra-driver": "^4.6.4"
+    "cassandra-driver": "^4.6.4",
+    "config": "^3.3.9"
   },
   "devDependencies": {
     "@types/config": "^3.3.0",
