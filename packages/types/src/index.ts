@@ -10,3 +10,21 @@ export type IContextProvide<T = any> =
   | {
       (ctx: Ctx<T>, exit: Exit): Promise<OnExit | void>;
     };
+
+export type Service = {
+  name: string;
+  version: string;
+};
+
+export interface IContext {
+  service: Service;
+  provide<T = unknown>(name: string): T;
+  dispose(code: number): void;
+}
+
+export interface Module {
+  name: string;
+  loaded: boolean;
+  load(ctx: IContext): Promise<void>;
+  dispose(): Promise<void>;
+}

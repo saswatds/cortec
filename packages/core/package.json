@@ -1,5 +1,5 @@
 {
-  "name": "@cortec/load",
+  "name": "@cortec/core",
   "version": "1.3.0",
   "description": "<description>",
   "main": "dist/index.js",
@@ -23,6 +23,7 @@
   "dependencies": {
     "@cortec/types": "^1.3.0",
     "async": "^3.2.0",
+    "p-series": "^2.0.0",
     "tasuku": "^2.0.1"
   },
   "typedoc": {
