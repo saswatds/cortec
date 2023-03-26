@@ -14,7 +14,7 @@
       "path": "packages/config"
     },
     {
-      "path": "packages/load"
+      "path": "packages/core"
     },
     {
       "path": "packages/mongodb"

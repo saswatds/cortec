@@ -44,7 +44,8 @@
     "lint": "lerna run lint --parallel",
     "test": "lerna run test --parallel",
     "ci": "lerna run ci",
-    "docs": "typedoc && open doc/index.html"
+    "docs": "typedoc && open doc/index.html",
+    "test:e2e": "ts-node ./tests/index.ts"
   },
   "commitlint": {
     "extends": [

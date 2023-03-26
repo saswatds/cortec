@@ -4,7 +4,7 @@
     "packages/bullmq",
     "packages/cassandra",
     "packages/config",
-    "packages/load",
+    "packages/core",
     "packages/mongodb",
     "packages/newrelic",
     "packages/redis",
