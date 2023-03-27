@@ -1,42 +1,47 @@
-import type { Ctx, OnExit } from '@cortec/types';
-import config from 'config';
+import type { IConfig } from '@cortec/config';
+import type { IContext, Module } from '@cortec/types';
 import type { Db, MongoClientOptions } from 'mongodb';
 import { MongoClient } from 'mongodb';
 
-export default async function (ctx: Ctx): Promise<OnExit> {
-  const dbConfig = config.util.toObject(config.get('mongo')),
-    db: { [name: string]: Db } = {},
-    cli: { [name: string]: MongoClient } = {};
+export default class CortecMongodb implements Module {
+  name = 'mongodb';
+  private clients: { [name: string]: MongoClient } = {};
+  private dbs: { [name: string]: Db } = {};
+  async load(ctx: IContext) {
+    const config = ctx.provide<IConfig>('config');
+    const dbConfig = config.get<any>(this.name);
 
-  // eslint-disable-next-line no-restricted-syntax, guard-for-in
-  for (const identity in dbConfig) {
-    const { connection, options } = dbConfig[identity],
-      url = connection.password
-        ? `mongodb://${connection.user}:${connection.password}@${connection.host}`
-        : `mongodb://${connection.host}`;
+    for (const identity in dbConfig) {
+      const { connection, options } = dbConfig[identity],
+        url = connection.password
+          ? `mongodb://${connection.user}:${connection.password}@${connection.host}`
+          : `mongodb://${connection.host}`;
 
-    if (connection.ssl) {
-      options.tlsCAFile = '/var/platform/rds-combined-ca-bundle.pem';
-      options.tls = true;
-      options.sslValidate = true;
+      if (connection.ssl) {
+        options.tlsCAFile = '/var/platform/rds-combined-ca-bundle.pem';
+        options.tls = true;
+        options.sslValidate = true;
+      }
+
+      // eslint-disable-next-line no-await-in-loop
+      const client = await MongoClient.connect(
+        url,
+        options as MongoClientOptions
+      );
+
+      this.dbs[identity] = client.db(connection.database);
+      this.clients[identity] = client;
     }
-
-    // eslint-disable-next-line no-await-in-loop
-    const client = await MongoClient.connect(
-      url,
-      options as MongoClientOptions
-    );
-
-    db[identity] = client.db(connection.database);
-    cli[identity] = client;
+  }
+  async dispose() {
+    [...Object.values(this.clients)].forEach((client) => client.close());
   }
 
-  // Set the db context with a getter function
-  ctx.set('mongo', (name: string) => db[name]);
-  ctx.set('_mongo', (name: string) => cli[name]);
+  db(name: string): Db | undefined {
+    return this.dbs[name];
+  }
 
-  return (next) => {
-    [...Object.values(cli)].forEach((client) => client.close());
-    next();
-  };
+  client(name: string): MongoClient | undefined {
+    return this.clients[name];
+  }
 }

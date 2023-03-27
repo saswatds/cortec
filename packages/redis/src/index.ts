@@ -9,8 +9,7 @@ export default class CortecRedis implements Module {
   private $cache: { [name: string]: Cluster | Redis } = {};
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
-    const cacheConfig = config.get<any>(this.name),
-      cache: { [name: string]: Cluster | Redis } = {};
+    const cacheConfig = config.get<any>(this.name);
 
     Object.keys(cacheConfig).forEach((identity) => {
       const defaultConfig = cacheConfig[identity] || {},
@@ -34,7 +33,7 @@ export default class CortecRedis implements Module {
 
       // If we are not running in cluster mode then its super simple
       if (!defaultConfig.cluster) {
-        cache[identity] = new Redis(redisOptions);
+        this.$cache[identity] = new Redis(redisOptions);
 
         return;
       }
@@ -56,7 +55,7 @@ export default class CortecRedis implements Module {
       delete redisOptions.host;
       delete redisOptions.port;
 
-      cache[identity] = new Redis.Cluster(nodes, {
+      this.$cache[identity] = new Redis.Cluster(nodes, {
         ...clusterOptions,
         redisOptions,
       });
