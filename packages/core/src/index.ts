@@ -2,7 +2,8 @@
  * The core package provides the foundation for loading various dependencies
  */
 import type { IContext, Module, Service } from '@cortec/types';
-import pSeries from 'p-series';
+import pEachSeries from 'p-each-series';
+import pMap from 'p-map';
 import tasuku from 'tasuku';
 
 class Cortec implements IContext {
@@ -18,24 +19,14 @@ class Cortec implements IContext {
     this.modules.set(module.name, module);
   }
   dispose(code: number) {
-    const modulesToDispose = [...this.modules].map(
-      ([name, module]) =>
-        () =>
-          tasuku(`Dispose ${name}`, () => module.dispose())
-    );
-
-    pSeries(modulesToDispose).then(() => process.exit(code));
+    pMap([...this.modules], ([name, module]) =>
+      tasuku(`Disposing '${name}'`, () => module.dispose())
+    ).then(() => process.exit(code));
   }
   async load() {
-    const modulesToLoad = [...this.modules]
-      .filter(([_, module]) => !module.loaded)
-      .map(
-        ([name, module]) =>
-          () =>
-            tasuku(`Load ${name}`, () => module.load(this))
-      );
-
-    await pSeries(modulesToLoad);
+    return pEachSeries([...this.modules], ([name, module]) =>
+      tasuku(`Loading '${name}'`, () => module.load(this))
+    );
   }
 }
 

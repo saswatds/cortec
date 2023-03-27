@@ -24,7 +24,6 @@ export interface IContext {
 
 export interface Module {
   name: string;
-  loaded: boolean;
   load(ctx: IContext): Promise<void>;
   dispose(): Promise<void>;
 }
