@@ -4,7 +4,6 @@
 import Config from '@cortec/config';
 import type { IContext, Module, Service } from '@cortec/types';
 import pEachSeries from 'p-each-series';
-import pMap from 'p-map';
 import tasuku from 'tasuku';
 
 class Cortec implements IContext {
