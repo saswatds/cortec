@@ -23,6 +23,9 @@
       "path": "packages/newrelic"
     },
     {
+      "path": "packages/polka"
+    },
+    {
       "path": "packages/redis"
     },
     {
