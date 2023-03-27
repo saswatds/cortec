@@ -15,7 +15,7 @@ export interface BullMQConfig {
 }
 
 export default class CortecBullMQ implements Module {
-  name = 'bullmq';
+  name = 'bullMQ';
   private $queues: { [name: string]: Queue } = {};
   private $flows: { [name: string]: FlowProducer } = {};
 
