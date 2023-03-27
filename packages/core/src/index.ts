@@ -2,13 +2,13 @@
  * The core package provides the foundation for loading various dependencies
  */
 import Config from '@cortec/config';
-import type { IContext, Module, Service } from '@cortec/types';
+import type { IContext, IModule, Service } from '@cortec/types';
 import pEachSeries from 'p-each-series';
 import tasuku from 'tasuku';
 
 class Cortec implements IContext {
   service: Service;
-  private modules: Map<string, Module> = new Map();
+  private modules: Map<string, IModule> = new Map();
   constructor(service: Service) {
     this.service = service;
 
@@ -18,7 +18,7 @@ class Cortec implements IContext {
   provide<T = unknown>(name: string): T {
     return this.modules.get(name) as T;
   }
-  use(module: Module) {
+  use(module: IModule) {
     this.modules.set(module.name, module);
   }
   dispose(code: number) {

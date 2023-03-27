@@ -1,6 +1,6 @@
 import type { IConfig } from '@cortec/config';
 import type Redis from '@cortec/redis';
-import type { IContext, Module } from '@cortec/types';
+import type { IContext, IModule } from '@cortec/types';
 import { FlowProducer, Queue } from 'bullmq';
 
 interface BullConfig {
@@ -14,7 +14,7 @@ export interface BullMQConfig {
   producer?: { [name: string]: BullConfig };
 }
 
-export default class CortecBullMQ implements Module {
+export default class CortecBullMQ implements IModule {
   name = 'bullMQ';
   private $queues: { [name: string]: Queue } = {};
   private $flows: { [name: string]: FlowProducer } = {};

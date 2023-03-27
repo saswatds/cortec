@@ -9,8 +9,15 @@ export interface IContext {
   dispose(code: number): void;
 }
 
-export interface Module {
+export interface IModule {
   name: string;
   load(ctx: IContext): Promise<void>;
   dispose(): Promise<void>;
+}
+
+export interface IController {
+  ctx: IContext;
+  middleware: any[];
+  validation: any[];
+  onRequest(): Promise<void>;
 }

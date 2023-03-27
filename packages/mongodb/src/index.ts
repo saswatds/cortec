@@ -1,9 +1,9 @@
 import type { IConfig } from '@cortec/config';
-import type { IContext, Module } from '@cortec/types';
+import type { IContext, IModule } from '@cortec/types';
 import type { Db, MongoClientOptions } from 'mongodb';
 import { MongoClient } from 'mongodb';
 
-export default class CortecMongodb implements Module {
+export default class CortecMongodb implements IModule {
   name = 'mongodb';
   private clients: { [name: string]: MongoClient } = {};
   private dbs: { [name: string]: Db } = {};

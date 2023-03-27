@@ -1,8 +1,8 @@
-import type { IContext, Module } from '@cortec/types';
+import type { IContext, IModule } from '@cortec/types';
 import * as sentry from '@sentry/node';
 import type { IConfig } from 'config';
 
-export default class CortecSentry implements Module {
+export default class CortecSentry implements IModule {
   name = 'sentry';
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');

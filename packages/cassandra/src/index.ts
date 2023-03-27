@@ -1,12 +1,12 @@
 import type { IConfig } from '@cortec/config';
-import type { IContext, Module } from '@cortec/types';
+import type { IContext, IModule } from '@cortec/types';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import sigV4 from 'aws-sigv4-auth-cassandra-plugin';
 import { Client } from 'cassandra-driver';
 import fs from 'fs';
 
-export default class CortecCassandra implements Module {
+export default class CortecCassandra implements IModule {
   name = 'cassandra';
   private clients: { [name: string]: Client } = {};
   async load(ctx: IContext) {

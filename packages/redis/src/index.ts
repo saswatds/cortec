@@ -1,9 +1,9 @@
 import type { IConfig } from '@cortec/config';
-import type { IContext, Module } from '@cortec/types';
+import type { IContext, IModule } from '@cortec/types';
 import type { Cluster } from 'ioredis';
 import Redis from 'ioredis';
 
-export default class CortecRedis implements Module {
+export default class CortecRedis implements IModule {
   name = 'redis';
 
   private $cache: { [name: string]: Cluster | Redis } = {};

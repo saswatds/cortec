@@ -1,8 +1,8 @@
-import type { IContext, Module } from '@cortec/types';
+import type { IContext, IModule } from '@cortec/types';
 // eslint-disable-next-line import/default
 import newrelic from 'newrelic';
 
-export default class CortecNewrelic implements Module {
+export default class CortecNewrelic implements IModule {
   name = 'newrelic';
   nr = newrelic;
   async load(ctx: IContext) {
