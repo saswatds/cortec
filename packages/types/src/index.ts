@@ -15,9 +15,43 @@ export interface IModule {
   dispose(): Promise<void>;
 }
 
-export interface IController {
+export interface IRealtime {
+  publish(): void;
+}
+
+export interface IResponse<T> {
+  status: number;
+  body: T;
+}
+
+export type Middleware<
+  Param extends { [name: string]: string },
+  Query extends { [name: string]: string },
+  Body
+> = (
+  ctx: IContext,
+  req: {
+    params: Param;
+    query: Query;
+    body: Body;
+  }
+) => Promise<void>;
+
+export interface IController<
+  Param extends { [name: string]: string },
+  Query extends { [name: string]: string },
+  Body,
+  Response
+> {
   ctx: IContext;
-  middleware: any[];
-  validation: any[];
-  onRequest(): Promise<void>;
+  middleware?: Middleware<Param, Query, Body>[];
+  validation?: unknown[];
+  onRequest(
+    req: {
+      params: Param;
+      query: Query;
+      body: Body;
+    },
+    realtime: IRealtime
+  ): Promise<IResponse<Response>>;
 }
