@@ -1,15 +1,15 @@
+import type { IConfig } from '@cortec/config';
 import type { IContext, Module } from '@cortec/types';
 import type { Cluster } from 'ioredis';
 import Redis from 'ioredis';
 
 export default class CortecRedis implements Module {
   name = 'redis';
-  loaded = false;
 
   private $cache: { [name: string]: Cluster | Redis } = {};
   async load(ctx: IContext) {
-    const config = ctx.provide<any>('config');
-    const cacheConfig = config.get('cache'),
+    const config = ctx.provide<IConfig>('config');
+    const cacheConfig = config.get<any>(this.name),
       cache: { [name: string]: Cluster | Redis } = {};
 
     Object.keys(cacheConfig).forEach((identity) => {
@@ -61,8 +61,6 @@ export default class CortecRedis implements Module {
         redisOptions,
       });
     });
-
-    this.loaded = true;
   }
   async dispose() {
     [...Object.values(this.$cache)].forEach((redis) => redis.disconnect());

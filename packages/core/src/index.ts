@@ -1,6 +1,7 @@
 /**
  * The core package provides the foundation for loading various dependencies
  */
+import Config from '@cortec/config';
 import type { IContext, Module, Service } from '@cortec/types';
 import pEachSeries from 'p-each-series';
 import pMap from 'p-map';
@@ -11,6 +12,9 @@ class Cortec implements IContext {
   private modules: Map<string, Module> = new Map();
   constructor(service: Service) {
     this.service = service;
+
+    // Load the default config module
+    this.use(new Config());
   }
   provide<T = unknown>(name: string): T {
     return this.modules.get(name) as T;

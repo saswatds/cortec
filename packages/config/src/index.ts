@@ -1,7 +1,20 @@
-import type { Cb, Ctx } from '@cortec/types';
+import type { Module } from '@cortec/types';
 import config from 'config';
 
-export default function (ctx: Ctx, _: unknown, done: Cb) {
-  ctx.set('config', config);
-  return done();
+export interface IConfig {
+  get<T = unknown>(path: string): T;
+}
+
+export default class CortecConfig implements Module, IConfig {
+  name = 'config';
+  async load() {
+    return Promise.resolve();
+  }
+  async dispose() {
+    return Promise.resolve();
+  }
+
+  get(path: string) {
+    return config.util.toObject(config.get(path));
+  }
 }
