@@ -10,6 +10,12 @@
     ],
     "references": [
         {
+            "path": "../config"
+        },
+        {
+            "path": "../redis"
+        },
+        {
             "path": "../types"
         }
     ]

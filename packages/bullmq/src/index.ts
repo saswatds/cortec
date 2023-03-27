@@ -1,45 +1,55 @@
-import type { Cb, Ctx } from '@cortec/types';
+import type { IConfig } from '@cortec/config';
+import type Redis from '@cortec/redis';
+import type { IContext, Module } from '@cortec/types';
 import { FlowProducer, Queue } from 'bullmq';
-import config from 'config';
 
-export interface BullMQConfig {
+interface BullConfig {
   cache: string;
   concurrency: number;
-  flow?: boolean;
+  options?: any;
 }
 
-/**
- * Library to handle cross service communication
- *
- * @param {Map} ctx
- * @param {Function} done
- */
-export default function (ctx: Ctx, _: unknown, done: Cb) {
-  const cache = ctx.get('cache'),
-    bullConfig: { [name: string]: BullMQConfig } = config.util.toObject(
-      config.get<BullMQConfig>('bullmq')
-    ),
-    queue: { [name: string]: Queue } = {},
-    queue_p: { [name: string]: FlowProducer } = {};
+export interface BullMQConfig {
+  queue?: { [name: string]: BullConfig };
+  producer?: { [name: string]: BullConfig };
+}
 
-  Object.entries(bullConfig['queue'] ?? {}).forEach(([key, val]) => {
-    queue[key] = new Queue(key, {
-      connection: cache(val.cache),
-      defaultJobOptions: val.options,
+export default class CortecBullMQ implements Module {
+  name = 'bullmq';
+  private $queues: { [name: string]: Queue } = {};
+  private $flows: { [name: string]: FlowProducer } = {};
+
+  async load(ctx: IContext) {
+    const redis = ctx.provide<Redis>('redis');
+    const config = ctx.provide<IConfig>('config');
+    const bullConfig = config.get<BullMQConfig>(this.name);
+
+    Object.entries(bullConfig['queue'] ?? {}).forEach(([key, val]) => {
+      this.$queues[key] = new Queue(key, {
+        connection: redis.cache(val.cache),
+        defaultJobOptions: val.options,
+      });
     });
-  });
 
-  Object.entries(bullConfig['producer'] ?? {}).forEach(([key, val]) => {
-    queue_p[key] = new FlowProducer({ connection: cache(val.cache) });
-  });
+    Object.entries(bullConfig['producer'] ?? {}).forEach(([key, val]) => {
+      this.$flows[key] = new FlowProducer({
+        connection: redis.cache(val.cache),
+      });
+    });
+  }
 
-  ctx.set('queue', (name: string) => queue[name]);
-  ctx.set('queue_p', (name: string) => queue_p[name]);
-  ctx.set('_queues', Object.values(queue));
+  queue(name: string) {
+    return this.$queues[name];
+  }
 
-  return done(undefined, (next) => {
-    Object.values(queue).forEach((q) => q.close());
-    Object.values(queue_p).forEach((q) => q.close());
-    next();
-  });
+  flow(name: string) {
+    return this.$flows[name];
+  }
+
+  async dispose() {
+    await Promise.allSettled([
+      ...Object.values(this.$queues).map((q) => q.close()),
+      ...Object.values(this.$flows).map((q) => q.close()),
+    ]);
+  }
 }

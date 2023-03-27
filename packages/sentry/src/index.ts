@@ -1,24 +1,19 @@
-import type { Cb, Ctx } from '@cortec/types';
+import type { IContext, Module } from '@cortec/types';
 import * as sentry from '@sentry/node';
 import type { IConfig } from 'config';
 
-/**
- * Library to handle cross service communication
- *
- * @param {Map} ctx
- * @param {Function} done
- */
-export default function (ctx: Ctx, _: unknown, done: Cb) {
-  const { pkg } = ctx.get('service'),
-    config: IConfig = ctx.get('config'),
-    sentryConfig = config.util.toObject(config.get('sentry'));
+export default class CortecSentry implements Module {
+  name = 'sentry';
+  async load(ctx: IContext) {
+    const config = ctx.provide<IConfig>('config');
+    const sentryConfig = config.get<sentry.NodeOptions>(this.name);
 
-  sentry.init({
-    ...sentryConfig,
-    release: `${pkg.name}@${pkg.version}`,
-  });
-
-  return done(undefined, (next) => {
-    sentry.close(3000).then(() => next());
-  });
+    sentry.init({
+      ...sentryConfig,
+      release: `${ctx.service.name}@${ctx.service.version}`,
+    });
+  }
+  async dispose() {
+    await sentry.close(3000);
+  }
 }
