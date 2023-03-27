@@ -25,14 +25,13 @@
   },
   "peerDependencies": {
     "aws-sigv4-auth-cassandra-plugin": "^1.0.4",
-    "cassandra-driver": "^4.6.4",
-    "config": "^3.3.9"
+    "cassandra-driver": "^4.6.4"
   },
   "devDependencies": {
     "@types/config": "^3.3.0",
+    "@cortec/config": "1.3.0",
     "aws-sigv4-auth-cassandra-plugin": "^1.0.4",
-    "cassandra-driver": "^4.6.4",
-    "config": "^3.3.9"
+    "cassandra-driver": "^4.6.4"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
