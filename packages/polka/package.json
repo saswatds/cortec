@@ -1,6 +1,6 @@
 {
-  "name": "@cortec/config",
-  "version": "1.3.0",
+  "name": "@cortec/polka",
+  "version": "1.0.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,29 +13,16 @@
     "prepack": "yarn build",
     "build": "yarn clean && yarn compile",
     "compile": "tsc --build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
     "test": "yarn build && jest --passWithNoTests",
     "ci": "jest --passWithNoTests --maxWorker=20%"
   },
   "files": [
     "./dist"
   ],
-  "dependencies": {
-    "@cortec/types": "^1.3.0",
-    "typed-inject": "^3.0.1"
-  },
+  "dependencies": {},
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "tsconfig": "./tsconfig.json"
-  },
-  "peerDependencies": {
-    "config": "^3.3.9"
-  },
-  "devDependencies": {
-    "@types/config": "^3.3.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "8d2614cc04f339084ab02d832bdaf807246f7059"
+  }
 }

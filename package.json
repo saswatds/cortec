@@ -32,7 +32,7 @@
   },
   "version": "0.0.0",
   "description": "A lightweight opinionated framework for building services in Node.js",
-  "repository": "git@github.com:saswatds/cortes.git",
+  "repository": "git@github.com:saswatds/cortec.git",
   "author": "Saswat Das <saswatds@gmail.com>",
   "license": "MIT",
   "volta": {
