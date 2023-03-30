@@ -1,0 +1,39 @@
+import type http from 'node:http';
+
+import HttpStatusCode from './HttpStatusCodes';
+import send from './send';
+
+export default class ResponseError<T = unknown> extends Error {
+  statusCode: number;
+  details: T;
+
+  constructor(statusCode: HttpStatusCode, message: string, details: T) {
+    super(message);
+
+    this.statusCode = statusCode;
+    this.details = details;
+  }
+
+  get name() {
+    switch (this.statusCode) {
+      case HttpStatusCode.FORBIDDEN:
+        return 'ForbiddenError';
+      case HttpStatusCode.BAD_REQUEST:
+        return 'BadRequestError';
+      case HttpStatusCode.NOT_FOUND:
+        return 'NotFoundError';
+      default:
+        return 'ResponseError';
+    }
+  }
+
+  send(res: http.ServerResponse) {
+    return send(res, this.statusCode, {
+      error: {
+        name: this.name,
+        message: this.message,
+        details: this.details,
+      },
+    });
+  }
+}

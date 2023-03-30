@@ -8,5 +8,18 @@
     "include": [
         "src/**/*"
     ],
-    "references": []
+    "references": [
+        {
+            "path": "../config"
+        },
+        {
+            "path": "../newrelic"
+        },
+        {
+            "path": "../sentry"
+        },
+        {
+            "path": "../types"
+        }
+    ]
 }

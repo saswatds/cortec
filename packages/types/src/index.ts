@@ -5,7 +5,7 @@ export type Service = {
 
 export interface IContext {
   service: Service;
-  provide<T = unknown>(name: string): T;
+  provide<T = unknown>(name: string): T?;
   dispose(code: number): void;
 }
 
@@ -24,34 +24,12 @@ export interface IResponse<T> {
   body: T;
 }
 
-export type Middleware<
-  Param extends { [name: string]: string },
-  Query extends { [name: string]: string },
-  Body
-> = (
-  ctx: IContext,
-  req: {
-    params: Param;
-    query: Query;
-    body: Body;
-  }
-) => Promise<void>;
+export type Middleware<T> = (ctx: IContext, req: T) => Promise<void>;
 
-export interface IController<
-  Param extends { [name: string]: string },
-  Query extends { [name: string]: string },
-  Body,
-  Response
-> {
+export interface IController<Req, Res = unknown> {
   ctx: IContext;
-  middleware?: Middleware<Param, Query, Body>[];
-  validation?: unknown[];
-  onRequest(
-    req: {
-      params: Param;
-      query: Query;
-      body: Body;
-    },
-    realtime: IRealtime
-  ): Promise<IResponse<Response>>;
+  body: ('json' | 'raw' | 'text' | 'urlencoded')[];
+  middleware?: Middleware<Req>[];
+  validation?: unknown;
+  onRequest(req: Req): Promise<IResponse<Res>>;
 }
