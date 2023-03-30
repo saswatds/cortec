@@ -1,12 +1,15 @@
 import type { IConfig } from '@cortec/config';
 import type { INewrelic } from '@cortec/newrelic';
 import type { ISentry } from '@cortec/sentry';
-import type { IContext, IController, IModule, IRealtime } from '@cortec/types';
+import type { IContext, IModule } from '@cortec/types';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import type { ServerResponse } from 'http';
 import polka from 'polka';
+import { z } from 'zod';
+import { fromZodError } from 'zod-validation-error';
 
+import type { HttpRoute } from './HttpRoute';
 import HttpStatusCode from './HttpStatusCodes';
 import ResponseError from './ResponseError';
 import send from './send';
@@ -55,8 +58,6 @@ export default class Polka implements IModule {
     app.use(helmet(polkaConfig.helmet));
 
     // Setup the proxy for the app
-
-    const self = this;
     this.app = new Proxy(app, {
       get(target, method: string, receive) {
         if (
@@ -74,33 +75,38 @@ export default class Polka implements IModule {
         )
           return Reflect.get(target, method, receive);
 
-        return (path: string, controller: IController<polka.Request>) => {
+        return (path: string, controller: HttpRoute<polka.Request>) => {
           const METHOD = method.toUpperCase();
           // The first middleware we inject is an enricher that annotates the transaction properly
-          const enricher = nr ? [(_req: polka.Request, _res: ServerResponse, next: polka.Next) => {
-            nr.api.setTransactionName(`${METHOD} ${path}`);
-            next();
-          }] : [];
+          const enricher = nr
+            ? [
+                (
+                  _req: polka.Request,
+                  _res: ServerResponse,
+                  next: polka.Next
+                ) => {
+                  nr.api.setTransactionName(`${METHOD} ${path}`);
+                  next();
+                },
+              ]
+            : [];
 
-          const bodyParsers = controller.body.map((type) =>
+          const bodyParsers = controller.serde.map((type) =>
             bodyParser[type](polkaConfig.bodyParser[type])
           );
 
           // Create all the middleware
-          const middlewares =
-            controller.middleware?.map(
-              (middleware) =>
-                (
-                  req: polka.Request,
-                  _res: ServerResponse,
-                  next: polka.Next
-                ) => {
-                  // TODO: Handle the proper type here
-                  middleware(ctx, req)
-                    .then(() => next())
-                    .catch((err) => next(err));
-                }
-            ) ?? [];
+          const authentication = (() => {
+            const auth = controller.authentication;
+            if (!auth) return [];
+
+            return [
+              (req: polka.Request, _res: unknown, next: polka.Next) =>
+                auth(ctx, req)
+                  .then(() => next())
+                  .catch((err) => next(err)),
+            ];
+          })();
 
           const handler = async (
             req: polka.Request,
@@ -109,14 +115,26 @@ export default class Polka implements IModule {
           ) => {
             try {
               // TODO: Create the realtime class class for this request
+              if (controller.validation) {
+                const result = z.object(controller.validation).safeParse(req);
+                if (!result.success)
+                  return next(
+                    new ResponseError(
+                      HttpStatusCode.BAD_REQUEST,
+                      fromZodError(result.error).toString(),
+                      {}
+                    )
+                  );
+              }
 
               const response = await (nr
-                ? nr.api.startSegment('controller', true, () => controller.onRequest(req))
+                ? nr.api.startSegment('controller', true, () =>
+                    controller.onRequest(req)
+                  )
                 : controller.onRequest(req));
 
               send(res, response.status, response.body);
-            }
-            catch (err: any) {
+            } catch (err: any) {
               next(err);
             }
           };
@@ -125,12 +143,12 @@ export default class Polka implements IModule {
             path,
             ...enricher,
             ...bodyParsers,
-            ...middlewares,
+            ...authentication,
             handler
           );
         };
       },
     });
   }
-  async dispose() { }
-}}
+  async dispose() {}
+}

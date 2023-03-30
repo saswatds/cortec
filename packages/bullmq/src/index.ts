@@ -22,18 +22,18 @@ export default class CortecBullMQ implements IModule {
   async load(ctx: IContext) {
     const redis = ctx.provide<Redis>('redis');
     const config = ctx.provide<IConfig>('config');
-    const bullConfig = config.get<BullMQConfig>(this.name);
+    const bullConfig = config?.get<BullMQConfig>(this.name);
 
-    Object.entries(bullConfig['queue'] ?? {}).forEach(([key, val]) => {
+    Object.entries(bullConfig?.['queue'] ?? {}).forEach(([key, val]) => {
       this.$queues[key] = new Queue(key, {
-        connection: redis.cache(val.cache),
+        connection: redis?.cache(val.cache),
         defaultJobOptions: val.options,
       });
     });
 
-    Object.entries(bullConfig['producer'] ?? {}).forEach(([key, val]) => {
+    Object.entries(bullConfig?.['producer'] ?? {}).forEach(([key, val]) => {
       this.$flows[key] = new FlowProducer({
-        connection: redis.cache(val.cache),
+        connection: redis?.cache(val.cache),
       });
     });
   }

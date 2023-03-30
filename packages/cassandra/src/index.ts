@@ -11,7 +11,7 @@ export default class CortecCassandra implements IModule {
   private clients: { [name: string]: Client } = {};
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
-    const dbConfig = config.get<any>('cassandra');
+    const dbConfig = config?.get<any>('cassandra');
 
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const identity in dbConfig) {

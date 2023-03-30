@@ -9,7 +9,7 @@ export default class CortecMongodb implements IModule {
   private dbs: { [name: string]: Db } = {};
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
-    const dbConfig = config.get<any>(this.name);
+    const dbConfig = config?.get<any>(this.name);
 
     for (const identity in dbConfig) {
       const { connection, options } = dbConfig[identity],

@@ -5,7 +5,7 @@ export type Service = {
 
 export interface IContext {
   service: Service;
-  provide<T = unknown>(name: string): T?;
+  provide<T = unknown>(name: string): T | undefined;
   dispose(code: number): void;
 }
 
@@ -26,10 +26,10 @@ export interface IResponse<T> {
 
 export type Middleware<T> = (ctx: IContext, req: T) => Promise<void>;
 
-export interface IController<Req, Res = unknown> {
+export interface IRoute<Req = unknown, Res = unknown, Val = unknown> {
   ctx: IContext;
-  body: ('json' | 'raw' | 'text' | 'urlencoded')[];
-  middleware?: Middleware<Req>[];
-  validation?: unknown;
+  serde: ('json' | 'raw' | 'text' | 'urlencoded')[];
+  authentication?: Middleware<Req>;
+  validation?: Val;
   onRequest(req: Req): Promise<IResponse<Res>>;
 }
