@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/saswatds/cortec/compare/@cortec/config@1.3.0...@cortec/config@1.4.0) (2023-03-31)
+
+### Features
+
+- fix git link ([1bd8f6a](https://github.com/saswatds/cortec/commit/1bd8f6a6789555c02abaaa58b58d82c6a474f23c))
+- implement bullmq as a module ([9b531f3](https://github.com/saswatds/cortec/commit/9b531f39e1275b3e25e09f20033d81eb3bb7871d))
+- implemented config module and include it as default in core ([82b3ef3](https://github.com/saswatds/cortec/commit/82b3ef38a7ab1afd453e2d96b34ec79fb7a24463))
+- implemented the core module ([1e80ced](https://github.com/saswatds/cortec/commit/1e80cedb57b33492252018de6006af587124f3d8))
+
 ## 1.3.0 (2023-03-23)
 
 ### Features

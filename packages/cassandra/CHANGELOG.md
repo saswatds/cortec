@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/saswatds/cortec/compare/@cortec/cassandra@1.3.0...@cortec/cassandra@1.4.0) (2023-03-31)
+
+### Features
+
+- fix git link ([1bd8f6a](https://github.com/saswatds/cortec/commit/1bd8f6a6789555c02abaaa58b58d82c6a474f23c))
+- handle validation using zod ([eeb5c8f](https://github.com/saswatds/cortec/commit/eeb5c8fa84a8dc09a46028d7214731f4a1692742))
+- implement cassandra as a module ([70172d1](https://github.com/saswatds/cortec/commit/70172d16ca32471bf9a94ce2d2c38e32fc6270d7))
+- remove unused types ([abe9715](https://github.com/saswatds/cortec/commit/abe971596e4c13bc24fe43f71068505eeaff1fad))
+
 ## 1.3.0 (2023-03-23)
 
 ### Features

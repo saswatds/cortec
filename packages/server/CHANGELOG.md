@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.0 (2023-03-31)
+
+### Features
+
+- add private test package to check the implementation ([992ff20](https://github.com/saswatds/cortec/commit/992ff20ca4c3b7ce2d154323a6a9e763c2214c22))
+- properly format error message ([7303c72](https://github.com/saswatds/cortec/commit/7303c72ad83821dbdbb8961e447548cb6d2b5b4f))
+
 ## 1.3.0 (2023-03-23)
 
 ### Features
