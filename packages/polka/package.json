@@ -17,6 +17,9 @@
     "test": "yarn build && jest --passWithNoTests",
     "ci": "jest --passWithNoTests --maxWorker=20%"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "./dist"
   ],
