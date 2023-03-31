@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@cortec/test",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Test package for starting a server",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,13 +23,13 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "*",
     "@cortec/core": "*",
-    "@cortec/newrelic": "*",
-    "@cortec/polka": "*",
-    "@cortec/server": "*",
-    "@cortec/redis": "*",
     "@cortec/mongodb": "*",
+    "@cortec/newrelic": "*",
+    "@cortec/polka": "^1.1.1",
+    "@cortec/redis": "*",
+    "@cortec/server": "^1.4.1",
+    "@cortec/types": "*",
     "config": "^3.3.9",
     "newrelic": "^9.14.1",
     "polka": "^0.5.2"
