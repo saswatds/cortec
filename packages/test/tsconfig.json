@@ -10,10 +10,10 @@
     ],
     "references": [
         {
-            "path": "../types"
+            "path": "../core"
         },
         {
-            "path": "../core"
+            "path": "../mongodb"
         },
         {
             "path": "../newrelic"
@@ -22,13 +22,13 @@
             "path": "../polka"
         },
         {
-            "path": "../server"
-        },
-        {
             "path": "../redis"
         },
         {
-            "path": "../mongodb"
+            "path": "../server"
+        },
+        {
+            "path": "../types"
         }
     ]
 }

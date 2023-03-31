@@ -23,13 +23,13 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/core": "*",
-    "@cortec/mongodb": "*",
-    "@cortec/newrelic": "*",
+    "@cortec/core": "^1.4.0",
+    "@cortec/mongodb": "^1.4.0",
+    "@cortec/newrelic": "^1.4.0",
     "@cortec/polka": "^1.1.1",
-    "@cortec/redis": "*",
+    "@cortec/redis": "^1.4.0",
     "@cortec/server": "^1.4.1",
-    "@cortec/types": "*",
+    "@cortec/types": "^1.4.0",
     "config": "^3.3.9",
     "newrelic": "^9.14.1",
     "polka": "^0.5.2"
