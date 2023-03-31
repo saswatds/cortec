@@ -27,11 +27,11 @@ class Cortec implements IContext {
     this.modules.set(module.name, module);
   }
   dispose(code: number) {
-    Promise.allSettled(
-      [...this.modules].map(([name, module]) =>
-        tasuku(`Dispose '${name}'`, () => module.dispose())
+    tasuku(`Exiting...`, () =>
+      Promise.allSettled(
+        [...this.modules].map(([_name, module]) => module.dispose())
       )
-    ).then(() => {
+    ).finally(() => {
       process.exit(code);
     });
   }
