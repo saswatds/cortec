@@ -20,6 +20,10 @@ class Cortec implements IContext {
     process.on('SIGTERM', () => this.dispose(0));
     process.on('uncaughtException', () => this.dispose(1));
   }
+
+  has(name: string): boolean {
+    return this.modules.has(name);
+  }
   provide<T = unknown>(name: string): T {
     return this.modules.get(name) as T;
   }

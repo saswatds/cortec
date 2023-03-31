@@ -5,7 +5,7 @@ import type http from 'node:http';
 import type { IConfig } from '@cortec/config';
 import type { INewrelic } from '@cortec/newrelic';
 import type { ISentry } from '@cortec/sentry';
-import type { IContext, IModule, IServerHandler } from '@cortec/types';
+import type { IContext, IModule, IServerHandler, route } from '@cortec/types';
 import bodyParser from 'body-parser';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
@@ -13,10 +13,11 @@ import type { ServerResponse } from 'http';
 import polka from 'polka';
 import { fromZodError } from 'zod-validation-error';
 
-import type { HttpRoute, IRequestContextBuilder } from './HttpRoute';
 import HttpStatusCode from './HttpStatusCodes';
 import ResponseError from './ResponseError';
 import send from './send';
+
+export type IRequestContextBuilder<T> = (req: polka.Request) => T;
 
 type PolkaConfig = {
   helmet: HelmetOptions;
@@ -101,7 +102,16 @@ export default class Polka<T extends { [name: string]: unknown } = never>
         if (!methods.includes(method))
           return Reflect.get(target, method, receive);
 
-        return (path: string, controller: HttpRoute<Request, unknown>) => {
+        return (path: string, controller: ReturnType<typeof route>) => {
+          const missing = controller.modules?.filter((module) =>
+            ctx.has(module)
+          );
+          if (missing?.length) {
+            throw new Error(
+              `The following modules are missing: ${missing.join(', ')}`
+            );
+          }
+
           const METHOD = method.toUpperCase();
           /**
            * An enricher middleware that will set the transaction name for newrelic
@@ -122,9 +132,10 @@ export default class Polka<T extends { [name: string]: unknown } = never>
           /**
            * Various body parsers for the route based on the route configuration
            */
-          const parsers = controller.serde.map((type) =>
-            bodyParser[type](polkaConfig?.bodyParser[type])
-          );
+          const parsers =
+            controller.serde?.map((type) =>
+              bodyParser[type](polkaConfig?.bodyParser[type])
+            ) ?? [];
 
           /**
            * Authentication middleware for the route based on the route configuration
@@ -137,9 +148,9 @@ export default class Polka<T extends { [name: string]: unknown } = never>
             try {
               await (nr
                 ? nr.api.startSegment('authentication', true, () =>
-                    controller.authentication(ctx, req)
+                    controller.authentication.call(ctx, req)
                   )
-                : controller.authentication(ctx, req));
+                : controller.authentication.call(ctx, req));
 
               next();
             } catch (err: any) {
@@ -156,7 +167,6 @@ export default class Polka<T extends { [name: string]: unknown } = never>
             next: polka.Next
           ) => {
             try {
-              // TODO: Create the realtime class class for this request
               if (controller.schema) {
                 try {
                   controller.schema.query?.parse(req.query);
@@ -173,9 +183,9 @@ export default class Polka<T extends { [name: string]: unknown } = never>
 
               const response = await (nr
                 ? nr.api.startSegment('controller', true, () =>
-                    controller.onRequest(rcb?.(req), req)
+                    controller.onRequest.call(ctx, req, rcb?.(req))
                   )
-                : controller.onRequest(rcb?.(req), req));
+                : controller.onRequest.call(ctx, req, rcb?.(req)));
 
               send(res, response.status, response.body);
             } catch (err: any) {
