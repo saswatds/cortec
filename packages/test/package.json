@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "name": "@cortec/test",
+  "version": "1.0.0",
+  "description": "Test package for starting a server",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:saswatds/cortec.git",
+  "author": "Saswat Das <saswatds@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
+  "scripts": {
+    "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "prepack": "yarn build",
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc --build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
+    "test": "yarn build && jest --passWithNoTests",
+    "ci": "jest --passWithNoTests --maxWorker=20%",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\""
+  },
+  "files": [
+    "./dist"
+  ],
+  "dependencies": {
+    "@cortec/core": "*",
+    "@cortec/newrelic": "*",
+    "@cortec/polka": "*",
+    "@cortec/server": "*",
+    "config": "^3.3.9",
+    "newrelic": "^9.14.1",
+    "polka": "^0.5.2"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "tsconfig": "./tsconfig.json"
+  },
+  "devDependencies": {
+    "tsc-watch": "^6.0.0"
+  }
+}

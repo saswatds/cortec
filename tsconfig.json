@@ -32,6 +32,12 @@
       "path": "packages/sentry"
     },
     {
+      "path": "packages/server"
+    },
+    {
+      "path": "packages/test"
+    },
+    {
       "path": "packages/types"
     }
   ]

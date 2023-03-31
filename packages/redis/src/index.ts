@@ -9,7 +9,7 @@ export default class CortecRedis implements IModule {
   private $cache: { [name: string]: Cluster | Redis } = {};
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
-    const cacheConfig = config.get<any>(this.name);
+    const cacheConfig = config?.get<any>(this.name);
 
     Object.keys(cacheConfig).forEach((identity) => {
       const defaultConfig = cacheConfig[identity] || {},

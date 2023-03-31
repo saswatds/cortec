@@ -11,7 +11,7 @@ export default class CortecSentry implements IModule, ISentry {
   api = sentry;
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
-    const sentryConfig = config.get<sentry.NodeOptions>(this.name);
+    const sentryConfig = config?.get<sentry.NodeOptions>(this.name);
 
     this.api.init({
       ...sentryConfig,

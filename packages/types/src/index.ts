@@ -1,3 +1,6 @@
+import type http from 'node:http';
+
+import type { TaskInnerAPI } from 'tasuku';
 export type Service = {
   name: string;
   version: string;
@@ -11,7 +14,7 @@ export interface IContext {
 
 export interface IModule {
   name: string;
-  load(ctx: IContext): Promise<void>;
+  load(ctx: IContext, task: TaskInnerAPI): Promise<void>;
   dispose(): Promise<void>;
 }
 
@@ -37,4 +40,8 @@ export interface IRoute<
   authentication: Middleware<Req>;
   schema: Val;
   onRequest(ctx: Ctx, req: Req): Promise<IResponse<Res>>;
+}
+
+export interface IServerHandler {
+  handler(): http.RequestListener | undefined;
 }

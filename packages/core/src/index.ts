@@ -14,6 +14,11 @@ class Cortec implements IContext {
 
     // Load the default config module
     this.use(new Config());
+
+    // Attach all the process events
+    process.on('SIGINT', () => this.dispose(0));
+    process.on('SIGTERM', () => this.dispose(0));
+    process.on('uncaughtException', () => this.dispose(1));
   }
   provide<T = unknown>(name: string): T {
     return this.modules.get(name) as T;
@@ -24,13 +29,15 @@ class Cortec implements IContext {
   dispose(code: number) {
     Promise.allSettled(
       [...this.modules].map(([name, module]) =>
-        tasuku(`Disposing '${name}'`, () => module.dispose())
+        tasuku(`Dispose '${name}'`, () => module.dispose())
       )
-    ).then(() => process.exit(code));
+    ).then(() => {
+      process.exit(code);
+    });
   }
   async load() {
     return pEachSeries([...this.modules], ([name, module]) =>
-      tasuku(`Loading '${name}'`, () => module.load(this))
+      tasuku(`Load module '${name}'`, (api) => module.load(this, api))
     );
   }
 }

@@ -1,0 +1,42 @@
+server:
+  http:
+    port: 1337
+
+polka:
+  bodyParser:
+      json:
+        limit: '100kb'
+        strict: false
+  helmet: {}
+sentry:
+  dsn: null
+mongo:
+  test:
+    connection:
+      host: 'localhost'
+      user: 'root'
+      password: null
+      ssl: false
+      database: 'test'
+    options:
+      replicaSet: 'rs0'
+      useNewUrlParser: true
+      useUnifiedTopology: true
+
+redis:
+  test:
+    connection:
+      host: 'localhost'
+      port: 6379
+      password: null
+      keyPrefix: 'hook:postmanSession:session:' # Do not change this
+      showFriendlyErrorStack: true
+    cluster: false
+    encryption: false
+    maxRetries: 3
+
+newrelic:
+  agent_enabled: false
+  license_key: null
+  logging:
+    level: 'error' # We will only emit logs to new relic if level is error

@@ -10,6 +10,8 @@
     "packages/polka",
     "packages/redis",
     "packages/sentry",
+    "packages/server",
+    "packages/test",
     "packages/types"
   ],
   "out": "doc"

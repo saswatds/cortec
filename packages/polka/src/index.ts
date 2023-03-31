@@ -1,9 +1,11 @@
 import '@total-typescript/ts-reset';
 
+import type http from 'node:http';
+
 import type { IConfig } from '@cortec/config';
 import type { INewrelic } from '@cortec/newrelic';
 import type { ISentry } from '@cortec/sentry';
-import type { IContext, IModule } from '@cortec/types';
+import type { IContext, IModule, IServerHandler } from '@cortec/types';
 import bodyParser from 'body-parser';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
@@ -43,13 +45,13 @@ interface Request extends polka.Request {
 }
 
 export default class Polka<T extends { [name: string]: unknown } = never>
-  implements IModule
+  implements IModule, IServerHandler
 {
   name = 'polka';
   app: polka.Polka | undefined;
-  private rcb: IRequestContextBuilder<T> | undefined;
+  private rcb?: IRequestContextBuilder<T>;
 
-  constructor(builder: IRequestContextBuilder<T> | undefined) {
+  constructor(builder?: IRequestContextBuilder<T>) {
     this.rcb = builder;
   }
 
@@ -81,11 +83,11 @@ export default class Polka<T extends { [name: string]: unknown } = never>
       },
 
       // Handle the case when no matching route was found
-      onNoMatch(_req, res) {
+      onNoMatch(req, res) {
         send(
           res,
           HttpStatusCode.NOT_IMPLEMENTED,
-          'Route is not implemented by this service.'
+          `route '${req.path}' is not implemented`
         );
       },
     });
@@ -196,5 +198,9 @@ export default class Polka<T extends { [name: string]: unknown } = never>
     /**
      * Nothing to dispose
      */
+  }
+
+  handler(): http.RequestListener | undefined {
+    return this.app?.handler as http.RequestListener | undefined;
   }
 }
