@@ -23,6 +23,7 @@
     "./dist"
   ],
   "dependencies": {
+    "@cortec/types": "*",
     "@cortec/core": "*",
     "@cortec/newrelic": "*",
     "@cortec/polka": "*",
