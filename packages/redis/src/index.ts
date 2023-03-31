@@ -2,12 +2,13 @@ import type { IConfig } from '@cortec/config';
 import type { IContext, IModule } from '@cortec/types';
 import type { Cluster } from 'ioredis';
 import Redis from 'ioredis';
+import type { TaskInnerAPI } from 'tasuku';
 
 export default class CortecRedis implements IModule {
   name = 'redis';
 
   private $cache: { [name: string]: Cluster | Redis } = {};
-  async load(ctx: IContext) {
+  async load(ctx: IContext, task: TaskInnerAPI) {
     const config = ctx.provide<IConfig>('config');
     const cacheConfig = config?.get<any>(this.name);
 
@@ -60,6 +61,12 @@ export default class CortecRedis implements IModule {
         redisOptions,
       });
     });
+
+    for (const [identity, redis] of Object.entries(this.$cache)) {
+      await task.task(`${identity} - health check`, () => redis.ping());
+    }
+
+    task.setTitle('Redis - health check complete');
   }
   async dispose() {
     [...Object.values(this.$cache)].forEach((redis) => redis.disconnect());
