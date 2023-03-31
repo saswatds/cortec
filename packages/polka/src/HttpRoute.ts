@@ -3,10 +3,10 @@ import type polka from 'polka';
 import type querystring from 'querystring';
 import type { z } from 'zod';
 
-interface ValidationSchema<
-  ParamsT extends Record<string, string> | unknown,
+interface ZodSchema<
+  ParamsT,
   ParamsD extends z.ZodTypeDef,
-  QueryT extends querystring.ParsedUrlQuery | unknown,
+  QueryT,
   QueryD extends z.ZodTypeDef,
   BodyT,
   BodyD extends z.ZodTypeDef,
@@ -21,6 +21,7 @@ interface ValidationSchema<
 
 export abstract class HttpRoute<
   Req extends polka.Request,
+  Ctx,
   ParamsT extends Record<string, string> | unknown = unknown,
   ParamsD extends z.ZodTypeDef = never,
   QueryT extends querystring.ParsedUrlQuery | unknown = unknown,
@@ -29,7 +30,7 @@ export abstract class HttpRoute<
   BodyD extends z.ZodTypeDef = never,
   ResponseT = undefined,
   ResponseD extends z.ZodTypeDef = never,
-  Validation extends ValidationSchema<
+  Schema = ZodSchema<
     ParamsT,
     ParamsD,
     QueryT,
@@ -38,15 +39,17 @@ export abstract class HttpRoute<
     BodyD,
     ResponseT,
     ResponseD
-  > = never
-> implements IRoute<Req, ResponseT, Validation>
+  >
+> implements IRoute<Req, ResponseT, Schema, Ctx>
 {
   ctx: IContext;
   serde: ('json' | 'raw' | 'text' | 'urlencoded')[] = ['json'];
-  abstract authentication?: Middleware<Req>;
-  abstract validation?: Validation;
+  abstract authentication: Middleware<Req>;
+  abstract schema: Schema;
   constructor(ctx: IContext) {
     this.ctx = ctx;
   }
-  abstract onRequest(req: Req): Promise<IResponse<ResponseT>>;
+  abstract onRequest(ctx: Ctx, req: Req): Promise<IResponse<ResponseT>>;
 }
+
+export type IRequestContextBuilder<T> = (req: polka.Request) => T;

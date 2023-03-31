@@ -32,7 +32,8 @@
     "@cortec/config": "*",
     "@cortec/newrelic": "*",
     "@cortec/sentry": "*",
-    "@types/polka": "^0.5.4"
+    "@types/polka": "^0.5.4",
+    "@total-typescript/ts-reset": "^0.4.2"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

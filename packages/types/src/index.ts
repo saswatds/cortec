@@ -26,10 +26,15 @@ export interface IResponse<T> {
 
 export type Middleware<T> = (ctx: IContext, req: T) => Promise<void>;
 
-export interface IRoute<Req = unknown, Res = unknown, Val = unknown> {
+export interface IRoute<
+  Req = unknown,
+  Res = unknown,
+  Val = unknown,
+  Ctx = unknown
+> {
   ctx: IContext;
   serde: ('json' | 'raw' | 'text' | 'urlencoded')[];
-  authentication?: Middleware<Req>;
-  validation?: Val;
-  onRequest(req: Req): Promise<IResponse<Res>>;
+  authentication: Middleware<Req>;
+  schema: Val;
+  onRequest(ctx: Ctx, req: Req): Promise<IResponse<Res>>;
 }

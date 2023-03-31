@@ -1,28 +1,64 @@
+import '@total-typescript/ts-reset';
+
 import type { IConfig } from '@cortec/config';
 import type { INewrelic } from '@cortec/newrelic';
 import type { ISentry } from '@cortec/sentry';
 import type { IContext, IModule } from '@cortec/types';
 import bodyParser from 'body-parser';
+import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 import type { ServerResponse } from 'http';
 import polka from 'polka';
-import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
-import type { HttpRoute } from './HttpRoute';
+import type { HttpRoute, IRequestContextBuilder } from './HttpRoute';
 import HttpStatusCode from './HttpStatusCodes';
 import ResponseError from './ResponseError';
 import send from './send';
 
-export default class Polka implements IModule {
+type PolkaConfig = {
+  helmet: HelmetOptions;
+  bodyParser: {
+    json: bodyParser.OptionsJson;
+    raw: bodyParser.Options;
+    text: bodyParser.OptionsText;
+    urlencoded: bodyParser.OptionsUrlencoded;
+  };
+};
+
+const methods = [
+  'get',
+  'head',
+  'patch',
+  'options',
+  'connect',
+  'delete',
+  'trace',
+  'post',
+  'put',
+] as const;
+
+interface Request extends polka.Request {
+  body: unknown;
+}
+
+export default class Polka<T extends { [name: string]: unknown } = never>
+  implements IModule
+{
   name = 'polka';
   app: polka.Polka | undefined;
+  private rcb: IRequestContextBuilder<T> | undefined;
+
+  constructor(builder: IRequestContextBuilder<T> | undefined) {
+    this.rcb = builder;
+  }
 
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
     const nr = ctx.provide<INewrelic>('newrelic');
     const sentry = ctx.provide<ISentry>('sentry');
-    const polkaConfig = config?.get<any>(this.name);
+    const polkaConfig = config?.get<PolkaConfig>(this.name);
+    const rcb = this.rcb;
 
     const app = polka({
       onError(err, _req, res) {
@@ -44,8 +80,8 @@ export default class Polka implements IModule {
         });
       },
 
+      // Handle the case when no matching route was found
       onNoMatch(_req, res) {
-        // No mathcing route was found
         send(
           res,
           HttpStatusCode.NOT_IMPLEMENTED,
@@ -54,30 +90,20 @@ export default class Polka implements IModule {
       },
     });
 
-    // Setup helmel for security
-    app.use(helmet(polkaConfig.helmet));
+    // Setup helmet for endpoint security
+    app.use(helmet(polkaConfig?.helmet));
 
     // Setup the proxy for the app
     this.app = new Proxy(app, {
       get(target, method: string, receive) {
-        if (
-          ![
-            'get',
-            'head',
-            'patch',
-            'options',
-            'connect',
-            'delete',
-            'trace',
-            'post',
-            'put',
-          ].includes(method)
-        )
+        if (!methods.includes(method))
           return Reflect.get(target, method, receive);
 
-        return (path: string, controller: HttpRoute<polka.Request>) => {
+        return (path: string, controller: HttpRoute<Request, unknown>) => {
           const METHOD = method.toUpperCase();
-          // The first middleware we inject is an enricher that annotates the transaction properly
+          /**
+           * An enricher middleware that will set the transaction name for newrelic
+           */
           const enricher = nr
             ? [
                 (
@@ -91,47 +117,63 @@ export default class Polka implements IModule {
               ]
             : [];
 
-          const bodyParsers = controller.serde.map((type) =>
-            bodyParser[type](polkaConfig.bodyParser[type])
+          /**
+           * Various body parsers for the route based on the route configuration
+           */
+          const parsers = controller.serde.map((type) =>
+            bodyParser[type](polkaConfig?.bodyParser[type])
           );
 
-          // Create all the middleware
-          const authentication = (() => {
-            const auth = controller.authentication;
-            if (!auth) return [];
+          /**
+           * Authentication middleware for the route based on the route configuration
+           */
+          const authentication = async (
+            req: Request,
+            _res: unknown,
+            next: polka.Next
+          ) => {
+            try {
+              await (nr
+                ? nr.api.startSegment('authentication', true, () =>
+                    controller.authentication(ctx, req)
+                  )
+                : controller.authentication(ctx, req));
 
-            return [
-              (req: polka.Request, _res: unknown, next: polka.Next) =>
-                auth(ctx, req)
-                  .then(() => next())
-                  .catch((err) => next(err)),
-            ];
-          })();
+              next();
+            } catch (err: any) {
+              next(err);
+            }
+          };
 
+          /**
+           * The actual handler for the route
+           */
           const handler = async (
-            req: polka.Request,
+            req: Request,
             res: ServerResponse,
             next: polka.Next
           ) => {
             try {
               // TODO: Create the realtime class class for this request
-              if (controller.validation) {
-                const result = z.object(controller.validation).safeParse(req);
-                if (!result.success)
-                  return next(
-                    new ResponseError(
-                      HttpStatusCode.BAD_REQUEST,
-                      fromZodError(result.error).toString(),
-                      {}
-                    )
+              if (controller.schema) {
+                try {
+                  controller.schema.query?.parse(req.query);
+                  controller.schema.params?.parse(req.params);
+                  controller.schema.body?.parse(req.body);
+                } catch (err: any) {
+                  throw new ResponseError(
+                    HttpStatusCode.BAD_REQUEST,
+                    fromZodError(err).toString(),
+                    {}
                   );
+                }
               }
 
               const response = await (nr
                 ? nr.api.startSegment('controller', true, () =>
-                    controller.onRequest(req)
+                    controller.onRequest(rcb?.(req), req)
                   )
-                : controller.onRequest(req));
+                : controller.onRequest(rcb?.(req), req));
 
               send(res, response.status, response.body);
             } catch (err: any) {
@@ -142,13 +184,17 @@ export default class Polka implements IModule {
           (target as any)[method](
             path,
             ...enricher,
-            ...bodyParsers,
-            ...authentication,
+            ...parsers,
+            authentication,
             handler
           );
         };
       },
     });
   }
-  async dispose() {}
+  async dispose() {
+    /**
+     * Nothing to dispose
+     */
+  }
 }
