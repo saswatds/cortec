@@ -6,9 +6,11 @@ import Redis from '@cortec/redis';
 import Sentry from '@cortec/sentry';
 import Server from '@cortec/server';
 
+import { Router } from './api/router';
+
 const cortec = new Cortec({ name: 'test', version: '1.0.0' });
 const newrelic = new Newrelic();
-const polka = new Polka();
+const polka = new Polka(Router);
 const server = new Server(polka.name);
 const redis = new Redis();
 const mongodb = new MongoDB();

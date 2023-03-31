@@ -32,12 +32,15 @@ export default class CortecServer implements IModule {
       handler = this.handler;
     }
 
-    this.server = http.createServer(handler);
+    const server = http.createServer(handler);
     const port = serverConfig?.http.port ?? 8080;
 
-    await util.promisify(this.server.listen.bind(this.server, port))();
+    this.server = server;
+    await task.task(`listening on port ${port}`, () =>
+      util.promisify(server.listen.bind(this.server, port))()
+    );
 
-    task.setTitle(`Server listening on port ${port}`);
+    task.setTitle(`Server is ready`);
   }
   async dispose() {
     return this.server && util.promisify(this.server.close.bind(this.server))();

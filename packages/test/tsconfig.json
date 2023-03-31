@@ -20,6 +20,12 @@
         },
         {
             "path": "../server"
+        },
+        {
+            "path": "../redis"
+        },
+        {
+            "path": "../mongodb"
         }
     ]
 }

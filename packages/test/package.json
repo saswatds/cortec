@@ -27,6 +27,8 @@
     "@cortec/newrelic": "*",
     "@cortec/polka": "*",
     "@cortec/server": "*",
+    "@cortec/redis": "*",
+    "@cortec/mongodb": "*",
     "config": "^3.3.9",
     "newrelic": "^9.14.1",
     "polka": "^0.5.2"

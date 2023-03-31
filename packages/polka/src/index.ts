@@ -5,12 +5,21 @@ import type http from 'node:http';
 import type { IConfig } from '@cortec/config';
 import type { INewrelic } from '@cortec/newrelic';
 import type { ISentry } from '@cortec/sentry';
-import type { IContext, IModule, IServerHandler, route } from '@cortec/types';
+import type {
+  IApp,
+  IContext,
+  IModule,
+  IRouter,
+  IServerHandler,
+  route,
+} from '@cortec/types';
 import bodyParser from 'body-parser';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 import type { ServerResponse } from 'http';
 import polka from 'polka';
+import type { TaskInnerAPI } from 'tasuku';
+import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
 import HttpStatusCode from './HttpStatusCodes';
@@ -51,12 +60,14 @@ export default class Polka<T extends { [name: string]: unknown } = never>
   name = 'polka';
   app: polka.Polka | undefined;
   private rcb?: IRequestContextBuilder<T>;
+  private router: IRouter;
 
-  constructor(builder?: IRequestContextBuilder<T>) {
+  constructor(router: IRouter, builder?: IRequestContextBuilder<T>) {
+    this.router = router;
     this.rcb = builder;
   }
 
-  async load(ctx: IContext) {
+  async load(ctx: IContext, task: TaskInnerAPI) {
     const config = ctx.provide<IConfig>('config');
     const nr = ctx.provide<INewrelic>('newrelic');
     const sentry = ctx.provide<ISentry>('sentry');
@@ -169,9 +180,15 @@ export default class Polka<T extends { [name: string]: unknown } = never>
             try {
               if (controller.schema) {
                 try {
-                  controller.schema.query?.parse(req.query);
-                  controller.schema.params?.parse(req.params);
-                  controller.schema.body?.parse(req.body);
+                  z.object({
+                    params: controller.schema.params ?? z.unknown(),
+                    query: controller.schema.query ?? z.unknown(),
+                    body: controller.schema.body ?? z.unknown(),
+                  }).parse({
+                    params: req.params,
+                    query: req.query,
+                    body: req.body,
+                  });
                 } catch (err: any) {
                   throw new ResponseError(
                     HttpStatusCode.BAD_REQUEST,
@@ -193,16 +210,22 @@ export default class Polka<T extends { [name: string]: unknown } = never>
             }
           };
 
-          (target as any)[method](
-            path,
-            ...enricher,
-            ...parsers,
-            authentication,
-            handler
-          );
+          task.task(`Route '${METHOD} ${path}'`, async () => {
+            (target as any)[method](
+              path,
+              ...enricher,
+              ...parsers,
+              authentication,
+              handler
+            );
+          });
         };
       },
     });
+
+    // Register all the routes
+    this.router(this.app as unknown as IApp, ctx);
+    task.setTitle('Polka is ready');
   }
   async dispose() {
     /**

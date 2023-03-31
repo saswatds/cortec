@@ -17,14 +17,22 @@ export default class ResponseError<T = unknown> extends Error {
   get name() {
     switch (this.statusCode) {
       case HttpStatusCode.FORBIDDEN:
-        return 'ForbiddenError';
+        return 'Forbidden';
       case HttpStatusCode.BAD_REQUEST:
-        return 'BadRequestError';
+        return 'BadRequest';
       case HttpStatusCode.NOT_FOUND:
-        return 'NotFoundError';
-      default:
-        return 'ResponseError';
+        return 'NotFound';
     }
+
+    if (this.statusCode >= 500) {
+      return 'ServerError';
+    }
+
+    if (this.statusCode >= 400) {
+      return 'ClientError';
+    }
+
+    return 'Error';
   }
 
   send(res: http.ServerResponse) {
