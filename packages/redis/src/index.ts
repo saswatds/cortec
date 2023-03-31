@@ -63,10 +63,10 @@ export default class CortecRedis implements IModule {
     });
 
     for (const [identity, redis] of Object.entries(this.$cache)) {
-      await task.task(`${identity} - health check`, () => redis.ping());
+      await task.task(`connection check for ${identity}`, () => redis.ping());
     }
 
-    task.setTitle('Redis - health check complete');
+    task.setTitle('Redis is ready');
   }
   async dispose() {
     [...Object.values(this.$cache)].forEach((redis) => redis.disconnect());

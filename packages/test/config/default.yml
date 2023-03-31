@@ -10,7 +10,7 @@ polka:
   helmet: {}
 sentry:
   dsn: null
-mongo:
+mongodb:
   test:
     connection:
       host: 'localhost'
