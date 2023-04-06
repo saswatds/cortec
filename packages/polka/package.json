@@ -1,6 +1,6 @@
 {
   "name": "@cortec/polka",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.4.0",
+    "@cortec/types": "^1.5.0",
     "body-parser": "^1.20.2",
     "helmet": "^6.0.1",
     "polka": "^0.5.2",
@@ -32,10 +32,10 @@
     "zod-validation-error": "^1.1.0"
   },
   "devDependencies": {
-    "@cortec/config": "^1.4.0",
-    "@cortec/newrelic": "^1.4.0",
-    "@cortec/sentry": "^1.4.0",
-    "@cortec/logger": "*",
+    "@cortec/config": "^1.4.1",
+    "@cortec/logger": "^1.1.0",
+    "@cortec/newrelic": "^1.4.1",
+    "@cortec/sentry": "^1.4.1",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/polka": "^0.5.4"
   },

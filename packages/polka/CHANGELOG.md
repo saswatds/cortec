@@ -3,13 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.1.1...@cortec/polka@1.2.0) (2023-04-06)
+
+### Features
+
+- improve interface to build request context ([5cb7a2a](https://github.com/saswatds/cortec/commit/5cb7a2a1becb5896cd548ecee458126625a6763d))
+- log errors using logger ([77ea1ce](https://github.com/saswatds/cortec/commit/77ea1ce58f7867dcb6a869adf50ebdedf81f4055))
+
 ## [1.1.1](https://github.com/saswatds/cortec/compare/@cortec/polka@1.1.0...@cortec/polka@1.1.1) (2023-03-31)
 
 **Note:** Version bump only for package @cortec/polka
-
-
-
-
 
 ## 1.1.0 (2023-03-31)
 

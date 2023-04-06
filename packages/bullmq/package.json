@@ -1,6 +1,6 @@
 {
   "name": "@cortec/bullmq",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,14 +21,14 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.4.0"
+    "@cortec/types": "^1.5.0"
   },
   "peerDependencies": {
     "bullmq": "^3.10.2"
   },
   "devDependencies": {
-    "@cortec/config": "^1.4.0",
-    "@cortec/redis": "^1.4.0",
+    "@cortec/config": "^1.4.1",
+    "@cortec/redis": "^1.4.1",
     "@types/config": "^3.3.0",
     "bullmq": "^3.10.2"
   },

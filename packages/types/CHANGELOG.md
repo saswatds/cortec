@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.4.0...@cortec/types@1.5.0) (2023-04-06)
+
+### Features
+
+- improve interface to build request context ([5cb7a2a](https://github.com/saswatds/cortec/commit/5cb7a2a1becb5896cd548ecee458126625a6763d))
+
 ## [1.4.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.3.0...@cortec/types@1.4.0) (2023-03-31)
 
 ### Features

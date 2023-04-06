@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/saswatds/cortec/compare/@cortec/sentry@1.4.0...@cortec/sentry@1.4.1) (2023-04-06)
+
+### Bug Fixes
+
+- use IConfig from cortex instead of config module ([c2c0338](https://github.com/saswatds/cortec/commit/c2c033835400e67dc8fd786b40bcec6d235c2914))
+
 ## [1.4.0](https://github.com/saswatds/cortec/compare/@cortec/sentry@1.3.0...@cortec/sentry@1.4.0) (2023-03-31)
 
 ### Features
