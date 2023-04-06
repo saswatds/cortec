@@ -5,6 +5,7 @@
     "packages/cassandra",
     "packages/config",
     "packages/core",
+    "packages/logger",
     "packages/mongodb",
     "packages/newrelic",
     "packages/polka",
