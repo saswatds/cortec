@@ -19,6 +19,9 @@
             "path": "../sentry"
         },
         {
+            "path": "../logger"
+        },
+        {
             "path": "../types"
         }
     ]

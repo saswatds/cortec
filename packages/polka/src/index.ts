@@ -3,6 +3,7 @@ import '@total-typescript/ts-reset';
 import type http from 'node:http';
 
 import type { IConfig } from '@cortec/config';
+import type { ILogger } from '@cortec/logger';
 import type { INewrelic } from '@cortec/newrelic';
 import type { ISentry } from '@cortec/sentry';
 import type {
@@ -71,6 +72,7 @@ export default class Polka<T extends { [name: string]: unknown } = never>
     const config = ctx.provide<IConfig>('config');
     const nr = ctx.provide<INewrelic>('newrelic');
     const sentry = ctx.provide<ISentry>('sentry');
+    const logger = ctx.provide<ILogger>('logger');
     const polkaConfig = config?.get<PolkaConfig>(this.name);
     const rcb = this.rcb;
 
@@ -82,10 +84,16 @@ export default class Polka<T extends { [name: string]: unknown } = never>
 
         // The error could be a handled error or unhandled error
         // Handled errors are going to be instance of the ResponseError class
-        if (err instanceof ResponseError) return err.send(res);
+        if (err instanceof ResponseError) {
+          // Handled errors are logged as warn as they are mostly harmless
+          logger?.warn(err);
+          return err.send(res);
+        }
 
-        // Now this is an unhandled exception
+        // Unhandled exception are logger to sentry if it exists and logged as
+        // error to the logger
         sentry?.api.captureException(err);
+        logger?.error(err);
 
         // Respond as internal server error
         send(res, HttpStatusCode.INTERNAL_SERVER_ERROR, {

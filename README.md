@@ -8,10 +8,10 @@ A lightweight opinionated framework for building services in Node.js
 - [x] MongoDB
 - [x] Newrelic
 - [x] Sentry
-- [ ] BullMQ
+- [x] BullMQ
 
   
-### Need better api
+### Planned api
 - [ ] Storage
 - [ ] Got
 - [ ] Logger

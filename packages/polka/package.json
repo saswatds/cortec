@@ -35,6 +35,7 @@
     "@cortec/config": "^1.4.0",
     "@cortec/newrelic": "^1.4.0",
     "@cortec/sentry": "^1.4.0",
+    "@cortec/logger": "*",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/polka": "^0.5.4"
   },
