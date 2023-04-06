@@ -13,13 +13,13 @@
             "path": "../config"
         },
         {
+            "path": "../logger"
+        },
+        {
             "path": "../newrelic"
         },
         {
             "path": "../sentry"
-        },
-        {
-            "path": "../logger"
         },
         {
             "path": "../types"

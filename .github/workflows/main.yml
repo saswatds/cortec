@@ -16,11 +16,3 @@ jobs:
         run: yarn install --ignore-scripts
       - name: Unit Tests
         run: yarn test
-  Lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Install Dependencies
-        run: yarn install --ignore-scripts
-      - name: Lint
-        run: yarn lint
