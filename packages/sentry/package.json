@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@sentry/node": "^7.44.2",
-    "@types/config": "^3.3.0"
+    "@cortec/config": "^1.4.0"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

@@ -1,6 +1,6 @@
+import type { IConfig } from '@cortec/config';
 import type { IContext, IModule } from '@cortec/types';
 import * as sentry from '@sentry/node';
-import type { IConfig } from 'config';
 
 export interface ISentry {
   api: typeof sentry;
