@@ -25,10 +25,6 @@ export interface IModule {
   dispose(): Promise<void>;
 }
 
-export interface IRealtime {
-  publish(): void;
-}
-
 export interface IResponse<T> {
   status: number;
   body: T;
@@ -54,7 +50,8 @@ export interface IRoute<
   BodyD extends z.ZodTypeDef,
   ResponseT,
   ResponseD extends z.ZodTypeDef,
-  ReqCtx
+  ReqCtx extends { [name: string]: unknown },
+  Session
 > {
   modules?: string[];
   serde?: ('json' | 'raw' | 'text' | 'urlencoded')[];
@@ -64,15 +61,17 @@ export interface IRoute<
     body?: z.Schema<BodyT, BodyD>;
     response?: z.Schema<ResponseT, ResponseD>;
   };
-  authentication(
+  ctx?(this: IContext, req: IRequest<ParamsT, QueryT, BodyT>): ReqCtx;
+
+  authentication?(
     this: IContext,
     req: IRequest<ParamsT, QueryT, BodyT>
-  ): Promise<void>;
+  ): Promise<Session>;
 
   onRequest(
     this: IContext,
     req: IRequest<ParamsT, QueryT, BodyT>,
-    ctx: ReqCtx
+    ctx: ReqCtx & { session: Session }
   ): Promise<IResponse<ResponseT>>;
 }
 
@@ -85,7 +84,8 @@ export function route<
   BodyD extends z.ZodTypeDef = never,
   ResponseT = unknown,
   ResponseD extends z.ZodTypeDef = never,
-  ReqCtx = unknown
+  ReqCtx extends { [name: string]: unknown } = Record<string, unknown>,
+  Session = unknown
 >(
   route: IRoute<
     ParamsT,
@@ -96,7 +96,8 @@ export function route<
     BodyD,
     ResponseT,
     ResponseD,
-    ReqCtx
+    ReqCtx,
+    Session
   >
 ) {
   if (!route.serde) route.serde = ['json'];

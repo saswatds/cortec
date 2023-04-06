@@ -1,6 +1,5 @@
 import type { IConfig } from '@cortec/config';
 import type { IContext, IModule } from '@cortec/types';
-import type * as sentry from '@sentry/node';
 
 export interface ILogger {
   silly(...args: unknown[]): void;
@@ -16,7 +15,9 @@ export default class CortecLogger implements IModule, ILogger {
   name = 'logger';
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
-    const loggerConfig = config?.get<sentry.NodeOptions>(this.name);
+    const loggerConfig = config?.get<any>(this.name);
+
+    console.log(loggerConfig);
   }
   async dispose() {
     /* No Op */

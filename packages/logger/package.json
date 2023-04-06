@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "tslog": "4.8.2",
-    "@types/config": "^3.3.0"
+    "@cortec/config": "*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

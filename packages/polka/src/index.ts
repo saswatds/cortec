@@ -18,6 +18,7 @@ import bodyParser from 'body-parser';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 import type { ServerResponse } from 'http';
+import type * as p from 'polka';
 import polka from 'polka';
 import type { TaskInnerAPI } from 'tasuku';
 import { z } from 'zod';
@@ -26,8 +27,6 @@ import { fromZodError } from 'zod-validation-error';
 import HttpStatusCode from './HttpStatusCodes';
 import ResponseError from './ResponseError';
 import send from './send';
-
-export type IRequestContextBuilder<T> = (req: polka.Request) => T;
 
 type PolkaConfig = {
   helmet: HelmetOptions;
@@ -51,21 +50,18 @@ const methods = [
   'put',
 ] as const;
 
-interface Request extends polka.Request {
+interface Request extends p.Request {
+  session: unknown;
   body: unknown;
 }
 
-export default class Polka<T extends { [name: string]: unknown } = never>
-  implements IModule, IServerHandler
-{
+export default class Polka implements IModule, IServerHandler {
   name = 'polka';
   app: polka.Polka | undefined;
-  private rcb?: IRequestContextBuilder<T>;
   private router: IRouter;
 
-  constructor(router: IRouter, builder?: IRequestContextBuilder<T>) {
+  constructor(router: IRouter) {
     this.router = router;
-    this.rcb = builder;
   }
 
   async load(ctx: IContext, task: TaskInnerAPI) {
@@ -74,7 +70,6 @@ export default class Polka<T extends { [name: string]: unknown } = never>
     const sentry = ctx.provide<ISentry>('sentry');
     const logger = ctx.provide<ILogger>('logger');
     const polkaConfig = config?.get<PolkaConfig>(this.name);
-    const rcb = this.rcb;
 
     const app = polka({
       onError(err, _req, res) {
@@ -135,18 +130,15 @@ export default class Polka<T extends { [name: string]: unknown } = never>
           /**
            * An enricher middleware that will set the transaction name for newrelic
            */
-          const enricher = nr
-            ? [
-                (
-                  _req: polka.Request,
-                  _res: ServerResponse,
-                  next: polka.Next
-                ) => {
-                  nr.api.setTransactionName(`${METHOD} ${path}`);
-                  next();
-                },
-              ]
-            : [];
+          const enricher = (
+            req: Request,
+            _res: ServerResponse,
+            next: polka.Next
+          ) => {
+            nr?.api.setTransactionName(`${METHOD} ${path}`);
+            req.session = undefined;
+            next();
+          };
 
           /**
            * Various body parsers for the route based on the route configuration
@@ -164,13 +156,18 @@ export default class Polka<T extends { [name: string]: unknown } = never>
             _res: unknown,
             next: polka.Next
           ) => {
-            try {
-              await (nr
-                ? nr.api.startSegment('authentication', true, () =>
-                    controller.authentication.call(ctx, req)
-                  )
-                : controller.authentication.call(ctx, req));
+            const { authentication } = controller;
+            if (!authentication) return next();
 
+            try {
+              const session = await (nr
+                ? nr.api.startSegment('authentication', true, () =>
+                    authentication.call(ctx, req)
+                  )
+                : authentication.call(ctx, req));
+
+              // Store the authentication result in the request store
+              req.session = session;
               next();
             } catch (err: any) {
               next(err);
@@ -206,11 +203,16 @@ export default class Polka<T extends { [name: string]: unknown } = never>
                 }
               }
 
+              const reqCtx = {
+                session: req.session,
+                ...controller.ctx?.call(ctx, req),
+              };
+
               const response = await (nr
                 ? nr.api.startSegment('controller', true, () =>
-                    controller.onRequest.call(ctx, req, rcb?.(req))
+                    controller.onRequest.call(ctx, req, reqCtx)
                   )
-                : controller.onRequest.call(ctx, req, rcb?.(req)));
+                : controller.onRequest.call(ctx, req, reqCtx));
 
               send(res, response.status, response.body);
             } catch (err: any) {
@@ -221,7 +223,7 @@ export default class Polka<T extends { [name: string]: unknown } = never>
           task.task(`Route '${METHOD} ${path}'`, async () => {
             (target as any)[method](
               path,
-              ...enricher,
+              enricher,
               ...parsers,
               authentication,
               handler

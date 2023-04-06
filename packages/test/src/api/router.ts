@@ -10,12 +10,20 @@ const Root = route({
     query: z.object({}),
   },
   authentication: function (req) {
-    return Promise.resolve();
+    return Promise.resolve('123');
+  },
+
+  ctx: function (req) {
+    return {
+      foo: 'bar',
+    };
   },
   onRequest: function (req, ctx) {
     return Promise.resolve({
       status: 200,
       body: {
+        ac: req.body,
+        session: ctx.session,
         message: 'Hello World!',
       },
     });
