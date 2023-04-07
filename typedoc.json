@@ -1,6 +1,7 @@
 {
   "entryPointStrategy": "packages",
   "entryPoints": [
+    "packages/axios",
     "packages/bullmq",
     "packages/cassandra",
     "packages/config",
