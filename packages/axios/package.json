@@ -33,5 +33,9 @@
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "tsconfig": "./tsconfig.json"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "068ea41a5413dbd7edf26f967507658b882aba3c"
 }

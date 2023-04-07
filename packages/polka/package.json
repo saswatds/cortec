@@ -25,6 +25,7 @@
   ],
   "dependencies": {
     "@cortec/types": "^1.5.0",
+    "@total-typescript/ts-reset": "^0.4.2",
     "body-parser": "^1.20.2",
     "helmet": "^6.0.1",
     "polka": "^0.5.2",
@@ -36,11 +37,11 @@
     "@cortec/logger": "^1.1.0",
     "@cortec/newrelic": "^1.4.1",
     "@cortec/sentry": "^1.4.1",
-    "@total-typescript/ts-reset": "^0.4.2",
     "@types/polka": "^0.5.4"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "tsconfig": "./tsconfig.json"
-  }
+  },
+  "gitHead": "068ea41a5413dbd7edf26f967507658b882aba3c"
 }
