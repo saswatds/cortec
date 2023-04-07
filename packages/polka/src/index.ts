@@ -5,6 +5,7 @@ import type http from 'node:http';
 import type { IConfig } from '@cortec/config';
 import type { ILogger } from '@cortec/logger';
 import type { INewrelic } from '@cortec/newrelic';
+import type { IRedis } from '@cortec/redis';
 import type { ISentry } from '@cortec/sentry';
 import type {
   IApp,
@@ -20,6 +21,7 @@ import helmet from 'helmet';
 import type { ServerResponse } from 'http';
 import type * as p from 'polka';
 import polka from 'polka';
+import { RateLimiterRedis } from 'rate-limiter-flexible';
 import type { TaskInnerAPI } from 'tasuku';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
@@ -70,6 +72,7 @@ export default class Polka implements IModule, IServerHandler {
     const nr = ctx.provide<INewrelic>('newrelic');
     const sentry = ctx.provide<ISentry>('sentry');
     const logger = ctx.provide<ILogger>('logger');
+    const redis = ctx.provide<IRedis>('redis');
     const polkaConfig = config?.get<PolkaConfig>(this.name);
 
     const app = polka({
@@ -121,10 +124,32 @@ export default class Polka implements IModule, IServerHandler {
           const missing = controller.modules?.filter((module) =>
             ctx.has(module)
           );
+          let rateLimit: RateLimiterRedis | null = null;
+
           if (missing?.length) {
             throw new Error(
               `The following modules are missing: ${missing.join(', ')}`
             );
+          }
+
+          // Rate limiting
+          if (controller.rateLimit) {
+            const client = redis?.cache(controller.rateLimit.cache);
+            if (!client) {
+              throw new Error(
+                `Cache '${controller.rateLimit.cache}' is not configured for rate limiting`
+              );
+            }
+
+            rateLimit = new RateLimiterRedis({
+              storeClient: client,
+              duration: controller.rateLimit.duration,
+              points: controller.rateLimit.limit,
+              execEvenly: false,
+              blockDuration: 0,
+              keyPrefix:
+                controller.rateLimit.keyPrefix ?? `rlflx:${path}:${method}`,
+            });
           }
 
           const METHOD = method.toUpperCase();
@@ -183,7 +208,25 @@ export default class Polka implements IModule, IServerHandler {
             res: ServerResponse,
             next: polka.Next
           ) => {
+            const reqCtx = {
+              session: req.session,
+              ...controller.ctx?.call(ctx, req),
+            };
+
             try {
+              if (rateLimit && controller.rateLimit) {
+                const rateLimitRes = await rateLimit.consume(
+                  controller.rateLimit.count.call(ctx, req, reqCtx)
+                );
+                if (!rateLimitRes) {
+                  throw new ResponseError(
+                    HttpStatusCode.TOO_MANY_REQUESTS,
+                    'Too many requests',
+                    {}
+                  );
+                }
+              }
+
               if (controller.schema) {
                 try {
                   z.object({
@@ -203,11 +246,6 @@ export default class Polka implements IModule, IServerHandler {
                   );
                 }
               }
-
-              const reqCtx = {
-                session: req.session,
-                ...controller.ctx?.call(ctx, req),
-              };
 
               const response = await (nr
                 ? nr.api.startSegment('controller', true, () =>
