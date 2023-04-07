@@ -64,11 +64,11 @@ export interface IRoute<
     cache: string;
     limit: number;
     duration: number;
-    count: (
+    count(
       this: IContext,
       req: IRequest<ParamsT, QueryT, BodyT>,
       ctx: ReqCtx & { session: Session }
-    ) => string;
+    ): string;
     keyPrefix?: string;
   };
 
