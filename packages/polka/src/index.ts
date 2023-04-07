@@ -39,6 +39,7 @@ type PolkaConfig = {
 };
 
 const methods = [
+  'all',
   'get',
   'head',
   'patch',
@@ -244,6 +245,7 @@ export default class Polka implements IModule, IServerHandler {
   }
 
   handler(): http.RequestListener | undefined {
-    return this.app?.handler as http.RequestListener | undefined;
+    if (!this.app) throw new Error(`module ${this.name} is not loaded`);
+    return this.app.handler as http.RequestListener;
   }
 }
