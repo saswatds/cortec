@@ -106,6 +106,7 @@ export function route<
 }
 
 export interface IApp {
+  all: (path: string, handler: ReturnType<typeof route>) => void;
   get: (path: string, handler: ReturnType<typeof route>) => void;
   post: (path: string, handler: ReturnType<typeof route>) => void;
   put: (path: string, handler: ReturnType<typeof route>) => void;
