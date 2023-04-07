@@ -5,8 +5,8 @@ import { MongoClient } from 'mongodb';
 import type { TaskInnerAPI } from 'tasuku';
 
 export interface IMongoDb {
-  db(name: string): Db | undefined;
-  client(name: string): MongoClient | undefined;
+  db(name: string): Db;
+  client(name: string): MongoClient;
 }
 
 export default class CortecMongodb implements IModule, IMongoDb {
@@ -50,11 +50,17 @@ export default class CortecMongodb implements IModule, IMongoDb {
     [...Object.values(this.clients)].forEach((client) => client.close());
   }
 
-  db(name: string): Db | undefined {
-    return this.dbs[name];
+  db(name: string): Db {
+    const db = this.dbs[name];
+    if (!db) throw new Error(`No mongodb database with for ${name} found`);
+
+    return db;
   }
 
-  client(name: string): MongoClient | undefined {
-    return this.clients[name];
+  client(name: string): MongoClient {
+    const client = this.clients[name];
+    if (!client) throw new Error(`No mongodb client with for ${name} found`);
+
+    return client;
   }
 }

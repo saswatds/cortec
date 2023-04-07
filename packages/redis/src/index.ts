@@ -4,7 +4,11 @@ import type { Cluster } from 'ioredis';
 import Redis from 'ioredis';
 import type { TaskInnerAPI } from 'tasuku';
 
-export default class CortecRedis implements IModule {
+export interface IRedis {
+  cache(name: string): Cluster | Redis;
+}
+
+export default class CortecRedis implements IModule, IRedis {
   name = 'redis';
 
   private $cache: { [name: string]: Cluster | Redis } = {};
@@ -73,6 +77,9 @@ export default class CortecRedis implements IModule {
   }
 
   cache(name: string) {
-    return this.$cache[name];
+    const cache = this.$cache[name];
+    if (!cache) throw new Error(`Redis cache ${name} not found`);
+
+    return cache;
   }
 }
