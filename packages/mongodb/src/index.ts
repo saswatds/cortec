@@ -4,7 +4,12 @@ import type { Db, MongoClientOptions } from 'mongodb';
 import { MongoClient } from 'mongodb';
 import type { TaskInnerAPI } from 'tasuku';
 
-export default class CortecMongodb implements IModule {
+export interface IMongoDb {
+  db(name: string): Db | undefined;
+  client(name: string): MongoClient | undefined;
+}
+
+export default class CortecMongodb implements IModule, IMongoDb {
   name = 'mongodb';
   private clients: { [name: string]: MongoClient } = {};
   private dbs: { [name: string]: Db } = {};
