@@ -10,7 +10,13 @@
     ],
     "references": [
         {
+            "path": "../types"
+        },
+        {
             "path": "../config"
+        },
+        {
+            "path": "../redis"
         },
         {
             "path": "../logger"
@@ -20,9 +26,6 @@
         },
         {
             "path": "../sentry"
-        },
-        {
-            "path": "../types"
         }
     ]
 }

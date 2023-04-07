@@ -30,16 +30,15 @@ export interface IResponse<T> {
   body: T;
 }
 
-export type IRequest<
+export interface IRequest<
   ParamsT extends Record<string, string> | unknown,
   QueryT extends querystring.ParsedUrlQuery | unknown,
   BodyT
-> = {
+> extends http.IncomingMessage {
   params: ParamsT;
   query: QueryT;
   body: BodyT | undefined;
-  headers: http.IncomingHttpHeaders;
-};
+}
 
 export interface IRoute<
   ParamsT extends Record<string, string> | unknown,
@@ -61,8 +60,19 @@ export interface IRoute<
     body?: z.Schema<BodyT, BodyD>;
     response?: z.Schema<ResponseT, ResponseD>;
   };
-  ctx?(this: IContext, req: IRequest<ParamsT, QueryT, BodyT>): ReqCtx;
+  rateLimit?: {
+    cache: string;
+    limit: number;
+    duration: number;
+    count: (
+      this: IContext,
+      req: IRequest<ParamsT, QueryT, BodyT>,
+      ctx: ReqCtx & { session: Session }
+    ) => string;
+    keyPrefix?: string;
+  };
 
+  ctx?(this: IContext, req: IRequest<ParamsT, QueryT, BodyT>): ReqCtx;
   authentication?(
     this: IContext,
     req: IRequest<ParamsT, QueryT, BodyT>
