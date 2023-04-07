@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.2.0...@cortec/polka@1.3.0) (2023-04-07)
+
+### Features
+
+- added support for all method ([dd26436](https://github.com/saswatds/cortec/commit/dd26436ddb80ae9abc49fbb6a5a1d0493a8b456e))
+
+### Bug Fixes
+
+- remove lint tests ([9d40563](https://github.com/saswatds/cortec/commit/9d4056364a2de93fd84804eafd20e9c046734c86))
+
 ## [1.2.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.1.1...@cortec/polka@1.2.0) (2023-04-06)
 
 ### Features
