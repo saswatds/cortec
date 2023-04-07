@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.5.0...@cortec/types@1.6.0) (2023-04-07)
+
+### Features
+
+- add all to IApp interface ([7f07f41](https://github.com/saswatds/cortec/commit/7f07f414bb18ac0d7740b6dc2d26d632526b81f7))
+
 ## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.4.0...@cortec/types@1.5.0) (2023-04-06)
 
 ### Features

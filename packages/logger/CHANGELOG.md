@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/saswatds/cortec/compare/@cortec/logger@1.1.0...@cortec/logger@1.1.1) (2023-04-07)
+
+**Note:** Version bump only for package @cortec/logger
+
 ## 1.1.0 (2023-04-06)
 
 ### Features
