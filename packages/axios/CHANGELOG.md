@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/saswatds/cortec/compare/@cortec/axios@1.1.1...@cortec/axios@1.1.2) (2023-04-07)
+
+### Bug Fixes
+
+- change name of CortecAxios to axios ([510c54c](https://github.com/saswatds/cortec/commit/510c54cd07387f3130f17cba3e2722ef0af2553f))
+
 ## [1.1.1](https://github.com/saswatds/cortec/compare/@cortec/axios@1.1.0...@cortec/axios@1.1.1) (2023-04-07)
 
 **Note:** Version bump only for package @cortec/axios
