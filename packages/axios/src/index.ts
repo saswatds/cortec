@@ -18,7 +18,7 @@ export interface IRequester {
 }
 
 export default class CortecAxios implements IModule, IRequester {
-  name = 'got';
+  name = 'axios';
   private instances: Map<string, Axios> = new Map();
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
