@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.3.2...@cortec/polka@1.4.0) (2023-04-07)
+
+### Features
+
+- added support for rate-limiting ([22eccff](https://github.com/saswatds/cortec/commit/22eccff1f0496c9e6776bc610e8beb4d9b81679a))
+
 ## [1.3.2](https://github.com/saswatds/cortec/compare/@cortec/polka@1.3.1...@cortec/polka@1.3.2) (2023-04-07)
 
 **Note:** Version bump only for package @cortec/polka

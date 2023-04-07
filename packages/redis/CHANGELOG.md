@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/redis@1.4.2...@cortec/redis@1.5.0) (2023-04-07)
+
+### Features
+
+- add module interfaces ([385ae84](https://github.com/saswatds/cortec/commit/385ae84f256153b35272a389d530963d5c23075c))
+
 ## [1.4.2](https://github.com/saswatds/cortec/compare/@cortec/redis@1.4.1...@cortec/redis@1.4.2) (2023-04-07)
 
 **Note:** Version bump only for package @cortec/redis

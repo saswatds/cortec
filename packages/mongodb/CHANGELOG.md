@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.4.2...@cortec/mongodb@1.5.0) (2023-04-07)
+
+### Features
+
+- add module interfaces ([385ae84](https://github.com/saswatds/cortec/commit/385ae84f256153b35272a389d530963d5c23075c))
+- implement IMongoDb interface ([f53c4d3](https://github.com/saswatds/cortec/commit/f53c4d393f09dbfce3909909867e5ffb992975e6))
+
 ## [1.4.2](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.4.1...@cortec/mongodb@1.4.2) (2023-04-07)
 
 **Note:** Version bump only for package @cortec/mongodb

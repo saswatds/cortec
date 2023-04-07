@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.6.0...@cortec/types@1.7.0) (2023-04-07)
+
+### Features
+
+- added support for rate-limiting ([22eccff](https://github.com/saswatds/cortec/commit/22eccff1f0496c9e6776bc610e8beb4d9b81679a))
+
+### Bug Fixes
+
+- fix type for rate-limit function ([3de68c3](https://github.com/saswatds/cortec/commit/3de68c3e16913a469e49dd89da64e1208b2fac36))
+
 ## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.5.0...@cortec/types@1.6.0) (2023-04-07)
 
 ### Features

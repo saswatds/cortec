@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/saswatds/cortec/compare/@cortec/config@1.4.2...@cortec/config@1.4.3) (2023-04-07)
+
+**Note:** Version bump only for package @cortec/config
+
 ## [1.4.2](https://github.com/saswatds/cortec/compare/@cortec/config@1.4.1...@cortec/config@1.4.2) (2023-04-07)
 
 **Note:** Version bump only for package @cortec/config
