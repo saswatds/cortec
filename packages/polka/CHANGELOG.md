@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.4.0...@cortec/polka@1.5.0) (2023-04-08)
+
+### Features
+
+- export the submodules ([7cce43c](https://github.com/saswatds/cortec/commit/7cce43ccb42afb600453d41c00642f78b951c184))
+
 ## [1.4.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.3.2...@cortec/polka@1.4.0) (2023-04-07)
 
 ### Features
