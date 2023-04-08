@@ -288,6 +288,6 @@ export default class Polka implements IModule, IServerHandler {
   }
 }
 
-export * as HttpStatusCode from './HttpStatusCodes';
-export * as Response from './Response';
-export * as ResponseError from './ResponseError';
+export { default as HttpStatusCode } from './HttpStatusCodes';
+export { default as Response } from './Response';
+export { default as ResponseError } from './ResponseError';
