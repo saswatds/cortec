@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/saswatds/cortec/compare/@cortec/polka@1.5.0...@cortec/polka@1.5.1) (2023-04-08)
+
+### Bug Fixes
+
+- export default instead of \* ([341b846](https://github.com/saswatds/cortec/commit/341b846523470c3cc6764143812a75c6859af2d2))
+
 ## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.4.0...@cortec/polka@1.5.0) (2023-04-08)
 
 ### Features
