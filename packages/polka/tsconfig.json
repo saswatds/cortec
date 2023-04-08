@@ -10,13 +10,7 @@
     ],
     "references": [
         {
-            "path": "../types"
-        },
-        {
             "path": "../config"
-        },
-        {
-            "path": "../redis"
         },
         {
             "path": "../logger"
@@ -25,7 +19,13 @@
             "path": "../newrelic"
         },
         {
+            "path": "../redis"
+        },
+        {
             "path": "../sentry"
+        },
+        {
+            "path": "../types"
         }
     ]
 }

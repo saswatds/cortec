@@ -287,3 +287,7 @@ export default class Polka implements IModule, IServerHandler {
     return this.app.handler as http.RequestListener;
   }
 }
+
+export * as HttpStatusCode from './HttpStatusCodes';
+export * as Response from './Response';
+export * as ResponseError from './ResponseError';
