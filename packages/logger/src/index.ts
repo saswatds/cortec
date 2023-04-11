@@ -17,31 +17,34 @@ export default class CortecLogger implements IModule, ILogger {
     const config = ctx.provide<IConfig>('config');
     const loggerConfig = config?.get<any>(this.name);
 
-    console.log(loggerConfig);
+    // TODO: Remove this when we have a proper logger
+    if (loggerConfig?.enabled === false) {
+      return;
+    }
   }
   async dispose() {
     /* No Op */
   }
 
   silly(...args: unknown[]): void {
-    /* No Op */
+    console.debug(...args);
   }
   trace(...args: unknown[]): void {
-    /* No Op */
+    console.trace(...args);
   }
   debug(...args: unknown[]): void {
-    /* No Op */
+    console.debug(...args);
   }
   info(...args: unknown[]): void {
-    /* No Op */
+    console.info(...args);
   }
   warn(...args: unknown[]): void {
-    /* No Op */
+    console.warn(...args);
   }
   error(...args: unknown[]): void {
-    /* No Op */
+    console.error(...args);
   }
   fatal(...args: unknown[]): void {
-    /* No Op */
+    console.error(...args);
   }
 }
