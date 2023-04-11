@@ -1,6 +1,6 @@
 {
   "name": "@cortec/polka",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@cortec/config": "^1.4.3",
-    "@cortec/logger": "^1.1.2",
+    "@cortec/logger": "^1.2.0",
     "@cortec/newrelic": "^1.4.3",
     "@cortec/redis": "^1.5.0",
     "@cortec/sentry": "^1.4.3",
