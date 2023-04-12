@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/saswatds/cortec/compare/@cortec/redis@1.5.0...@cortec/redis@1.5.1) (2023-04-12)
+
+### Bug Fixes
+
+- update error message ([60e53e3](https://github.com/saswatds/cortec/commit/60e53e380fa89d746c9ac962090680fbff65306e))
+
 ## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/redis@1.4.2...@cortec/redis@1.5.0) (2023-04-07)
 
 ### Features

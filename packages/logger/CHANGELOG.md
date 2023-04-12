@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/saswatds/cortec/compare/@cortec/logger@1.2.0...@cortec/logger@1.3.0) (2023-04-12)
+
+### Features
+
+- implement logger with pino ([0ab67ee](https://github.com/saswatds/cortec/commit/0ab67ee670e03b4c6233a317eefc7447546431ec))
+
 ## [1.2.0](https://github.com/saswatds/cortec/compare/@cortec/logger@1.1.2...@cortec/logger@1.2.0) (2023-04-11)
 
 ### Features
