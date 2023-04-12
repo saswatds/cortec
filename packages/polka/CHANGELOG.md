@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/saswatds/cortec/compare/@cortec/polka@1.5.2...@cortec/polka@1.5.3) (2023-04-12)
+
+### Bug Fixes
+
+- issue with missing modules being computed incorrectly ([69e3cca](https://github.com/saswatds/cortec/commit/69e3cca31bcb6ffb5362aeca11a2a050b98ba4a9))
+
 ## [1.5.2](https://github.com/saswatds/cortec/compare/@cortec/polka@1.5.1...@cortec/polka@1.5.2) (2023-04-11)
 
 **Note:** Version bump only for package @cortec/polka
