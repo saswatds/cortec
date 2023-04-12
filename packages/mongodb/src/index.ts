@@ -52,7 +52,7 @@ export default class CortecMongodb implements IModule, IMongoDb {
 
   db(name: string): Db {
     const db = this.dbs[name];
-    if (!db) throw new Error(`No mongodb database with for ${name} found`);
+    if (!db) throw new Error(`No mongodb database '${name}' found`);
 
     return db;
   }

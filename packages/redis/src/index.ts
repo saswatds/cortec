@@ -78,7 +78,7 @@ export default class CortecRedis implements IModule, IRedis {
 
   cache(name: string) {
     const cache = this.$cache[name];
-    if (!cache) throw new Error(`Redis cache ${name} not found`);
+    if (!cache) throw new Error(`Redis cache '${name}' not found`);
 
     return cache;
   }
