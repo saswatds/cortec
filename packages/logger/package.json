@@ -21,7 +21,10 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.7.0"
+    "@cortec/types": "^1.7.0",
+    "@types/flat": "^5.0.2",
+    "flat": "^5.0.2",
+    "pino": "^8.11.0"
   },
   "peerDependencies": {
     "tslog": "4.8.2"
