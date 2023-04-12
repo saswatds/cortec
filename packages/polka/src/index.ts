@@ -121,8 +121,8 @@ export default class Polka implements IModule, IServerHandler {
           return Reflect.get(target, method, receive);
 
         return (path: string, controller: ReturnType<typeof route>) => {
-          const missing = controller.modules?.filter((module) =>
-            ctx.has(module)
+          const missing = controller.modules?.filter(
+            (module) => !ctx.has(module)
           );
           let rateLimit: RateLimiterRedis | null = null;
 

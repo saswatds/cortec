@@ -3,6 +3,7 @@ import { route } from '@cortec/types';
 import { z } from 'zod';
 
 const Root = route({
+  modules: ['mongodb', 'redis'],
   schema: {
     params: z.object({
       id: z.string(),
