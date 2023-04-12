@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 import type { IConfig } from '@cortec/config';
 import type { INewrelic } from '@cortec/newrelic';
 import type { IContext, IModule } from '@cortec/types';
@@ -33,16 +32,34 @@ export default class CortecLogger implements IModule, ILogger {
   name = 'logger';
   private logger: Logger = pino({ level: 'silent' });
 
-  trace = this.logger.trace.bind(this.logger);
-  debug = this.logger.debug.bind(this.logger);
-  info = this.logger.info.bind(this.logger);
-  warn = this.logger.warn.bind(this.logger);
-  error = this.logger.error.bind(this.logger);
-  fatal = this.logger.fatal.bind(this.logger);
+  get trace() {
+    return this.logger.trace.bind(this.logger);
+  }
+
+  get debug() {
+    return this.logger.debug.bind(this.logger);
+  }
+
+  get info() {
+    return this.logger.info.bind(this.logger);
+  }
+
+  get warn() {
+    return this.logger.warn.bind(this.logger);
+  }
+
+  get error() {
+    return this.logger.error.bind(this.logger);
+  }
+
+  get fatal() {
+    return this.logger.fatal.bind(this.logger);
+  }
+
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
+    const nr = ctx.provide<INewrelic>('newrelic');
     const loggerConfig = config?.get<LoggerConfig>(this.name);
-    const nr = config?.get<INewrelic>('newrelic');
 
     this.logger = pino(
       {
