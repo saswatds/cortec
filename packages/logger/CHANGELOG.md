@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/saswatds/cortec/compare/@cortec/logger@1.3.0...@cortec/logger@1.3.1) (2023-04-13)
+
+### Bug Fixes
+
+- fixed logger interface and newrelic access ([cc38440](https://github.com/saswatds/cortec/commit/cc3844096176b12ebd4c815bcc2d1a0838a801e9))
+
 ## [1.3.0](https://github.com/saswatds/cortec/compare/@cortec/logger@1.2.0...@cortec/logger@1.3.0) (2023-04-12)
 
 ### Features
