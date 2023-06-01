@@ -1,6 +1,6 @@
 {
   "name": "@cortec/core",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,8 +21,8 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/config": "^1.4.3",
-    "@cortec/types": "^1.7.0",
+    "@cortec/config": "^1.4.4",
+    "@cortec/types": "^1.8.0",
     "async": "^3.2.0",
     "p-each-series": "^2.0.0",
     "tasuku": "^2.0.1"

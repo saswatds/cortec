@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.5.5...@cortec/polka@1.6.0) (2023-06-01)
+
+### Features
+
+- added support for noMatch handler in polka ([8dcfe1a](https://github.com/saswatds/cortec/commit/8dcfe1a1e7557aa61bed656f56bc0ede31be1740))
+
 ## [1.5.5](https://github.com/saswatds/cortec/compare/@cortec/polka@1.5.4...@cortec/polka@1.5.5) (2023-04-13)
 
 **Note:** Version bump only for package @cortec/polka

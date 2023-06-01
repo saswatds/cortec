@@ -1,6 +1,6 @@
 {
   "name": "@cortec/sentry",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,13 +21,13 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.7.0"
+    "@cortec/types": "^1.8.0"
   },
   "peerDependencies": {
     "@sentry/node": "^7.44.2"
   },
   "devDependencies": {
-    "@cortec/config": "^1.4.3",
+    "@cortec/config": "^1.4.4",
     "@sentry/node": "^7.44.2"
   },
   "typedoc": {

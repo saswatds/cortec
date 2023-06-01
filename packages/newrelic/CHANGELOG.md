@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.4](https://github.com/saswatds/cortec/compare/@cortec/newrelic@1.4.3...@cortec/newrelic@1.4.4) (2023-06-01)
+
+**Note:** Version bump only for package @cortec/newrelic
+
 ## [1.4.3](https://github.com/saswatds/cortec/compare/@cortec/newrelic@1.4.2...@cortec/newrelic@1.4.3) (2023-04-07)
 
 **Note:** Version bump only for package @cortec/newrelic
