@@ -54,14 +54,17 @@ const methods = [
 ] as const;
 
 interface Request extends p.Request {
-  session: unknown;
-  body: unknown;
+  session?: unknown;
+  body?: unknown;
 }
 
 export default class Polka implements IModule, IServerHandler {
   name = 'polka';
   app: polka.Polka | undefined;
   private router: IRouter;
+  private noMatchHandler:
+    | undefined
+    | ((req: p.Request, res: ServerResponse) => Promise<void>) = undefined;
 
   constructor(router: IRouter) {
     this.router = router;
@@ -76,7 +79,7 @@ export default class Polka implements IModule, IServerHandler {
     const polkaConfig = config?.get<PolkaConfig>(this.name);
 
     const app = polka({
-      onError(err, _req, res) {
+      onError: (err, _req, res) => {
         // Regardless of what the error is we can notify newrelic of the error
         // Note: newrelic auto-instruments the http module, so any 4xx and 5xx will appear twice in your error dashboard
         nr?.api.noticeError(err);
@@ -102,12 +105,19 @@ export default class Polka implements IModule, IServerHandler {
       },
 
       // Handle the case when no matching route was found
-      onNoMatch(req, res) {
-        send(
-          res,
-          HttpStatusCode.NOT_IMPLEMENTED,
-          `route '${req.path}' is not implemented`
-        );
+      onNoMatch: (req, res) => {
+        // If no match handler has been defined, we will respond with a 501
+        if (!this.noMatchHandler) {
+          send(
+            res,
+            HttpStatusCode.NOT_IMPLEMENTED,
+            `route '${req.path}' is not implemented`
+          );
+          return;
+        }
+
+        // Otherwise we will call the no match handler
+        this.noMatchHandler(req, res);
       },
     });
 
@@ -116,7 +126,19 @@ export default class Polka implements IModule, IServerHandler {
 
     // Setup the proxy for the app
     this.app = new Proxy(app, {
-      get(target, method: string, receive) {
+      get: (target, method: string, receive) => {
+        if (method === 'noMatch') {
+          return (controller: ReturnType<typeof route>) => {
+            this.noMatchHandler = async (req, res) => {
+              const response = await controller.onRequest.call(ctx, req, {
+                session: undefined,
+              });
+
+              send(res, response.status, response.body);
+            };
+          };
+        }
+
         if (!methods.includes(method))
           return Reflect.get(target, method, receive);
 

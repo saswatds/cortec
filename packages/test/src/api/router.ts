@@ -31,6 +31,16 @@ const Root = route({
   },
 });
 
+const noMatch = route({
+  onRequest: function (req, ctx) {
+    return Promise.resolve({
+      status: 501,
+      body: 'Route not implemented',
+    });
+  },
+});
+
 export const Router: IRouter = (app) => {
   app.get('/test', Root);
+  app.noMatch(noMatch);
 };

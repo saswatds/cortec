@@ -37,7 +37,7 @@ export interface IRequest<
 > extends http.IncomingMessage {
   params: ParamsT;
   query: QueryT;
-  body: BodyT | undefined;
+  body?: BodyT;
 }
 
 export interface IRoute<
@@ -67,7 +67,7 @@ export interface IRoute<
     count(
       this: IContext,
       req: IRequest<ParamsT, QueryT, BodyT>,
-      ctx: ReqCtx & { session: Session }
+      ctx: ReqCtx & { session?: Session }
     ): string;
     keyPrefix?: string;
   };
@@ -116,7 +116,10 @@ export function route<
 }
 
 export interface IApp {
+  // Match any HTTP method
   all: (path: string, handler: ReturnType<typeof route>) => void;
+
+  // Match HTTP methods
   get: (path: string, handler: ReturnType<typeof route>) => void;
   post: (path: string, handler: ReturnType<typeof route>) => void;
   put: (path: string, handler: ReturnType<typeof route>) => void;
@@ -126,6 +129,9 @@ export interface IApp {
   options: (path: string, handler: ReturnType<typeof route>) => void;
   trace: (path: string, handler: ReturnType<typeof route>) => void;
   connect: (path: string, handler: ReturnType<typeof route>) => void;
+
+  // No match found
+  noMatch(handler: ReturnType<typeof route>): void;
 }
 
 export type IRouter = (app: IApp, ctx: IContext) => void;
