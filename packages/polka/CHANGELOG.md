@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/saswatds/cortec/compare/@cortec/polka@1.6.0...@cortec/polka@1.6.1) (2023-06-02)
+
+### Bug Fixes
+
+- handle rate limit error properly ([1026940](https://github.com/saswatds/cortec/commit/102694047242d4b7e5a6ebdace51565ed636a130))
+
 ## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.5.5...@cortec/polka@1.6.0) (2023-06-01)
 
 ### Features
