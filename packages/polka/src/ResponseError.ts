@@ -22,6 +22,8 @@ export default class ResponseError<T = unknown> extends Error {
         return 'BadRequest';
       case HttpStatusCode.NOT_FOUND:
         return 'NotFound';
+      case HttpStatusCode.TOO_MANY_REQUESTS:
+        return 'RateLimit';
     }
 
     if (this.statusCode >= 500) {

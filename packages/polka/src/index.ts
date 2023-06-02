@@ -21,6 +21,7 @@ import helmet from 'helmet';
 import type { ServerResponse } from 'http';
 import type * as p from 'polka';
 import polka from 'polka';
+import type { RateLimiterRes } from 'rate-limiter-flexible';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
 import type { TaskInnerAPI } from 'tasuku';
 import { z } from 'zod';
@@ -237,16 +238,17 @@ export default class Polka implements IModule, IServerHandler {
 
             try {
               if (rateLimit && controller.rateLimit) {
-                const rateLimitRes = await rateLimit.consume(
-                  controller.rateLimit.count.call(ctx, req, reqCtx)
-                );
-                if (!rateLimitRes) {
-                  throw new ResponseError(
-                    HttpStatusCode.TOO_MANY_REQUESTS,
-                    'Too many requests',
-                    {}
-                  );
-                }
+                await rateLimit
+                  .consume(controller.rateLimit.count.call(ctx, req, reqCtx))
+                  .catch((err: RateLimiterRes) => {
+                    throw new ResponseError(
+                      HttpStatusCode.TOO_MANY_REQUESTS,
+                      'Too many requests',
+                      {
+                        retryAfter: err.msBeforeNext / 1000 + 's',
+                      }
+                    );
+                  });
               }
 
               if (controller.schema) {
