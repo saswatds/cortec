@@ -1,6 +1,6 @@
 {
   "name": "@cortec/mongodb",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,10 +21,10 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.8.0"
+    "@cortec/types": "^1.9.0"
   },
   "devDependencies": {
-    "@cortec/config": "^1.4.4",
+    "@cortec/config": "^1.4.5",
     "@types/config": "^3.3.0",
     "mongodb": "^5.1.0"
   },

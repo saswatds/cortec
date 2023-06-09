@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.8.0...@cortec/types@1.9.0) (2023-06-09)
+
+### Features
+
+- moved polka related types into polka repo ([c6afbe2](https://github.com/saswatds/cortec/commit/c6afbe275e8c487ab9dc2c582a7b6ea222b34553))
+
 ## [1.8.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.7.0...@cortec/types@1.8.0) (2023-06-01)
 
 ### Features

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.6.1...@cortec/polka@1.7.0) (2023-06-09)
+
+### Features
+
+- added support for response headers ([5aea7b2](https://github.com/saswatds/cortec/commit/5aea7b26dcb1c0a6c7aae157cb801db9d636a458))
+- moved polka related types into polka repo ([c6afbe2](https://github.com/saswatds/cortec/commit/c6afbe275e8c487ab9dc2c582a7b6ea222b34553))
+
 ## [1.6.1](https://github.com/saswatds/cortec/compare/@cortec/polka@1.6.0...@cortec/polka@1.6.1) (2023-06-02)
 
 ### Bug Fixes
