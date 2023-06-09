@@ -129,7 +129,7 @@ export default class Polka implements IModule, IServerHandler {
                 session: undefined,
               });
 
-              send(res, response.status, response.body);
+              send(res, response.status, response.body, response.headers);
             };
           };
         }
@@ -271,7 +271,7 @@ export default class Polka implements IModule, IServerHandler {
                   )
                 : controller.onRequest.call(ctx, req, reqCtx));
 
-              send(res, response.status, response.body);
+              send(res, response.status, response.body, response.headers);
             } catch (err: any) {
               next(err);
             }

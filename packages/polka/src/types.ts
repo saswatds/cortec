@@ -7,6 +7,7 @@ import type { z } from 'zod';
 export interface IResponse<T> {
   status: number;
   body: T;
+  headers?: http.OutgoingHttpHeaders;
 }
 
 export interface IRequest<

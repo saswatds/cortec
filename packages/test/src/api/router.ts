@@ -29,6 +29,9 @@ const Root = route({
         session: ctx.session,
         message: 'Hello World!',
       },
+      headers: {
+        'content-type': 'application/json',
+      },
     });
   },
 });
@@ -38,6 +41,9 @@ const noMatch = route({
     return Promise.resolve({
       status: 501,
       body: 'Route not implemented',
+      headers: {
+        'content-type': 'text/html',
+      },
     });
   },
 });
