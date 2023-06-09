@@ -1,6 +1,5 @@
-import type { IResponse } from '@cortec/types';
-
 import HttpStatusCode from './HttpStatusCodes';
+import type { IResponse } from './types';
 
 export default class Response<T = unknown> implements IResponse<T> {
   status: HttpStatusCode;

@@ -1,5 +1,5 @@
-import type { IRouter } from '@cortec/types';
-import { route } from '@cortec/types';
+import type { IRouter } from '@cortec/polka';
+import { route } from '@cortec/polka';
 
 const Root = route({
   modules: ['mongodb', 'redis'],

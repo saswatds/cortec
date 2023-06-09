@@ -7,14 +7,7 @@ import type { ILogger } from '@cortec/logger';
 import type { INewrelic } from '@cortec/newrelic';
 import type { IRedis } from '@cortec/redis';
 import type { ISentry } from '@cortec/sentry';
-import type {
-  IApp,
-  IContext,
-  IModule,
-  IRouter,
-  IServerHandler,
-  route,
-} from '@cortec/types';
+import type { IContext, IModule, IServerHandler } from '@cortec/types';
 import bodyParser from 'body-parser';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
@@ -30,6 +23,7 @@ import { fromZodError } from 'zod-validation-error';
 import HttpStatusCode from './HttpStatusCodes';
 import ResponseError from './ResponseError';
 import send from './send';
+import type { IApp, IRouter, route } from './types';
 
 type PolkaConfig = {
   helmet: HelmetOptions;
@@ -315,3 +309,4 @@ export default class Polka implements IModule, IServerHandler {
 export { default as HttpStatusCode } from './HttpStatusCodes';
 export { default as Response } from './Response';
 export { default as ResponseError } from './ResponseError';
+export * from './types';
