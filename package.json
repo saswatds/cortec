@@ -53,5 +53,7 @@
       "@commitlint/config-lerna-scopes"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "serve-static": "^1.15.0"
+  }
 }

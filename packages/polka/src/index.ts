@@ -9,6 +9,8 @@ import type { IRedis } from '@cortec/redis';
 import type { ISentry } from '@cortec/sentry';
 import type { IContext, IModule, IServerHandler } from '@cortec/types';
 import bodyParser from 'body-parser';
+import type { CompressionOptions } from 'compression';
+import compression from 'compression';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 import type { ServerResponse } from 'http';
@@ -16,6 +18,8 @@ import type * as p from 'polka';
 import polka from 'polka';
 import type { RateLimiterRes } from 'rate-limiter-flexible';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
+import type { ServeStaticOptions } from 'serve-static';
+import serveStatic from 'serve-static';
 import type { TaskInnerAPI } from 'tasuku';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
@@ -27,6 +31,7 @@ import type { IApp, IRouter, route } from './types';
 
 type PolkaConfig = {
   helmet: HelmetOptions;
+  compression: CompressionOptions;
   bodyParser: {
     json: bodyParser.OptionsJson;
     raw: bodyParser.Options;
@@ -119,6 +124,9 @@ export default class Polka implements IModule, IServerHandler {
     // Setup helmet for endpoint security
     app.use(helmet(polkaConfig?.helmet));
 
+    // Setup compression
+    app.use(compression(polkaConfig?.compression));
+
     // Setup the proxy for the app
     this.app = new Proxy(app, {
       get: (target, method: string, receive) => {
@@ -131,6 +139,13 @@ export default class Polka implements IModule, IServerHandler {
 
               send(res, response.status, response.body, response.headers);
             };
+          };
+        }
+
+        if (method === 'static') {
+          return (path: string, dir: string, options?: ServeStaticOptions) => {
+            console.log('static', path, dir, options);
+            target.use(path, serveStatic(dir, options));
           };
         }
 

@@ -2,6 +2,7 @@ import type http from 'node:http';
 
 import type { IContext } from '@cortec/types';
 import type querystring from 'querystring';
+import type { ServeStaticOptions } from 'serve-static';
 import type { z } from 'zod';
 
 export interface IResponse<T> {
@@ -112,6 +113,7 @@ export interface IApp {
 
   // No match found
   noMatch(handler: ReturnType<typeof route>): void;
+  static(path: string, dir: string, options?: ServeStaticOptions): void;
 }
 
 export type IRouter = (app: IApp, ctx: IContext) => void;

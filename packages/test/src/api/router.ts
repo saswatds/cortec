@@ -1,5 +1,6 @@
 import type { IRouter } from '@cortec/polka';
 import { route } from '@cortec/polka';
+import { join } from 'path';
 
 const Root = route({
   modules: ['mongodb', 'redis'],
@@ -50,5 +51,6 @@ const noMatch = route({
 
 export const Router: IRouter = (app) => {
   app.get('/test', Root);
+  app.static('static', join(__dirname, 'static'));
   app.noMatch(noMatch);
 };
