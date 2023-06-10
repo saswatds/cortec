@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.7.0...@cortec/polka@1.8.0) (2023-06-10)
+
+### Features
+
+- added support for serving static files ([47e4621](https://github.com/saswatds/cortec/commit/47e4621c7556b3ecf50a5bf66b0b4142874b7ee5))
+
 ## [1.7.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.6.1...@cortec/polka@1.7.0) (2023-06-09)
 
 ### Features
