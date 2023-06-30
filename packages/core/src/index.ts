@@ -4,17 +4,20 @@
 import Config from '@cortec/config';
 import type { IContext, IModule, Service } from '@cortec/types';
 import pEachSeries from 'p-each-series';
-import signale from 'signale';
-
-signale.config({
-  displayLabel: false,
-});
+import { Signale } from 'signale';
 
 class Cortec implements IContext {
   service: Service;
   private modules: Map<string, IModule> = new Map();
+  private signale: Signale;
   constructor(service: Service) {
     this.service = service;
+    this.signale = new Signale({
+      disabled: service.silent,
+    });
+    this.signale.config({
+      displayLabel: false,
+    });
 
     // Load the default config module
     this.use(new Config());
@@ -35,10 +38,10 @@ class Cortec implements IContext {
     this.modules.set(module.name, module);
   }
   dispose(code: number) {
-    signale.await('Exiting (code: ' + code + ')');
+    this.signale.await('Exiting (code: ' + code + ')');
     Promise.allSettled(
       [...this.modules].reverse().map(([_name, module]) => {
-        signale.pending('disposing module "' + module.name + '"');
+        this.signale.pending('disposing module "' + module.name + '"');
         return module.dispose();
       })
     ).finally(() => {
@@ -47,8 +50,8 @@ class Cortec implements IContext {
   }
   async load() {
     return pEachSeries([...this.modules], async ([name, module]) => {
-      signale.scope('cortec').start('loading module "' + name + '"');
-      await module.load(this, signale);
+      this.signale.scope('cortec').start('loading module "' + name + '"');
+      await module.load(this, this.signale);
     });
   }
 }
