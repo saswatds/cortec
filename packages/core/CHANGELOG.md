@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.4.5...@cortec/core@1.5.0) (2023-06-30)
+
+### Features
+
+- replace tasuku with signale ([4ab8a57](https://github.com/saswatds/cortec/commit/4ab8a5792e065e9174eff7cda3e0a2596aa2141b))
+
 ## [1.4.5](https://github.com/saswatds/cortec/compare/@cortec/core@1.4.4...@cortec/core@1.4.5) (2023-06-09)
 
 **Note:** Version bump only for package @cortec/core

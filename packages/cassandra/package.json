@@ -1,6 +1,6 @@
 {
   "name": "@cortec/cassandra",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,14 +21,14 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.9.0"
+    "@cortec/types": "^1.10.0"
   },
   "peerDependencies": {
     "aws-sigv4-auth-cassandra-plugin": "^1.0.4",
     "cassandra-driver": "^4.6.4"
   },
   "devDependencies": {
-    "@cortec/config": "^1.4.5",
+    "@cortec/config": "^1.4.6",
     "@types/config": "^3.3.0",
     "aws-sigv4-auth-cassandra-plugin": "^1.0.4",
     "cassandra-driver": "^4.6.4"

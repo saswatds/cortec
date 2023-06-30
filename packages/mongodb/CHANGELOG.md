@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.5.3...@cortec/mongodb@1.6.0) (2023-06-30)
+
+### Features
+
+- replace tasuku with signale ([4ab8a57](https://github.com/saswatds/cortec/commit/4ab8a5792e065e9174eff7cda3e0a2596aa2141b))
+
 ## [1.5.3](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.5.2...@cortec/mongodb@1.5.3) (2023-06-09)
 
 **Note:** Version bump only for package @cortec/mongodb

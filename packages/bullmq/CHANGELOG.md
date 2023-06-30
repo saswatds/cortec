@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.7](https://github.com/saswatds/cortec/compare/@cortec/bullmq@1.4.6...@cortec/bullmq@1.4.7) (2023-06-30)
+
+**Note:** Version bump only for package @cortec/bullmq
+
 ## [1.4.6](https://github.com/saswatds/cortec/compare/@cortec/bullmq@1.4.5...@cortec/bullmq@1.4.6) (2023-06-09)
 
 **Note:** Version bump only for package @cortec/bullmq
