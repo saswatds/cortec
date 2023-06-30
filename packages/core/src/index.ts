@@ -4,7 +4,11 @@
 import Config from '@cortec/config';
 import type { IContext, IModule, Service } from '@cortec/types';
 import pEachSeries from 'p-each-series';
-import tasuku from 'tasuku';
+import signale from 'signale';
+
+signale.config({
+  displayLabel: false,
+});
 
 class Cortec implements IContext {
   service: Service;
@@ -31,18 +35,21 @@ class Cortec implements IContext {
     this.modules.set(module.name, module);
   }
   dispose(code: number) {
-    tasuku(`Exiting...`, () =>
-      Promise.allSettled(
-        [...this.modules].map(([_name, module]) => module.dispose())
-      )
+    signale.await('Exiting (code: ' + code + ')');
+    Promise.allSettled(
+      [...this.modules].reverse().map(([_name, module]) => {
+        signale.pending('disposing module "' + module.name + '"');
+        return module.dispose();
+      })
     ).finally(() => {
       process.exit(code);
     });
   }
   async load() {
-    return pEachSeries([...this.modules], ([name, module]) =>
-      tasuku(`Load module '${name}'`, (api) => module.load(this, api))
-    );
+    return pEachSeries([...this.modules], async ([name, module]) => {
+      signale.scope('cortec').start('loading module "' + name + '"');
+      await module.load(this, signale);
+    });
   }
 }
 

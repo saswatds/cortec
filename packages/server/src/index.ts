@@ -1,9 +1,8 @@
 import http from 'node:http';
 import util from 'node:util';
 
-import type { IContext, IModule, IServerHandler } from '@cortec/types';
+import type { IContext, IModule, IServerHandler, Sig } from '@cortec/types';
 import type { IConfig } from 'config';
-import type { TaskInnerAPI } from 'tasuku';
 
 export interface IServerConfig {
   http: {
@@ -20,7 +19,7 @@ export default class CortecServer implements IModule {
     this.handler = handler;
   }
 
-  async load(ctx: IContext, task: TaskInnerAPI) {
+  async load(ctx: IContext, sig: Sig) {
     const config = ctx.provide<IConfig>('config');
     const serverConfig = config?.get<IServerConfig>(this.name);
 
@@ -36,11 +35,8 @@ export default class CortecServer implements IModule {
     const port = serverConfig?.http.port ?? 8080;
 
     this.server = server;
-    await task.task(`listening on port ${port}`, () =>
-      util.promisify(server.listen.bind(this.server, port))()
-    );
-
-    task.setTitle(`Server is ready`);
+    await util.promisify(server.listen.bind(this.server, port))();
+    sig.scope(this.name, 'http').success('listening on port ' + port);
   }
   async dispose() {
     return this.server && util.promisify(this.server.close.bind(this.server))();

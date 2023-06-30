@@ -1,8 +1,7 @@
 import type { IConfig } from '@cortec/config';
-import type { IContext, IModule } from '@cortec/types';
+import type { IContext, IModule, Sig } from '@cortec/types';
 import type { Cluster } from 'ioredis';
 import Redis from 'ioredis';
-import type { TaskInnerAPI } from 'tasuku';
 
 export interface IRedis {
   cache(name: string): Cluster | Redis;
@@ -12,7 +11,7 @@ export default class CortecRedis implements IModule, IRedis {
   name = 'redis';
 
   private $cache: { [name: string]: Cluster | Redis } = {};
-  async load(ctx: IContext, task: TaskInnerAPI) {
+  async load(ctx: IContext, sig: Sig) {
     const config = ctx.provide<IConfig>('config');
     const cacheConfig = config?.get<any>(this.name);
 
@@ -67,10 +66,22 @@ export default class CortecRedis implements IModule, IRedis {
     });
 
     for (const [identity, redis] of Object.entries(this.$cache)) {
-      await task.task(`connection check for ${identity}`, () => redis.ping());
+      sig
+        .scope(this.name, identity)
+        .await(
+          `connecting to redis://${
+            redis instanceof Redis ? redis.options.host : 'cluster'
+          }`
+        );
+      await redis.ping();
+      sig
+        .scope(this.name, identity)
+        .success(
+          `connected to redis://${
+            redis instanceof Redis ? redis.options.host : 'cluster'
+          }`
+        );
     }
-
-    task.setTitle('Redis is ready');
   }
   async dispose() {
     [...Object.values(this.$cache)].forEach((redis) => redis.disconnect());

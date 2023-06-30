@@ -7,7 +7,7 @@ import type { ILogger } from '@cortec/logger';
 import type { INewrelic } from '@cortec/newrelic';
 import type { IRedis } from '@cortec/redis';
 import type { ISentry } from '@cortec/sentry';
-import type { IContext, IModule, IServerHandler } from '@cortec/types';
+import type { IContext, IModule, IServerHandler, Sig } from '@cortec/types';
 import bodyParser from 'body-parser';
 import type { CompressionOptions } from 'compression';
 import compression from 'compression';
@@ -20,7 +20,6 @@ import type { RateLimiterRes } from 'rate-limiter-flexible';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
 import type { ServeStaticOptions } from 'serve-static';
 import serveStatic from 'serve-static';
-import type { TaskInnerAPI } from 'tasuku';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
@@ -70,7 +69,7 @@ export default class Polka implements IModule, IServerHandler {
     this.router = router;
   }
 
-  async load(ctx: IContext, task: TaskInnerAPI) {
+  async load(ctx: IContext, sig: Sig) {
     const config = ctx.provide<IConfig>('config');
     const nr = ctx.provide<INewrelic>('newrelic');
     const sentry = ctx.provide<ISentry>('sentry');
@@ -144,8 +143,8 @@ export default class Polka implements IModule, IServerHandler {
 
         if (method === 'static') {
           return (path: string, dir: string, options?: ServeStaticOptions) => {
-            console.log('static', path, dir, options);
             target.use(path, serveStatic(dir, options));
+            sig.scope(this.name, 'static').info(`mounted /${path} -> ${dir}`);
           };
         }
 
@@ -292,22 +291,22 @@ export default class Polka implements IModule, IServerHandler {
             }
           };
 
-          task.task(`Route '${METHOD} ${path}'`, async () => {
-            (target as any)[method](
-              path,
-              enricher,
-              ...parsers,
-              authentication,
-              handler
-            );
-          });
+          (target as any)[method](
+            path,
+            enricher,
+            ...parsers,
+            authentication,
+            handler
+          );
+          sig
+            .scope(this.name, 'endpoint')
+            .info(`registered '${METHOD} ${path}'`);
         };
       },
     });
 
     // Register all the routes
     this.router(this.app as unknown as IApp, ctx);
-    task.setTitle('Polka is ready');
   }
   async dispose() {
     /**

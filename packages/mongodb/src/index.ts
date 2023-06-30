@@ -1,8 +1,7 @@
 import type { IConfig } from '@cortec/config';
-import type { IContext, IModule } from '@cortec/types';
+import type { IContext, IModule, Sig } from '@cortec/types';
 import type { Db, MongoClientOptions } from 'mongodb';
 import { MongoClient } from 'mongodb';
-import type { TaskInnerAPI } from 'tasuku';
 
 export interface IMongoDb {
   db(name: string): Db;
@@ -13,7 +12,7 @@ export default class CortecMongodb implements IModule, IMongoDb {
   name = 'mongodb';
   private clients: { [name: string]: MongoClient } = {};
   private dbs: { [name: string]: Db } = {};
-  async load(ctx: IContext, task: TaskInnerAPI) {
+  async load(ctx: IContext, sig: Sig) {
     const config = ctx.provide<IConfig>('config');
     const dbConfig = config?.get<any>(this.name);
 
@@ -38,13 +37,14 @@ export default class CortecMongodb implements IModule, IMongoDb {
       this.dbs[identity] = client.db(connection.database);
       this.clients[identity] = client;
 
-      // Health check for mongodb
-      task.task(`connection check for ${identity}`, () =>
-        client.db(connection.database).command({ ping: 1 })
-      );
+      sig
+        .scope(this.name, identity)
+        .await('connecting to mongodb://' + connection.host);
+      await client.db(connection.database).command({ ping: 1 });
+      sig
+        .scope(this.name, identity)
+        .success('connected to mongodb://' + connection.host);
     }
-
-    task.setTitle('MongoDB is ready');
   }
   async dispose() {
     [...Object.values(this.clients)].forEach((client) => client.close());

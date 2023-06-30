@@ -1,6 +1,7 @@
 import type http from 'node:http';
 
-import type { TaskInnerAPI } from 'tasuku';
+import type { Signale as Sig } from 'signale';
+export type { Sig };
 
 export type Service = {
   name: string;
@@ -20,6 +21,6 @@ export interface IContext {
 
 export interface IModule {
   name: string;
-  load(ctx: IContext, task: TaskInnerAPI): Promise<void>;
+  load(ctx: IContext, sig: Sig): Promise<void>;
   dispose(): Promise<void>;
 }

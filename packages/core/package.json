@@ -23,9 +23,10 @@
   "dependencies": {
     "@cortec/config": "^1.4.5",
     "@cortec/types": "^1.9.0",
+    "@types/signale": "^1.4.4",
     "async": "^3.2.0",
     "p-each-series": "^2.0.0",
-    "tasuku": "^2.0.1"
+    "signale": "^1.4.0"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
