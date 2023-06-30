@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.10.0...@cortec/types@1.11.0) (2023-06-30)
+
+### Features
+
+- add ability to silent logs ([00e66e6](https://github.com/saswatds/cortec/commit/00e66e6196c1ffd90ff0c196fdcf1270cdee961f))
+
 ## [1.10.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.9.0...@cortec/types@1.10.0) (2023-06-30)
 
 ### Features

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/saswatds/cortec/compare/@cortec/redis@1.6.0...@cortec/redis@1.6.1) (2023-06-30)
+
+**Note:** Version bump only for package @cortec/redis
+
 ## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/redis@1.5.3...@cortec/redis@1.6.0) (2023-06-30)
 
 ### Features
