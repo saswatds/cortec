@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.2](https://github.com/saswatds/cortec/compare/@cortec/polka@1.9.1...@cortec/polka@1.9.2) (2023-07-07)
+
+### Bug Fixes
+
+- response emitting status message in body ([17920cb](https://github.com/saswatds/cortec/commit/17920cb3de5ed14c938765e4bd041375717ba507))
+
 ## [1.9.1](https://github.com/saswatds/cortec/compare/@cortec/polka@1.9.0...@cortec/polka@1.9.1) (2023-06-30)
 
 **Note:** Version bump only for package @cortec/polka
