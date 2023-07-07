@@ -28,6 +28,8 @@ export default function (
   } else if (typeof data === 'object') {
     data = JSON.stringify(data);
     type = type || 'application/json;charset=utf-8';
+  } else if (typeof data === 'string') {
+    type = type || 'text/plain;charset=utf-8';
   } else {
     data = data || STATUS_CODES[code];
   }
