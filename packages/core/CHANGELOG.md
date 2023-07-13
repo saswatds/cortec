@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.6.0...@cortec/core@1.7.0) (2023-07-13)
+
+### Features
+
+- added load and dispose timeouts ([005a79e](https://github.com/saswatds/cortec/commit/005a79e5df6c45e86696c85e6c228a53416eb429))
+
+### Bug Fixes
+
+- handle graceful exit when module load fails ([a2521f2](https://github.com/saswatds/cortec/commit/a2521f29cc2ea8a21b0a30be9a15971bf898fc89))
+
 ## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.5.0...@cortec/core@1.6.0) (2023-06-30)
 
 ### Features

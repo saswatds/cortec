@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.2](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.6.1...@cortec/mongodb@1.6.2) (2023-07-13)
+
+### Bug Fixes
+
+- handle graceful exit when module load fails ([a2521f2](https://github.com/saswatds/cortec/commit/a2521f29cc2ea8a21b0a30be9a15971bf898fc89))
+
 ## [1.6.1](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.6.0...@cortec/mongodb@1.6.1) (2023-06-30)
 
 **Note:** Version bump only for package @cortec/mongodb
