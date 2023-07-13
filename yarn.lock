@@ -1542,6 +1542,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/exit@^0.1.31":
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/@types/exit/-/exit-0.1.31.tgz#681387d7724b42b91c29c7822da7967e05db5255"
+  integrity sha512-ghT0E6Bw64RXc6lM30ExMNlYbUCsyR8oucl/q+ESGGhNOXOmBPpZHYGXCH2T/yTFq9YtudNCnZEQ4puX6aq87A==
+  dependencies:
+    "@types/node" "*"
+
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@^4.17.33":
   version "4.17.33"
   resolved "https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-4.17.33.tgz"
@@ -1740,6 +1747,11 @@
   dependencies:
     "@types/node" "*"
     "@types/webidl-conversions" "*"
+
+"@types/wtfnode@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@types/wtfnode/-/wtfnode-0.7.0.tgz#e5d9c675bccc2f786830ffa40ffe8865f92057d9"
+  integrity sha512-kdBHgE9+M1Os7UqWZtiLhKye5reFl8cPBYyCsP2fatwZRz7F7GdIxIHZ20Kkc0hYBfbXE+lzPOTUU1I0qgjtHA==
 
 "@types/yargs-parser@*":
   version "21.0.0"
@@ -3553,7 +3565,7 @@ execa@^5.0.0:
 
 exit@^0.1.2:
   version "0.1.2"
-  resolved "https://registry.npmjs.org/exit/-/exit-0.1.2.tgz"
+  resolved "https://registry.yarnpkg.com/exit/-/exit-0.1.2.tgz#0632638f8d877cc82107d30a0fff1a17cba1cd0c"
   integrity sha512-Zk/eNKV2zbjpKzrsQ+n1G6poVbErQxJ0LBOJXaKZ1EViLzH+hrLu9cdXI4zw9dBQJslwBEpbQ2P1oS7nDxs6jQ==
 
 expect@^29.0.0, expect@^29.5.0:
@@ -8307,6 +8319,11 @@ write-pkg@4.0.0:
     sort-keys "^2.0.0"
     type-fest "^0.4.1"
     write-json-file "^3.2.0"
+
+wtfnode@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/wtfnode/-/wtfnode-0.9.1.tgz#c385679d2df6fb4d64d734eeeaab767fcee3e0d3"
+  integrity sha512-Ip6C2KeQPl/F3aP1EfOnPoQk14Udd9lffpoqWDNH3Xt78svxPbv53ngtmtfI0q2Te3oTq79XKTnRNXVIn/GsPA==
 
 xml2js@0.4.19:
   version "0.4.19"

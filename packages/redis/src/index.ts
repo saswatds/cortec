@@ -74,6 +74,7 @@ export default class CortecRedis implements IModule, IRedis {
           }`
         );
       await redis.ping();
+      // if (Math.random() >= 0.5) throw new Error('Random error');
       sig
         .scope(this.name, identity)
         .success(
@@ -84,7 +85,15 @@ export default class CortecRedis implements IModule, IRedis {
     }
   }
   async dispose() {
-    [...Object.values(this.$cache)].forEach((redis) => redis.disconnect());
+    return Promise.allSettled(
+      [...Object.values(this.$cache)].map(async (redis) => {
+        await redis.quit();
+        while (redis.status !== 'end') {
+          // Wait for the redis to disconnect
+          await new Promise((resolve) => setTimeout(resolve, 200));
+        }
+      })
+    ).then(() => undefined);
   }
 
   cache(name: string) {

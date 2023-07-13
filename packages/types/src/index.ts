@@ -6,7 +6,6 @@ export type { Sig };
 export type Service = {
   name: string;
   version: string;
-  silent?: boolean;
 };
 
 export interface IServerHandler {

@@ -8,7 +8,11 @@ import Server from '@cortec/server';
 
 import { Router } from './api/router';
 
-const cortec = new Cortec({ name: 'test', version: '1.0.0', silent: true });
+const cortec = new Cortec({
+  name: 'test',
+  version: '1.0.0',
+  silent: false,
+});
 const newrelic = new Newrelic();
 const polka = new Polka(Router);
 const server = new Server(polka.name);

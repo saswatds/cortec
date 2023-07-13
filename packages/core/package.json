@@ -23,10 +23,14 @@
   "dependencies": {
     "@cortec/config": "^1.4.7",
     "@cortec/types": "^1.11.0",
+    "@types/exit": "^0.1.31",
     "@types/signale": "^1.4.4",
+    "@types/wtfnode": "^0.7.0",
     "async": "^3.2.0",
+    "exit": "^0.1.2",
     "p-each-series": "^2.0.0",
-    "signale": "^1.4.0"
+    "signale": "^1.4.0",
+    "wtfnode": "^0.9.1"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
