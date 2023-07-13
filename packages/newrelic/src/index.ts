@@ -12,13 +12,13 @@ export default class CortecNewrelic implements IModule, INewrelic {
   async load() {
     // Attach an uncaught exception handler
     process.on('uncaughtExceptionMonitor', (exception) => {
-      console.error(exception);
+      console.error('UncaughtException - ', exception);
       this.api.noticeError(exception);
     });
 
     // Attach an unhandled rejection handler
     process.on('unhandledRejection', (rejection: Error) => {
-      console.error(rejection);
+      console.error('UnhandledRejection - ', rejection);
       this.api.noticeError(rejection);
     });
   }

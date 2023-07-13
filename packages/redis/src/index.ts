@@ -1,11 +1,17 @@
 import type { IConfig } from '@cortec/config';
 import type { IContext, IModule, Sig } from '@cortec/types';
-import type { Cluster } from 'ioredis';
+import type { Cluster, RedisOptions } from 'ioredis';
 import Redis from 'ioredis';
 
 export interface IRedis {
   cache(name: string): Cluster | Redis;
 }
+
+const defaultRedisConfig: RedisOptions = {
+  enableOfflineQueue: true,
+  enableReadyCheck: true,
+  keepAlive: 10000,
+};
 
 export default class CortecRedis implements IModule, IRedis {
   name = 'redis';
@@ -17,7 +23,10 @@ export default class CortecRedis implements IModule, IRedis {
 
     Object.keys(cacheConfig).forEach((identity) => {
       const defaultConfig = cacheConfig[identity] || {},
-        redisOptions = { ...defaultConfig.connection };
+        redisOptions = {
+          ...defaultRedisConfig,
+          ...defaultConfig.connection,
+        };
 
       redisOptions.reconnectOnError = (err: Error) =>
         err.message && err.message.startsWith('READONLY');
@@ -74,7 +83,7 @@ export default class CortecRedis implements IModule, IRedis {
           }`
         );
       await redis.ping();
-      // if (Math.random() >= 0.5) throw new Error('Random error');
+      if (Math.random() >= 0.5) throw new Error('Random error');
       sig
         .scope(this.name, identity)
         .success(
@@ -85,15 +94,9 @@ export default class CortecRedis implements IModule, IRedis {
     }
   }
   async dispose() {
-    return Promise.allSettled(
-      [...Object.values(this.$cache)].map(async (redis) => {
-        await redis.quit();
-        while (redis.status !== 'end') {
-          // Wait for the redis to disconnect
-          await new Promise((resolve) => setTimeout(resolve, 200));
-        }
-      })
-    ).then(() => undefined);
+    await Promise.allSettled(
+      [...Object.values(this.$cache)].map(async (redis) => redis.quit())
+    );
   }
 
   cache(name: string) {

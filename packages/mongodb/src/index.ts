@@ -47,9 +47,9 @@ export default class CortecMongodb implements IModule, IMongoDb {
     }
   }
   async dispose() {
-    return Promise.allSettled(
+    await Promise.allSettled(
       [...Object.values(this.clients)].map((client) => client.close())
-    ).then(() => undefined);
+    );
   }
 
   db(name: string): Db {
