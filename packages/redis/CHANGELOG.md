@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/saswatds/cortec/compare/@cortec/redis@1.7.0...@cortec/redis@1.7.1) (2023-07-13)
+
+### Bug Fixes
+
+- remove stray random error ([2e839ad](https://github.com/saswatds/cortec/commit/2e839ada436b1d91b1f793a56b5c1edde10412ee))
+
 ## [1.7.0](https://github.com/saswatds/cortec/compare/@cortec/redis@1.6.2...@cortec/redis@1.7.0) (2023-07-13)
 
 ### Features
