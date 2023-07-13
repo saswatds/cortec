@@ -12,6 +12,7 @@ const cortec = new Cortec({
   name: 'test',
   version: '1.0.0',
   silent: false,
+  printOpenHandles: true,
 });
 const newrelic = new Newrelic();
 const polka = new Polka(Router);

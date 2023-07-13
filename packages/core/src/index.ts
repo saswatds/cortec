@@ -5,12 +5,15 @@ import Config from '@cortec/config';
 import type { IContext, IModule, Service } from '@cortec/types';
 import exit from 'exit';
 import pEachSeries from 'p-each-series';
+import { timeout as pTimeout, TimeoutError } from 'promise-timeout';
 import { Signale } from 'signale';
 import { dump } from 'wtfnode';
 
 interface ICortecConfig extends Service {
   printOpenHandles?: boolean;
   silent?: boolean;
+  loadTimeout?: number;
+  disposeTimeout?: number;
 }
 
 class Cortec implements IContext {
@@ -46,12 +49,19 @@ class Cortec implements IContext {
   }
   dispose(code: number) {
     this.signale.await('Exiting...');
-    return pEachSeries([...this.modules].reverse(), ([_name, module]) => {
-      this.signale.pending('disposing module "' + module.name + '"');
-      return module.dispose();
-    })
+    return pTimeout(
+      pEachSeries([...this.modules].reverse(), ([_name, module]) => {
+        this.signale.pending('disposing module "' + module.name + '"');
+        return module.dispose();
+      }),
+      this.service.disposeTimeout ?? 5000
+    )
       .catch((err) => {
-        this.signale.fatal(err);
+        if (err instanceof TimeoutError) {
+          this.signale.fatal('Module dispose timed out');
+        } else {
+          this.signale.fatal(err);
+        }
       })
       .finally(() => {
         this.signale.success('Exit (code: ' + code + ')');
@@ -62,9 +72,16 @@ class Cortec implements IContext {
   async load() {
     return pEachSeries([...this.modules], async ([name, module]) => {
       this.signale.scope('cortec').start('loading module "' + name + '"');
-      await module.load(this, this.signale);
+      await pTimeout(
+        module.load(this, this.signale),
+        this.service.loadTimeout ?? 60 * 1000
+      );
     }).catch((err) => {
-      this.signale.fatal(err);
+      if (err instanceof TimeoutError) {
+        this.signale.fatal('Module load timed out');
+      } else {
+        this.signale.fatal(err);
+      }
       // If any of the modules fail to load, exit the process
       this.dispose(1);
     });
