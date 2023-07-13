@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/newrelic@1.4.8...@cortec/newrelic@1.5.0) (2023-07-13)
+
+### Features
+
+- improve logging and better handling exits ([d83cc68](https://github.com/saswatds/cortec/commit/d83cc68317ed32925f03ed731e4e0fdadd369987))
+
 ## [1.4.8](https://github.com/saswatds/cortec/compare/@cortec/newrelic@1.4.7...@cortec/newrelic@1.4.8) (2023-07-13)
 
 **Note:** Version bump only for package @cortec/newrelic
