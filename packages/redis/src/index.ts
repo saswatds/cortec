@@ -83,7 +83,6 @@ export default class CortecRedis implements IModule, IRedis {
           }`
         );
       await redis.ping();
-      if (Math.random() >= 0.5) throw new Error('Random error');
       sig
         .scope(this.name, identity)
         .success(
