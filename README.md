@@ -1,10 +1,9 @@
 # Cortec
 
-A lightweight opinionated framework for building backend service in Node.js quickly.
-Any backend service typically has the business logic, a connection to a database, cache and or queue.
-Most web-frameworks make the web-server the hero of their application and little, but cortes gives
-equal importance to all the various components. Using this approach developers can build various
-kinds of backend applications.
+A lightweight opinionated framework for building production ready backend service with typescript quickly.
+
+Backend services typically define business logic behind an endpoint, connection to a databases, cache and or queue.
+Unlike most web-frameworks cortes gives equal importance to all the various components.
 
 Cortec implements adapters over popular database, cache, logging and apm clients, which are
 implemented as IModules. The cortec core module is a dependency injection container
@@ -52,6 +51,14 @@ cortec.load().then(() => {
   process.send?.('ready');
 });
 ```
+
+
+### Polka
+
+#### Authentication
+The authentication module can be used to handle how the endpoint is protected.
+The function when resolves with a promise, should return a session that can be accessed using the, `req.session` property.
+
 
 
 ### List

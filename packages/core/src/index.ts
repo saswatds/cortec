@@ -44,12 +44,21 @@ class Cortec implements IContext {
   has(name: string): boolean {
     return this.modules.has(name);
   }
-  provide<T = unknown>(name: string): T {
-    return this.modules.get(name) as T;
+
+  provide<T = unknown>(name: string): T | undefined {
+    return this.modules.get(name) as T | undefined;
   }
+
+  require<T = unknown>(name: string): T {
+    const module = this.provide<T>(name);
+    if (!module) throw new Error('Module "' + name + '" not found');
+    return module;
+  }
+
   use(module: IModule) {
     this.modules.set(module.name, module);
   }
+
   dispose(code: number) {
     // Print to stderr that we are existing
     console.error('Exiting (%d)...', code);
