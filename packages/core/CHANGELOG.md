@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/saswatds/cortec/compare/@cortec/core@1.10.0...@cortec/core@1.10.1) (2023-08-22)
+
+### Bug Fixes
+
+- replace console log with logger ([a7b1aa6](https://github.com/saswatds/cortec/commit/a7b1aa68c9c30165bc4bf33b3a4fd1092b1384b6))
+
 ## [1.10.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.9.1...@cortec/core@1.10.0) (2023-08-22)
 
 ### Features
