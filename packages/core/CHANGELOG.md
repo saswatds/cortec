@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.9.1...@cortec/core@1.10.0) (2023-08-22)
+
+### Features
+
+- negative dispose code don't exit the process ([9e7952e](https://github.com/saswatds/cortec/commit/9e7952e3edd621c62d40ae5e719705b22c08c9c1))
+
 ## [1.9.1](https://github.com/saswatds/cortec/compare/@cortec/core@1.9.0...@cortec/core@1.9.1) (2023-08-22)
 
 **Note:** Version bump only for package @cortec/core
