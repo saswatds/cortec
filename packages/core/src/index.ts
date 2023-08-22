@@ -61,8 +61,8 @@ class Cortec implements IContext {
 
   dispose(code: number) {
     // Print to stderr that we are existing
-    console.error('Exiting (%d)...', code);
     const logger = this.logger.scope('cortec');
+    logger.pending('Exiting (%d)...', code);
     return pTimeout(
       pEachSeries([...this.modules].reverse(), ([_name, module]) => {
         logger.pending('disposing module "' + module.name + '"');
