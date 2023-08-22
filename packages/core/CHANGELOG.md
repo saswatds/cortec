@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.8.0...@cortec/core@1.9.0) (2023-08-22)
+
+### Features
+
+- implement `require` on core that ensure module is available or throws ([682028e](https://github.com/saswatds/cortec/commit/682028e9eed640f40633b9a2b79f359b9871eeda))
+
 ## [1.8.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.7.0...@cortec/core@1.8.0) (2023-07-13)
 
 ### Features
