@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.11.1...@cortec/types@1.12.0) (2023-08-22)
+
+### Features
+
+- expose require on IContext ([5867e42](https://github.com/saswatds/cortec/commit/5867e42ffe97832e3e33f2f27bb13e3775474a79))
+
 ## [1.11.1](https://github.com/saswatds/cortec/compare/@cortec/types@1.11.0...@cortec/types@1.11.1) (2023-07-13)
 
 ### Bug Fixes

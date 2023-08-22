@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/saswatds/cortec/compare/@cortec/server@1.5.2...@cortec/server@1.5.3) (2023-08-22)
+
+**Note:** Version bump only for package @cortec/server
+
 ## [1.5.2](https://github.com/saswatds/cortec/compare/@cortec/server@1.5.1...@cortec/server@1.5.2) (2023-07-13)
 
 **Note:** Version bump only for package @cortec/server

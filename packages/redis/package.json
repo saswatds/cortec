@@ -1,6 +1,6 @@
 {
   "name": "@cortec/redis",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,13 +21,13 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.11.1"
+    "@cortec/types": "^1.12.0"
   },
   "peerDependencies": {
     "ioredis": "^5.3.1"
   },
   "devDependencies": {
-    "@cortec/config": "^1.4.8",
+    "@cortec/config": "^1.4.9",
     "ioredis": "^5.3.1"
   },
   "typedoc": {
