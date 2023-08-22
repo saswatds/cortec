@@ -80,7 +80,10 @@ class Cortec implements IContext {
       .finally(() => {
         logger.success('Exit (code: ' + code + ')');
         this.service.printOpenHandles && dump();
-        exit(code);
+
+        // A negative exit code will cause the process to not exit.
+        // This is useful for testing purposes.
+        code >= 0 && exit(code);
       });
   }
   async load() {
