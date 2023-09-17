@@ -1,15 +1,15 @@
 import type { IRouter } from '@cortec/polka';
-import { route } from '@cortec/polka';
+import { Response, route } from '@cortec/polka';
 import { join } from 'path';
 
 const Root = route({
   modules: ['mongodb', 'redis'],
   schema: {},
-  authentication: function (req) {
+  authentication(req) {
     return Promise.resolve('123');
   },
 
-  ctx: function (req) {
+  ctx(req) {
     return {
       foo: 'bar',
     };
@@ -22,17 +22,11 @@ const Root = route({
       return '1';
     },
   },
-  onRequest: function (req, ctx) {
-    return Promise.resolve({
-      status: 200,
-      body: {
-        ac: req.body,
-        session: ctx.session,
-        message: 'Hello World!',
-      },
-      headers: {
-        'content-type': 'application/json',
-      },
+  async onRequest(req, ctx) {
+    return Response.json({
+      ac: req.body,
+      session: ctx.session,
+      message: 'Hello World!',
     });
   },
 });
