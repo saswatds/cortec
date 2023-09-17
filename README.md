@@ -2,7 +2,7 @@
 
 # **The public API is still under-development and will change**
 
-A opinionated ecosystem of modules and adapters for building production ready backend service with typescript quickly.
+A opinionated ecosystem of modules and adapters for quickly building production ready backend services with typescript.
 
 ## Why?
 
@@ -33,18 +33,23 @@ import Cortec from '@cortec/core';
 import Polka from '@cortec/polka';
 import Server from '@cortec/server';
 
-import { Router } from './router'; // Define your router
+// Define your router in a separate file
+import { Router } from './router';
 
 // Create a new cortec instance
-// The name and version are used to identify the application (package.json)
+// The name and version are used to identify
+// the application (package.json)
 const cortec = new Cortec({
   name: 'test',
   version: '1.0.0'
 });
 
 
-const polka = new Polka(Router); // Register the polka module with the router
-const server = new Server(polka.name); // Register the server module with the name of the polka module
+// Register the polka module with the
+const polka = new Polka(Router); router
+
+// Register the server module with the name of the polka module
+const server = new Server(polka.name);
 
 // Register the modules with the cortec instance
 cortec.use(polka);
@@ -54,8 +59,10 @@ cortec.use(server);
 cortec
   .load()
   .then(() => {
-    // Emit a ready signal to the process for the parent process to know that the application is ready
-    // If you are using pm2 then you can use the `pm2 start --wait-ready` command to wait for the ready signal
+    // Emit a ready signal to the process for the parent process to
+    // know that the application is ready
+    // If you are using pm2 then you can use the
+    // `pm2 start --wait-ready` command to wait for the ready signal
     process.send?.('ready');
   });
 ```
@@ -109,29 +116,53 @@ curl http://localhost:8080
 
 ## Module Documentation
 
-### Core
+### Core - @cortec/core
 The core module is a dependency injection container and module loader.
 
 ```bash
 npm i @cortec/core
 ```
 
-Cortec core needs to be initialized with the `name` and `version` of the application.
-The core also handles the `SIGTERM`, `SIGINT` and `uncaughtException` to safely shutdown
+Cortec core needs to be initialized with the `name` and `version` of the application. The name and version are used to identify the application and could be used by other modules like `newrelic` and `sentry` to report errors. The interface of the core module is a subset of the `package.json` configuration, therefore you can directly pass the `package.json` file as the configuration.
+
+
+```typescript
+const pkg = require('./package.json');
+
+// Passing in the package.json file as the configuration
+const cortec = new Cortec(pkg);
+```
+
+On construction the core is just initialized with an empty container without any modules.
+
+All the various modules can be registered using the `use` method and the `load` method loads all the modules in the order they were registered.
+
+The `load` method returns a promise that resolves when all the modules are loaded successfully.
+
+The core also listens to the various `SIGTERM`, `SIGINT` and `uncaughtException` signals to disposes all the modules and safely shutdown
 the application.
 
 #### API
 
 * `use(module: IModule): void`
 
-  The `use` method can be used to register a module core container. If two modules having same name are registered then the later will replace the previous but the loader order will remain unchanged.
+  The `use` method can be used to register a module.
+  *(Note: If two modules having same name are registered then the later will replace the previous but the loader order will remain unchanged)*
 
 * `load(): Promise<void>`
 
-  The load method asynchronously loads all the modules in the order they were registered and returns a promise.
+  The load method asynchronously loads all the modules in the order they were registered and returns a promise that resolves when all the modules successfully load. The promise never rejects, but instead logs the error to the console and kills the process if there is an error.
 
 
-### Polka
+### Config - @cortec/config
+By default the core modules also loads the `@cortec/config` module which as wrapper over `node-config`. The `config` module is used to load the configuration from the `config` directory. The `config` module is loaded first and is available to all the other modules without needing to explicitly registering it.
+
+
+### Polka - @cortec/polka
+
+The `polka` module extends the [polka](https://github.com/lukeed/polka) framework. The `polka` module is used to define the routes that are exposed by the application. The `polka` module is registered with the name `polka`.
+
+
 
 #### Authentication
 The authentication module can be used to handle how the endpoint is protected.
