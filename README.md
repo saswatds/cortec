@@ -20,42 +20,41 @@ Building backend services built with NodeJS typically involves defining endpoint
 
 ## Getting Started
 
-Get started by installing the core, polka, and the server modules.
+To build a simple server you will need the *core*, *polka* and *server* module. Let's start by installing these three modules using npm.
 
 ```bash
 npm i @cortec/core @cortec/polka @cortec/server
 ```
 
-1. Create a file `index.ts` and initialize the core module.
+Step 1: Create the `index.ts` file and initialize the core module.
 
 ```typescript
 import Cortec from '@cortec/core';
 import Polka from '@cortec/polka';
 import Server from '@cortec/server';
 
-// Define your router in a separate file
+// The http router in a separate file for modulatity sake
 import { Router } from './router';
 
-// Create a new cortec instance
-// The name and version are used to identify
-// the application (package.json)
+// This constructs a new cortec instance with a name and version
+// The config is compatible with the schema of package.json
 const cortec = new Cortec({
   name: 'test',
   version: '1.0.0'
 });
 
 
-// Register the polka module with the
-const polka = new Polka(Router); router
+// Constructing the polka router with our routing configuration
+const polka = new Polka(Router);
 
-// Register the server module with the name of the polka module
+// Constructing the server module with name of router module (!warn - will change in future)
 const server = new Server(polka.name);
 
-// Register the modules with the cortec instance
+// Registering the modules to cortec to manage their lifecycle
 cortec.use(polka);
 cortec.use(server);
 
-// Load the modules and wait for everything to be ready
+// Loads all modules and wait for all of them to be ready
 cortec
   .load()
   .then(() => {
@@ -67,7 +66,7 @@ cortec
   });
 ```
 
-2. Then create the `config/default.yml` file with the following content.
+Step 2: Create the `config/default.yml` file with the following content.
 
 ```yaml
 server:
@@ -75,7 +74,7 @@ server:
     port: 8080
 ```
 
-3. Finally, create the `router.ts` file with the following content.
+Step 3: Create the `router.ts` file with the following content.
 
 ```typescript
 import type { IRouter } from '@cortec/polka';
@@ -114,17 +113,19 @@ curl http://localhost:8080
 ```
 
 
-## Module Documentation
+## Modules
 
-### Core - @cortec/core
-The core module is a dependency injection container and module loader.
+### Core
+The core module is a module loader that implements a simple dependency injection container and manages the lifecycle of all the registered modules. 
 
 ```bash
 npm i @cortec/core
 ```
 
-Cortec core needs to be initialized with the `name` and `version` of the application. The name and version are used to identify the application and could be used by other modules like `newrelic` and `sentry` to report errors. The interface of the core module is a subset of the `package.json` configuration, therefore you can directly pass the `package.json` file as the configuration.
+Cortec core requires two required properties `name` and `version` during construction. These two properties are used to identify the application and is made available to all registered modules. 
+For example, packaged `newrelic` and `sentry` modules use name and version to namespace and report errors accurately. 
 
+The configuration accepted by core is compatible with `package.json`, therefore you can directly pass the `package.json` file as the configuration, something like this:
 
 ```typescript
 const pkg = require('./package.json');
@@ -133,11 +134,29 @@ const pkg = require('./package.json');
 const cortec = new Cortec(pkg);
 ```
 
-On construction the core is just initialized with an empty container without any modules.
+Or manually pass them like this:
+```typescript
+const cortec = new Cortec({
+  name: 'test',
+  version: '1.0.0'
+});
+```
 
-All the various modules can be registered using the `use` method and the `load` method loads all the modules in the order they were registered.
+On construction, cortec is initialized with only the `config` module registered. For registering any other module, the `use` API needs to be used.
+```typescript
+cortec.use(<instance of the module>);
+```
 
-The `load` method returns a promise that resolves when all the modules are loaded successfully.
+Finally, the `load` method must be called to load all the modules. It returns a promise that resolves when all the modules are loaded successfully.
+```typescript
+// Async-await based interface
+await cortec.load();
+
+// Promise based interface
+cortec
+  .load()
+  .then(() => {})
+```
 
 The core also listens to the various `SIGTERM`, `SIGINT` and `uncaughtException` signals to disposes all the modules and safely shutdown
 the application.
@@ -154,7 +173,7 @@ the application.
   The load method asynchronously loads all the modules in the order they were registered and returns a promise that resolves when all the modules successfully load. The promise never rejects, but instead logs the error to the console and kills the process if there is an error.
 
 
-### Config - @cortec/config
+### Config
 By default the core modules also loads the `@cortec/config` module which as wrapper over `node-config`. The `config` module is used to load the configuration from the `config` directory. The `config` module is loaded first and is available to all the other modules without needing to explicitly registering it.
 
 
