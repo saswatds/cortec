@@ -31,6 +31,7 @@
     "helmet": "^6.0.1",
     "polka": "^0.5.2",
     "rate-limiter-flexible": "^2.4.1",
+    "serve-static": "^1.15.0",
     "zod": "^3.21.4",
     "zod-validation-error": "^1.1.0"
   },

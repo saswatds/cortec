@@ -36,7 +36,8 @@
   "author": "Saswat Das <saswatds@gmail.com>",
   "license": "MIT",
   "volta": {
-    "node": "18.11.0"
+    "node": "18.18.2",
+    "yarn": "4.0.2"
   },
   "scripts": {
     "prepare": "node ./auto-config.js && husky install",
@@ -52,8 +53,5 @@
       "@commitlint/config-conventional",
       "@commitlint/config-lerna-scopes"
     ]
-  },
-  "dependencies": {
-    "serve-static": "^1.15.0"
   }
 }
