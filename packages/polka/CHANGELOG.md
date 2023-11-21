@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.8](https://github.com/saswatds/cortec/compare/@cortec/polka@1.9.7...@cortec/polka@1.9.8) (2023-11-21)
+
+### Bug Fixes
+
+- move serve-static from root to polka module ([40305d4](https://github.com/saswatds/cortec/commit/40305d478bf69b2f616a1fe1915d24ea354fe6cb))
+
 ## [1.9.7](https://github.com/saswatds/cortec/compare/@cortec/polka@1.9.6...@cortec/polka@1.9.7) (2023-08-22)
 
 **Note:** Version bump only for package @cortec/polka
