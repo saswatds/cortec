@@ -1,6 +1,7 @@
 import type http from 'node:http';
 
 import type { IContext } from '@cortec/types';
+import type { Polka } from 'polka';
 import type querystring from 'querystring';
 import type { ServeStaticOptions } from 'serve-static';
 import type { z } from 'zod';
@@ -96,7 +97,7 @@ export function route<
   return route;
 }
 
-export interface IApp {
+export interface IApp extends Pick<Polka, 'use'> {
   // Match any HTTP method
   all: (path: string, handler: ReturnType<typeof route>) => void;
 
