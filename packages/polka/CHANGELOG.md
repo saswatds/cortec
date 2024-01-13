@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.10.0...@cortec/polka@1.11.0) (2024-01-13)
+
+### Features
+
+- added use api to polka IApp interface ([e6c1c68](https://github.com/saswatds/cortec/commit/e6c1c68059198d92e56e5024a0e5b0dee4b5d258))
+
 ## [1.10.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.9.7...@cortec/polka@1.10.0) (2023-11-21)
 
 ### Features
