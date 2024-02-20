@@ -1,6 +1,9 @@
 import type { IRouter } from '@cortec/polka';
 import { Response, route } from '@cortec/polka';
 import { join } from 'path';
+import { URL } from 'url';
+
+const __dirname = new URL('.', import.meta.url).pathname;
 
 const Root = route({
   modules: ['mongodb', 'redis'],

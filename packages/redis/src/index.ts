@@ -76,15 +76,17 @@ export default class CortecRedis implements IModule, IRedis {
 
     for (const [identity, redis] of Object.entries(this.$cache)) {
       sig
-        .scope(this.name, identity)
-        .await(
+        .withTag(this.name)
+        .withTag(identity)
+        .start(
           `connecting to redis://${
             redis instanceof Redis ? redis.options.host : 'cluster'
           }`
         );
       await redis.ping();
       sig
-        .scope(this.name, identity)
+        .withTag(this.name)
+        .withTag(identity)
         .success(
           `connected to redis://${
             redis instanceof Redis ? redis.options.host : 'cluster'

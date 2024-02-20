@@ -38,11 +38,13 @@ export default class CortecMongodb implements IModule, IMongoDb {
       this.clients[identity] = client;
 
       sig
-        .scope(this.name, identity)
-        .await('connecting to mongodb://' + connection.host);
+        .withTag(this.name)
+        .withTag(identity)
+        .start('connecting to mongodb://' + connection.host);
       await client.db(connection.database).command({ ping: 1 });
       sig
-        .scope(this.name, identity)
+        .withTag(this.name)
+        .withTag(identity)
         .success('connected to mongodb://' + connection.host);
     }
   }

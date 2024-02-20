@@ -36,7 +36,10 @@ export default class CortecServer implements IModule {
 
     this.server = server;
     await util.promisify(server.listen.bind(this.server, port))();
-    sig.scope(this.name, 'http').success('listening on port ' + port);
+    sig
+      .withTag(this.name)
+      .withTag('http')
+      .success('listening on port ' + port);
   }
   async dispose() {
     return this.server && util.promisify(this.server.close.bind(this.server))();

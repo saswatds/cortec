@@ -144,7 +144,10 @@ export default class Polka implements IModule, IServerHandler {
         if (method === 'static') {
           return (path: string, dir: string, options?: ServeStaticOptions) => {
             target.use(path, serveStatic(dir, options));
-            sig.scope(this.name, 'static').info(`mounted /${path} -> ${dir}`);
+            sig
+              .withTag(this.name)
+              .withTag('static')
+              .info(`mounted /${path} -> ${dir}`);
           };
         }
 
@@ -299,7 +302,8 @@ export default class Polka implements IModule, IServerHandler {
             handler
           );
           sig
-            .scope(this.name, 'endpoint')
+            .withTag(this.name)
+            .withTag('endpoint')
             .info(`registered '${METHOD} ${path}'`);
         };
       },
