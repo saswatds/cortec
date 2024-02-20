@@ -3,7 +3,7 @@ import https from 'node:https';
 
 import type { IConfig } from '@cortec/config';
 import type { IContext, IModule } from '@cortec/types';
-import type { Axios, AxiosRequestConfig } from 'axios';
+import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
 export interface IAxiosConfig {
@@ -14,12 +14,12 @@ export interface IAxiosConfig {
 }
 
 export interface IRequester {
-  api(name: string): Axios;
+  api(name: string): AxiosInstance;
 }
 
 export default class CortecAxios implements IModule, IRequester {
   name = 'axios';
-  private instances: Map<string, Axios> = new Map();
+  private instances: Map<string, AxiosInstance> = new Map();
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
     const axiosConfig = config?.get<IAxiosConfig>(this.name);
@@ -42,7 +42,7 @@ export default class CortecAxios implements IModule, IRequester {
     this.instances.clear();
   }
 
-  api(name: string): Axios {
+  api(name: string): AxiosInstance {
     const instance = this.instances.get(name);
     if (!instance) {
       throw new Error(`Missing requester for ${name}`);

@@ -5,6 +5,7 @@
   "description": "Test package for starting a server",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "repository": "git@github.com:saswatds/cortec.git",
   "author": "Saswat Das <saswatds@gmail.com>",
   "license": "MIT",

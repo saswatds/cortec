@@ -6,7 +6,7 @@ import Redis from '@cortec/redis';
 import Sentry from '@cortec/sentry';
 import Server from '@cortec/server';
 
-import { Router } from './api/router';
+import { Router } from './api/router.js';
 
 const cortec = new Cortec({
   name: 'test',

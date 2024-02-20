@@ -23,10 +23,10 @@ import serveStatic from 'serve-static';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
-import HttpStatusCode from './HttpStatusCodes';
-import ResponseError from './ResponseError';
-import send from './send';
-import type { IApp, IRouter, route } from './types';
+import HttpStatusCode from './HttpStatusCodes.js';
+import ResponseError from './ResponseError.js';
+import send from './send.js';
+import type { IApp, IRouter, route } from './types.js';
 
 type PolkaConfig = {
   helmet: HelmetOptions;
@@ -320,7 +320,7 @@ export default class Polka implements IModule, IServerHandler {
   }
 }
 
-export { default as HttpStatusCode } from './HttpStatusCodes';
-export { default as Response } from './Response';
-export { default as ResponseError } from './ResponseError';
-export * from './types';
+export { default as HttpStatusCode } from './HttpStatusCodes.js';
+export { default as Response } from './Response.js';
+export { default as ResponseError } from './ResponseError.js';
+export * from './types.js';

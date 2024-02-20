@@ -1,7 +1,7 @@
 import type { IConfig } from '@cortec/config';
 import type { IContext, IModule, Sig } from '@cortec/types';
 import type { Cluster, RedisOptions } from 'ioredis';
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 
 export interface IRedis {
   cache(name: string): Cluster | Redis;
