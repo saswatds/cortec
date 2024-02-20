@@ -3,10 +3,11 @@
  */
 import Config from '@cortec/config';
 import type { IContext, IModule, Service } from '@cortec/types';
+import type { ConsolaInstance } from 'consola';
+import { createConsola } from 'consola';
 import exit from 'exit';
 import pEachSeries from 'p-each-series';
 import { timeout as pTimeout, TimeoutError } from 'promise-timeout';
-import { Signale } from 'signale';
 import { dump } from 'wtfnode';
 
 interface ICortecConfig extends Service {
@@ -19,14 +20,14 @@ interface ICortecConfig extends Service {
 class Cortec implements IContext {
   service: ICortecConfig;
   private modules: Map<string, IModule> = new Map();
-  private logger: Signale;
+  private logger: ConsolaInstance;
   constructor(service: ICortecConfig) {
     this.service = service;
-    this.logger = new Signale({
-      disabled: service.silent,
-    });
-    this.logger.config({
-      displayLabel: false,
+    this.logger = createConsola({
+      formatOptions: {
+        compact: false,
+        date: false,
+      },
     });
 
     // Load the default config module
@@ -61,11 +62,11 @@ class Cortec implements IContext {
 
   dispose(code: number) {
     // Print to stderr that we are existing
-    const logger = this.logger.scope('cortec');
-    logger.pending('Exiting (%d)...', code);
+    const logger = this.logger.withTag('cortec');
+    logger.start('Exiting (%d)...', code);
     return pTimeout(
       pEachSeries([...this.modules].reverse(), ([_name, module]) => {
-        logger.pending('disposing module "' + module.name + '"');
+        logger.info('disposing module "' + module.name + '"');
         return module.dispose();
       }),
       this.service.disposeTimeout ?? 5000
@@ -87,9 +88,9 @@ class Cortec implements IContext {
       });
   }
   async load() {
-    const logger = this.logger.scope('cortec');
+    const logger = this.logger.withTag('cortec');
     return pEachSeries([...this.modules], async ([name, module]) => {
-      logger.start('loading module "' + name + '"');
+      logger.info('loading module "' + name + '"');
       await pTimeout(
         module.load(this, this.logger),
         this.service.loadTimeout ?? 60 * 1000

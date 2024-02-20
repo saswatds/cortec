@@ -3,7 +3,7 @@ import type { INewrelic } from '@cortec/newrelic';
 import type { IContext, IModule } from '@cortec/types';
 import flat from 'flat';
 import type { LogFn, Logger } from 'pino';
-import pino, { multistream } from 'pino';
+import { multistream, pino } from 'pino';
 
 export interface ILogger {
   trace: LogFn;

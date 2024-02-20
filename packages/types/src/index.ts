@@ -1,6 +1,6 @@
 import type http from 'node:http';
 
-import type { Signale as Sig } from 'signale';
+import type { ConsolaInstance as Sig } from 'consola';
 export type { Sig };
 
 export type Service = {
@@ -22,6 +22,6 @@ export interface IContext {
 
 export interface IModule {
   name: string;
-  load(ctx: IContext, sig: Sig): Promise<void>;
+  load(ctx: IContext, consola: Sig): Promise<void>;
   dispose(): Promise<void>;
 }

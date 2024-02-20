@@ -1,7 +1,7 @@
 import type http from 'http';
 
-import HttpStatusCode from './HttpStatusCodes';
-import type { IResponse } from './types';
+import HttpStatusCode from './HttpStatusCodes.js';
+import type { IResponse } from './types.js';
 
 export default class Response<T = unknown> implements IResponse<T> {
   status: HttpStatusCode;

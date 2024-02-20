@@ -1,7 +1,7 @@
 import type http from 'node:http';
 
-import HttpStatusCode from './HttpStatusCodes';
-import send from './send';
+import HttpStatusCode from './HttpStatusCodes.js';
+import send from './send.js';
 
 export default class ResponseError<T = unknown> extends Error {
   statusCode: number;
