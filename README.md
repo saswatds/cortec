@@ -116,14 +116,14 @@ curl http://localhost:8080
 ## Modules
 
 ### Core
-The core module is a module loader that implements a simple dependency injection container and manages the lifecycle of all the registered modules. 
+The core module is a module loader that implements a simple dependency injection container and manages the lifecycle of all the registered modules.
 
 ```bash
 npm i @cortec/core
 ```
 
-Cortec core requires two required properties `name` and `version` during construction. These two properties are used to identify the application and is made available to all registered modules. 
-For example, packaged `newrelic` and `sentry` modules use name and version to namespace and report errors accurately. 
+Cortec core requires two required properties `name` and `version` during construction. These two properties are used to identify the application and is made available to all registered modules.
+For example, packaged `newrelic` and `sentry` modules use name and version to namespace and report errors accurately.
 
 The configuration accepted by core is compatible with `package.json`, therefore you can directly pass the `package.json` file as the configuration, something like this:
 
@@ -188,6 +188,29 @@ The authentication module can be used to handle how the endpoint is protected.
 The function when resolves with a promise, should return a session that can be accessed using the, `req.session` property.
 
 
+
+## Building a custom module
+
+A module is a class that implements the `IModule` interface. The `IModule` interface has two methods `load` and `dispose` that are called when the module is loaded and unloaded respectively.
+
+```typescript
+import { IModule } from '@cortec/core';
+
+export class MyModule implements IModule {
+  // The name of the module
+  public name = 'my-module';
+
+  // The load method is called when the module is loaded
+  public async load () {
+    // Do something when the module is loaded
+  }
+
+  // The unload method is called when the module is unloaded
+  public async dispose () {
+    // Do something when the module is disposed
+  }
+}
+```
 
 ### List
 
