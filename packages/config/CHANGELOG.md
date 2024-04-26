@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.10](https://github.com/saswatds/cortec/compare/@cortec/config@1.4.9...@cortec/config@1.4.10) (2024-04-26)
+
+### Bug Fixes
+
+- added js-yaml to prevent config parsing from failing ([a94d2ed](https://github.com/saswatds/cortec/commit/a94d2ed5a497a7fba152ffde5ed56b4c6d54686a))
+
 ## [1.4.9](https://github.com/saswatds/cortec/compare/@cortec/config@1.4.8...@cortec/config@1.4.9) (2023-08-22)
 
 **Note:** Version bump only for package @cortec/config

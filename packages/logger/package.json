@@ -1,6 +1,6 @@
 {
   "name": "@cortec/logger",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,7 @@
     "tslog": "4.8.2"
   },
   "devDependencies": {
-    "@cortec/config": "^1.4.9",
+    "@cortec/config": "^1.4.10",
     "tslog": "4.8.2"
   },
   "typedoc": {

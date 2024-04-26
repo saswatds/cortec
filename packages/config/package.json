@@ -1,6 +1,6 @@
 {
   "name": "@cortec/config",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,9 +22,9 @@
   ],
   "dependencies": {
     "@cortec/types": "^1.12.0",
-    "typed-inject": "^3.0.1",
     "config": "^3.3.11",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "typed-inject": "^3.0.1"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
