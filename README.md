@@ -72,6 +72,12 @@ Step 2: Create the `config/default.yml` file with the following content.
 server:
   http:
     port: 8080
+
+polka:
+  bodyParser:
+    json:
+      limit: '100kb'
+  helmet: {}
 ```
 
 Step 3: Create the `router.ts` file with the following content.
