@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/config@1.4.10...@cortec/config@1.5.0) (2024-05-02)
+
+### Features
+
+- implement a cleaner typesafe config ([fa13428](https://github.com/saswatds/cortec/commit/fa1342875dd6518f759ef927b9b046bc235f9de0))
+
 ## [1.4.10](https://github.com/saswatds/cortec/compare/@cortec/config@1.4.9...@cortec/config@1.4.10) (2024-04-26)
 
 ### Bug Fixes

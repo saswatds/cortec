@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.4](https://github.com/saswatds/cortec/compare/@cortec/redis@1.7.3...@cortec/redis@1.7.4) (2024-05-02)
+
+**Note:** Version bump only for package @cortec/redis
+
 ## [1.7.3](https://github.com/saswatds/cortec/compare/@cortec/redis@1.7.2...@cortec/redis@1.7.3) (2024-04-26)
 
 **Note:** Version bump only for package @cortec/redis

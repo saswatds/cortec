@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.3](https://github.com/saswatds/cortec/compare/@cortec/core@1.10.2...@cortec/core@1.10.3) (2024-05-02)
+
+**Note:** Version bump only for package @cortec/core
+
 ## [1.10.2](https://github.com/saswatds/cortec/compare/@cortec/core@1.10.1...@cortec/core@1.10.2) (2024-04-26)
 
 **Note:** Version bump only for package @cortec/core
