@@ -4,32 +4,32 @@ server:
 
 polka:
   bodyParser:
-      json:
-        limit: '100kb'
-        strict: false
+    json:
+      limit: "100kb"
+      strict: false
   helmet: {}
 sentry:
   dsn: null
 mongodb:
   test:
     connection:
-      host: 'localhost'
-      user: 'root'
+      host: "localhost"
+      user: "root"
       password: null
       ssl: false
-      database: 'test'
+      database: "test"
     options:
-      replicaSet: 'rs0'
+      replicaSet: "rs0"
       useNewUrlParser: true
       useUnifiedTopology: true
 
 redis:
   test:
     connection:
-      host: 'localhost'
+      host: "localhost"
       port: 6379
       password: null
-      keyPrefix: 'hook:postmanSession:session:' # Do not change this
+      keyPrefix: "hook:postmanSession:session:" # Do not change this
       showFriendlyErrorStack: true
     cluster: false
     encryption: false
@@ -39,4 +39,7 @@ newrelic:
   agent_enabled: false
   license_key: null
   logging:
-    level: 'error' # We will only emit logs to new relic if level is error
+    level: "error" # We will only emit logs to new relic if level is error
+
+custom:
+  key: "value"

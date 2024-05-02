@@ -1,3 +1,4 @@
+import { Config, z } from '@cortec/config';
 import Cortec from '@cortec/core';
 import MongoDB from '@cortec/mongodb';
 import Newrelic from '@cortec/newrelic';

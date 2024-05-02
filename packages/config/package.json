@@ -24,7 +24,8 @@
     "@cortec/types": "^1.12.0",
     "config": "^3.3.11",
     "js-yaml": "^4.1.0",
-    "typed-inject": "^3.0.1"
+    "zod": "^3.23.5",
+    "zod-validation-error": "^3.2.0"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
