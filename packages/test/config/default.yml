@@ -23,6 +23,15 @@ mongodb:
       useNewUrlParser: true
       useUnifiedTopology: true
 
+dynamic-config:
+  source:
+    type: "mongodb"
+    mongodb:
+      name: test
+      collection: "config"
+  default:
+    abc: "default"
+
 redis:
   test:
     connection:

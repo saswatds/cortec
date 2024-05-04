@@ -6,6 +6,7 @@
     "packages/cassandra",
     "packages/config",
     "packages/core",
+    "packages/dynamic-config",
     "packages/logger",
     "packages/mongodb",
     "packages/newrelic",

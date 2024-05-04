@@ -5,7 +5,7 @@ import type { IContext, IModule, Sig } from '@cortec/types';
 const dynamicConfig = z.object({
   source: z.object({
     type: z.string(),
-    connection: z.object({
+    mongodb: z.object({
       name: z.string(),
       collection: z.string(),
     }),
@@ -19,7 +19,7 @@ type DynConfig = z.infer<typeof dynamicConfig>;
 export interface IDynamicConfig<K> {
   config: K;
   refresh: () => Promise<void>;
-  update: (config: K, ttl: number) => Promise<void>;
+  update: (config: K, ttl?: number) => Promise<void>;
 }
 
 export default class DynamicConfig<K = any>
@@ -44,7 +44,7 @@ export default class DynamicConfig<K = any>
   }
 
   refresh: () => Promise<void> = () => Promise.resolve();
-  update: (console: K, ttl: number) => Promise<void> = () => Promise.resolve();
+  update: (console: K, ttl?: number) => Promise<void> = () => Promise.resolve();
 
   async load(ctx: IContext, sig: Sig) {
     if (this.$config.source.type === 'mongodb') {
@@ -59,8 +59,8 @@ export default class DynamicConfig<K = any>
       this.refresh = async () => {
         // get the latest config from mongodb
         const data = await mongodb
-          .db(this.$config.source.connection.name)
-          .collection(this.$config.source.connection.collection)
+          .db(this.$config.source.mongodb.name)
+          .collection(this.$config.source.mongodb.collection)
           .findOne(
             { key: this.namespace },
             { projection: { _id: 0, config: 1, ttl: 1 } }
@@ -71,23 +71,23 @@ export default class DynamicConfig<K = any>
           this.state = this.configDef.parse(data['config']);
           sig
             .scope(this.name, this.namespace)
-            .success('config updated from mongodb');
+            .success('dynamic config synced mongodb');
           this.refreshClear = setTimeout(this.refresh, ttl);
         } else {
           sig
             .scope(this.name, this.namespace)
-            .warn('no config found in mongodb');
+            .warn('no dynamic config found in mongodb');
           this.refreshClear = setTimeout(this.refresh, 2 * 60 * 1000);
         }
       };
 
-      this.update = async (config: K, ttl: number) => {
+      this.update = async (config: K, ttl?: number) => {
         // Validate the config
         this.configDef.parse(config);
         // update the config in mongodb
         await mongodb
-          .db(this.$config.source.connection.name)
-          .collection(this.$config.source.connection.collection)
+          .db(this.$config.source.mongodb.name)
+          .collection(this.$config.source.mongodb.collection)
           .updateOne(
             { key: this.namespace },
             {
@@ -102,7 +102,7 @@ export default class DynamicConfig<K = any>
         this.state = config;
         sig
           .scope(this.name, this.namespace)
-          .success('config updated in mongodb');
+          .success('dynamic config updated in mongodb');
       };
 
       await this.refresh();

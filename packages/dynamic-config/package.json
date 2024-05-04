@@ -1,6 +1,6 @@
 {
   "name": "@cortec/dynamic-config",
-  "version": "1.5.0",
+  "version": "1.0.0",
   "description": "Module that provides dynamic configuration backed by remote sources",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,5 +1,5 @@
-import { Config, z } from '@cortec/config';
 import Cortec from '@cortec/core';
+import DynamicConfig from '@cortec/dynamic-config';
 import MongoDB from '@cortec/mongodb';
 import Newrelic from '@cortec/newrelic';
 import Polka from '@cortec/polka';
@@ -7,7 +7,7 @@ import Redis from '@cortec/redis';
 import Sentry from '@cortec/sentry';
 import Server from '@cortec/server';
 
-import { Router } from './api/router';
+import { importantConfig, Router } from './api/router';
 
 const cortec = new Cortec({
   name: 'test',
@@ -20,15 +20,23 @@ const polka = new Polka(Router);
 const server = new Server(polka.name);
 const redis = new Redis();
 const mongodb = new MongoDB();
+const dc = new DynamicConfig(importantConfig);
 const sentry = new Sentry();
 
 cortec.use(newrelic);
 cortec.use(sentry);
 cortec.use(redis);
 cortec.use(mongodb);
+cortec.use(dc);
 cortec.use(polka);
 cortec.use(server);
 
 cortec.load().then(() => {
   process.send?.('ready');
+
+  const count = 0;
+  // Every 1 minute, refresh the dynamic config
+  setInterval(() => {
+    dc.update({ abc: 'count+' + count }).catch(console.error);
+  }, 60000);
 });

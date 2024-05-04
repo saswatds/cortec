@@ -1,6 +1,14 @@
+import { z } from '@cortec/config';
+import type { IDynamicConfig } from '@cortec/dynamic-config';
 import type { IRouter } from '@cortec/polka';
 import { Response, route } from '@cortec/polka';
 import { join } from 'path';
+
+export const importantConfig = z.object({
+  abc: z.string(),
+});
+
+export type ImportantConfig = z.infer<typeof importantConfig>;
 
 const Root = route({
   modules: ['mongodb', 'redis'],
@@ -23,10 +31,11 @@ const Root = route({
     },
   },
   async onRequest(req, ctx) {
+    const dc = this.require<IDynamicConfig<ImportantConfig>>('dynamic-config');
     return Response.json({
       ac: req.body,
       session: ctx.session,
-      message: 'Hello World!',
+      message: 'Hello World! ' + dc.config.abc,
     });
   },
 });
