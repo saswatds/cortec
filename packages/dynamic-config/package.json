@@ -1,0 +1,37 @@
+{
+  "name": "@cortec/dynamic-config",
+  "version": "1.5.0",
+  "description": "Module that provides dynamic configuration backed by remote sources",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:saswatds/cortec.git",
+  "author": "Saswat Das <saswatds@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
+  "scripts": {
+    "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "prepack": "yarn build",
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc --build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "test": "yarn build && jest --passWithNoTests",
+    "ci": "jest --passWithNoTests --maxWorker=20%"
+  },
+  "files": [
+    "./dist"
+  ],
+  "dependencies": {
+    "@cortec/config": "1.5.0"
+  },
+  "devDependencies": {
+    "@cortec/mongodb": "1.7.3"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "tsconfig": "./tsconfig.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "8d2614cc04f339084ab02d832bdaf807246f7059"
+}
