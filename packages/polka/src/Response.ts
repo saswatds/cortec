@@ -21,6 +21,17 @@ export default class Response<T = unknown> implements IResponse<T> {
     return new Response(body, status);
   }
 
+  static text(
+    body: string,
+    status: HttpStatusCode = HttpStatusCode.OK,
+    headers?: http.OutgoingHttpHeaders
+  ) {
+    return new Response(body, status, {
+      'content-type': 'text/plain',
+      ...headers,
+    });
+  }
+
   static json<T>(
     body: T,
     status: HttpStatusCode = HttpStatusCode.OK,
