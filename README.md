@@ -194,6 +194,129 @@ The authentication module can be used to handle how the endpoint is protected.
 The function when resolves with a promise, should return a session that can be accessed using the, `req.session` property.
 
 
+### Dynamic Config - @cortec/dynamic-config
+
+The `dynamic-config` module is used to dynamically load the configuration from a remote source like a database or a remote service. The `dynamic-config` module is registered with the name `dynamic-config`.
+
+> Currently only the `mongodb` module is supported for loading the configuration from a mongodb database.
+
+#### Usage
+```yaml
+mongodb:
+  myMongoDB:
+    connection:
+      host: "localhost"
+      user: "root"
+      password: null
+      database: "test"
+
+dynamic-config:
+  source:
+    type: 'mongodb'
+    mongodb:
+      name: 'myMongoDB'
+      collection: 'config'
+  default:
+    myConfig: 'myConfigValue'
+```
+
+
+  ```typescript
+  import DynamicConfig  from '@cortec/dynamic-config';
+  import MongoDB from '@cortec/mongodb';
+  import { z } from 'zod';
+
+  // Create a schema for the configuration
+  const schema = z.object({
+    myConfig: z.string(),
+  });
+
+ // Create the mongodb module
+  const mongodb = new MongoDB();
+ // Create the dynamic config module with the scheme of the configuration
+  const dynamicConfig = new DynamicConfig(schema);
+
+  // 1. Register mongodb module first
+  cortec.use(mongodb);
+
+  // 2. Register dynamic config module after mongodb
+  cortec.use(dynamicConfig);
+
+  // 3. Load the modules
+  await cortec.load();
+  ```
+
+#### API
+* `config: T`
+
+  The `config` property is used to access the configuration that is loaded by the `dynamic-config` module. The `config` property is a getter that returns the configuration object.
+
+  ```typescript
+  /**
+   const schema = z.object({
+      myConfig: z.string(),
+   });
+
+   type Schema  = z.infer<typeof schema>;
+  */
+  import { IDynamicConfig } from '@cortec/dynamic-config';
+
+  // Usage in a route
+  route({
+    async onRequest(req, ctx) {
+      const dc = this.require<IDynamicConfig<ImportantConfig>>('dynamic-config');
+      return Response.text('Config' + dc.config.myConfig);
+    },
+  })
+  ```
+
+* `update(config: T, ttl?: number): Promise<void>`
+
+  The `update` method is used to update the configuration from the source. The `update` method returns a promise that resolves when the configuration is updated. Optionally, the `ttl` parameter can be used to set the time to live for the configuration. The default time to live is 5 minutes.
+
+  ```typescript
+  /**
+   const schema = z.object({
+      myConfig: z.string(),
+   });
+
+   type Schema  = z.infer<typeof schema>;
+  */
+
+  import { IDynamicConfig } from '@cortec/dynamic-config';
+
+  // Usage in a route
+  route({
+    async onRequest(req, ctx) {
+      const dc = this.require<IDynamicConfig<ImportantConfig>>('dynamic-config');
+
+      // Update the configuration. This will update the configuration in the database and all the modules that depend on the configuration will be updated in the next ttl
+      await dc.update({ myConfig: 'newConfig' });
+      return Response.text('Success');
+    },
+  })
+  ```
+
+* `refresh(): Promise<void>`
+
+  The `refresh` method is used to refresh the configuration from the source. The `refresh` method returns a promise that resolves when the configuration is refreshed.
+
+  > The `refresh` method is called automatically every `ttl` seconds. However, the `refresh` method can be called manually to refresh the configuration.
+
+  ```typescript
+  import { IDynamicConfig } from '@cortec/dynamic-config';
+
+  // Usage in a route
+  route({
+    async onRequest(req, ctx) {
+      const dc = this.require<IDynamicConfig<ImportantConfig>>('dynamic-config');
+
+      // Refresh the configuration in the current module manually
+      await dc.refresh();
+      return Response.text('Success');
+    },
+  })
+  ```
 
 ## Building a custom module
 
