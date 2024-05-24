@@ -11,6 +11,8 @@ import type { IContext, IModule, IServerHandler, Sig } from '@cortec/types';
 import bodyParser from 'body-parser';
 import type { CompressionOptions } from 'compression';
 import compression from 'compression';
+import type { CorsOptions } from 'cors';
+import cors from 'cors';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 import type { ServerResponse } from 'http';
@@ -29,6 +31,7 @@ import send from './send';
 import type { IApp, IRouter, route } from './types';
 
 type PolkaConfig = {
+  cors: CorsOptions;
   helmet: HelmetOptions;
   compression: CompressionOptions;
   bodyParser: {
@@ -122,6 +125,9 @@ export default class Polka implements IModule, IServerHandler {
 
     // Setup helmet for endpoint security
     app.use(helmet(polkaConfig?.helmet));
+
+    // Setup cors for endpoint
+    app.use(cors(polkaConfig?.cors));
 
     // Setup compression
     app.use(compression(polkaConfig?.compression));
