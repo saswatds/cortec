@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0 (2024-05-24)
+
+### Features
+
+- added dynamic-config module ([d4549e5](https://github.com/saswatds/cortec/commit/d4549e56215b7ed68f4e59c72e53ebd1eadbff79))
+- added scenario to test package ([f24ba5a](https://github.com/saswatds/cortec/commit/f24ba5a8becc00afc1f4b659638bf5dd0ca86905))
+
 ## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/config@1.4.10...@cortec/config@1.5.0) (2024-05-02)
 
 ### Features

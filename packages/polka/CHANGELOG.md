@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.11.2...@cortec/polka@1.12.0) (2024-05-24)
+
+### Features
+
+- add support for cors ([511436e](https://github.com/saswatds/cortec/commit/511436e4c5907ef2fa2ce205a4da1c49487be672))
+- added documentation of dynamic-config ([847ea41](https://github.com/saswatds/cortec/commit/847ea41a73a589e8cdfa051534b057cccab60b80))
+
 ## [1.11.2](https://github.com/saswatds/cortec/compare/@cortec/polka@1.11.1...@cortec/polka@1.11.2) (2024-05-02)
 
 **Note:** Version bump only for package @cortec/polka
