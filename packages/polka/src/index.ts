@@ -22,6 +22,7 @@ import type { RateLimiterRes } from 'rate-limiter-flexible';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
 import type { ServeStaticOptions } from 'serve-static';
 import serveStatic from 'serve-static';
+import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
@@ -58,6 +59,7 @@ const methods = [
 interface Request extends p.Request {
   session?: unknown;
   body?: unknown;
+  traceId?: string;
 }
 
 export default class Polka implements IModule, IServerHandler {
@@ -81,7 +83,10 @@ export default class Polka implements IModule, IServerHandler {
     const polkaConfig = config?.get<PolkaConfig>(this.name);
 
     const app = polka({
-      onError: (err, _req, res) => {
+      onError: (err, req, res) => {
+        const traceId = req.traceId || uuidv4();
+        err.traceId = traceId;
+
         // Regardless of what the error is we can notify newrelic of the error
         // Note: newrelic auto-instruments the http module, so any 4xx and 5xx will appear twice in your error dashboard
         nr?.api.noticeError(err);
@@ -90,30 +95,34 @@ export default class Polka implements IModule, IServerHandler {
         // Handled errors are going to be instance of the ResponseError class
         if (err instanceof ResponseError) {
           // Handled errors are logged as warn as they are mostly harmless
-          logger?.warn(err);
-          return err.send(res);
+          logger?.warn({ err, traceId });
+          return err.send(res, { 'x-trace-id': traceId });
         }
 
         // Unhandled exception are logger to sentry if it exists and logged as
         // error to the logger
         sentry?.api.captureException(err);
-        logger?.error(err);
+        logger?.error({ err, traceId });
 
         // Respond as internal server error
         send(res, HttpStatusCode.INTERNAL_SERVER_ERROR, {
           error: 'InternalServerError',
           message: 'Something went wrong on the server',
+          traceId,
         });
       },
 
       // Handle the case when no matching route was found
       onNoMatch: (req, res) => {
+        const traceId = req.traceId || uuidv4();
+
         // If no match handler has been defined, we will respond with a 501
         if (!this.noMatchHandler) {
           send(
             res,
             HttpStatusCode.NOT_IMPLEMENTED,
-            `route '${req.path}' is not implemented`
+            `route '${req.path}' is not implemented`,
+            { 'x-trace-id': traceId }
           );
           return;
         }
@@ -121,6 +130,12 @@ export default class Polka implements IModule, IServerHandler {
         // Otherwise we will call the no match handler
         this.noMatchHandler(req, res);
       },
+    });
+
+    // Attach a traceId to every request
+    app.use((req, res, next) => {
+      req.traceId = uuidv4();
+      next();
     });
 
     // Setup helmet for endpoint security
@@ -225,8 +240,8 @@ export default class Polka implements IModule, IServerHandler {
             try {
               const session = await (nr
                 ? nr.api.startSegment('authentication', true, () =>
-                    authentication.call(ctx, req)
-                  )
+                  authentication.call(ctx, req)
+                )
                 : authentication.call(ctx, req));
 
               // Store the authentication result in the request store
@@ -247,6 +262,7 @@ export default class Polka implements IModule, IServerHandler {
           ) => {
             const reqCtx = {
               session: req.session,
+              traceId: req.traceId,
               ...controller.ctx?.call(ctx, req),
             };
 
@@ -261,7 +277,7 @@ export default class Polka implements IModule, IServerHandler {
                       {
                         retryAfter: err.msBeforeNext / 1000 + 's',
                       }
-                    );
+                    ).setTraceId(req.traceId);
                   });
               }
 
@@ -281,18 +297,19 @@ export default class Polka implements IModule, IServerHandler {
                     HttpStatusCode.BAD_REQUEST,
                     fromZodError(err).toString(),
                     {}
-                  );
+                  ).setTraceId(req.traceId);
                 }
               }
 
               const response = await (nr
                 ? nr.api.startSegment('controller', true, () =>
-                    controller.onRequest.call(ctx, req, reqCtx)
-                  )
+                  controller.onRequest.call(ctx, req, reqCtx)
+                )
                 : controller.onRequest.call(ctx, req, reqCtx));
 
               send(res, response.status, response.body, response.headers);
             } catch (err: any) {
+              err.traceId = req.traceId;
               next(err);
             }
           };
