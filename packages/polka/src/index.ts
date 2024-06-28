@@ -95,14 +95,14 @@ export default class Polka implements IModule, IServerHandler {
         // Handled errors are going to be instance of the ResponseError class
         if (err instanceof ResponseError) {
           // Handled errors are logged as warn as they are mostly harmless
-          logger?.warn({ err, traceId });
+          logger?.warn(err);
           return err.send(res, { 'x-trace-id': traceId });
         }
 
         // Unhandled exception are logger to sentry if it exists and logged as
         // error to the logger
         sentry?.api.captureException(err);
-        logger?.error({ err, traceId });
+        logger?.error(err);
 
         // Respond as internal server error
         send(res, HttpStatusCode.INTERNAL_SERVER_ERROR, {
@@ -271,7 +271,6 @@ export default class Polka implements IModule, IServerHandler {
                 await rateLimit
                   .consume(controller.rateLimit.count.call(ctx, req, reqCtx))
                   .catch((err: RateLimiterRes) => {
-                    const traceId = req.traceId || nanoid();
                     throw new ResponseError(
                       HttpStatusCode.TOO_MANY_REQUESTS,
                       'Too many requests',
@@ -294,7 +293,6 @@ export default class Polka implements IModule, IServerHandler {
                     body: req.body,
                   });
                 } catch (err: any) {
-                  const traceId = req.traceId || nanoid();
                   throw new ResponseError(
                     HttpStatusCode.BAD_REQUEST,
                     fromZodError(err).toString(),
