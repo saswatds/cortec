@@ -22,7 +22,7 @@ import type { RateLimiterRes } from 'rate-limiter-flexible';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
 import type { ServeStaticOptions } from 'serve-static';
 import serveStatic from 'serve-static';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
@@ -84,7 +84,7 @@ export default class Polka implements IModule, IServerHandler {
 
     const app = polka({
       onError: (err, req, res) => {
-        const traceId = req.traceId || uuidv4();
+        const traceId = req.traceId || nanoid();
         err.traceId = traceId;
 
         // Regardless of what the error is we can notify newrelic of the error
@@ -114,7 +114,7 @@ export default class Polka implements IModule, IServerHandler {
 
       // Handle the case when no matching route was found
       onNoMatch: (req, res) => {
-        const traceId = req.traceId || uuidv4();
+        const traceId = req.traceId || nanoid();
 
         // If no match handler has been defined, we will respond with a 501
         if (!this.noMatchHandler) {
@@ -134,7 +134,7 @@ export default class Polka implements IModule, IServerHandler {
 
     // Attach a traceId to every request
     app.use((req, res, next) => {
-      req.traceId = uuidv4();
+      req.traceId = nanoid();
       next();
     });
 
@@ -271,13 +271,14 @@ export default class Polka implements IModule, IServerHandler {
                 await rateLimit
                   .consume(controller.rateLimit.count.call(ctx, req, reqCtx))
                   .catch((err: RateLimiterRes) => {
+                    const traceId = req.traceId || nanoid();
                     throw new ResponseError(
                       HttpStatusCode.TOO_MANY_REQUESTS,
                       'Too many requests',
                       {
                         retryAfter: err.msBeforeNext / 1000 + 's',
                       }
-                    ).setTraceId(req.traceId);
+                    );
                   });
               }
 
@@ -293,11 +294,12 @@ export default class Polka implements IModule, IServerHandler {
                     body: req.body,
                   });
                 } catch (err: any) {
+                  const traceId = req.traceId || nanoid();
                   throw new ResponseError(
                     HttpStatusCode.BAD_REQUEST,
                     fromZodError(err).toString(),
                     {}
-                  ).setTraceId(req.traceId);
+                  );
                 }
               }
 
