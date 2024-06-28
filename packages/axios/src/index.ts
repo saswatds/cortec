@@ -20,6 +20,7 @@ export interface IRequester {
 export default class CortecAxios implements IModule, IRequester {
   name = 'axios';
   private instances: Map<string, Axios> = new Map();
+
   async load(ctx: IContext) {
     const config = ctx.provide<IConfig>('config');
     const axiosConfig = config?.get<IAxiosConfig>(this.name);
@@ -35,9 +36,20 @@ export default class CortecAxios implements IModule, IRequester {
         httpsAgent: new https.Agent({ keepAlive: true }),
         httpAgent: new http.Agent({ keepAlive: true }),
       });
+
+      // Add interceptor to set x-trace-id header
+      instance.interceptors.request.use((config) => {
+        const traceId = ctx.provide<string>('traceId');
+        if (traceId) {
+          config.headers['x-trace-id'] = traceId;
+        }
+        return config;
+      });
+
       this.instances.set(key, instance);
     }
   }
+
   async dispose() {
     this.instances.clear();
   }

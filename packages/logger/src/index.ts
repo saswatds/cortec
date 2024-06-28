@@ -64,7 +64,11 @@ export default class CortecLogger implements IModule, ILogger {
     this.logger = pino(
       {
         mixin() {
-          return nr?.api.getLinkingMetadata() ?? {};
+          const traceId = ctx.provide<string>('traceId');
+          return {
+            ...nr?.api.getLinkingMetadata(),
+            traceId,
+          };
         },
         formatters: {
           level: (level) => ({ level }),
@@ -88,6 +92,11 @@ export default class CortecLogger implements IModule, ILogger {
             // If we have details then flatten send to error logs
             if ('details' in arg1) {
               Object.assign(arg, flat({ details: arg1.details }));
+            }
+
+            const traceId = ctx.provide<string>('traceId');
+            if (traceId) {
+              arg.traceId = traceId;
             }
 
             return method.apply(this, [arg, ...rest]);
