@@ -1,6 +1,6 @@
 import type http from 'node:http';
 
-import type { IContext } from '@cortec/types';
+import type { IContext, ITrace } from '@cortec/types';
 import type { Polka } from 'polka';
 import type querystring from 'querystring';
 import type { ServeStaticOptions } from 'serve-static';
@@ -49,7 +49,7 @@ export interface IRoute<
     count(
       this: IContext,
       req: IRequest<ParamsT, QueryT, BodyT>,
-      ctx: ReqCtx & { session?: Session }
+      ctx: ReqCtx & { session?: Session } & ITrace
     ): string;
     keyPrefix?: string;
   };
@@ -63,7 +63,7 @@ export interface IRoute<
   onRequest(
     this: IContext,
     req: IRequest<ParamsT, QueryT, BodyT>,
-    ctx: ReqCtx & { session: Session }
+    ctx: ReqCtx & { session: Session } & ITrace
   ): Promise<IResponse<ResponseT>>;
 }
 
