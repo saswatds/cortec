@@ -7,7 +7,14 @@ import type { ILogger } from '@cortec/logger';
 import type { INewrelic } from '@cortec/newrelic';
 import type { IRedis } from '@cortec/redis';
 import type { ISentry } from '@cortec/sentry';
-import type { IContext, IModule, IServerHandler, Sig } from '@cortec/types';
+import {
+  type IContext,
+  type IModule,
+  type IServerHandler,
+  type ITrace,
+  type Sig,
+  Headers,
+} from '@cortec/types';
 import bodyParser from 'body-parser';
 import type { CompressionOptions } from 'compression';
 import compression from 'compression';
@@ -16,6 +23,7 @@ import cors from 'cors';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 import type { ServerResponse } from 'http';
+import { nanoid } from 'nanoid';
 import type * as p from 'polka';
 import polka from 'polka';
 import type { RateLimiterRes } from 'rate-limiter-flexible';
@@ -55,7 +63,7 @@ const methods = [
   'put',
 ] as const;
 
-interface Request extends p.Request {
+export interface Request extends p.Request, ITrace {
   session?: unknown;
   body?: unknown;
 }
@@ -81,7 +89,7 @@ export default class Polka implements IModule, IServerHandler {
     const polkaConfig = config?.get<PolkaConfig>(this.name);
 
     const app = polka({
-      onError: (err, _req, res) => {
+      onError: (err, req: Request, res) => {
         // Regardless of what the error is we can notify newrelic of the error
         // Note: newrelic auto-instruments the http module, so any 4xx and 5xx will appear twice in your error dashboard
         nr?.api.noticeError(err);
@@ -91,7 +99,7 @@ export default class Polka implements IModule, IServerHandler {
         if (err instanceof ResponseError) {
           // Handled errors are logged as warn as they are mostly harmless
           logger?.warn(err);
-          return err.send(res);
+          return err.send(res, req);
         }
 
         // Unhandled exception are logger to sentry if it exists and logged as
@@ -100,10 +108,20 @@ export default class Polka implements IModule, IServerHandler {
         logger?.error(err);
 
         // Respond as internal server error
-        send(res, HttpStatusCode.INTERNAL_SERVER_ERROR, {
-          error: 'InternalServerError',
-          message: 'Something went wrong on the server',
-        });
+        send(
+          res,
+          HttpStatusCode.INTERNAL_SERVER_ERROR,
+          {
+            error: {
+              name: 'InternalServerError',
+              message: 'Something went wrong on the server',
+              traceId: (req as Request).trace.id,
+            },
+          },
+          {
+            [Headers.TRACE_ID]: req.trace.id,
+          }
+        );
       },
 
       // Handle the case when no matching route was found
@@ -140,6 +158,7 @@ export default class Polka implements IModule, IServerHandler {
             this.noMatchHandler = async (req, res) => {
               const response = await controller.onRequest.call(ctx, req, {
                 session: undefined,
+                trace: { id: nanoid() },
               });
 
               send(res, response.status, response.body, response.headers);
@@ -193,13 +212,22 @@ export default class Polka implements IModule, IServerHandler {
           /**
            * An enricher middleware that will set the transaction name for newrelic
            */
-          const enricher = (
+          const reqEnricher = (
             req: Request,
             _res: ServerResponse,
             next: polka.Next
           ) => {
+            // Getting the traceId from the header or generating a new one
+            const traceId =
+              (req.headers[Headers.TRACE_ID] as string | undefined) ?? nanoid();
+
             nr?.api.setTransactionName(`${METHOD} ${path}`);
+            nr?.api.addCustomAttribute('xTraceId', traceId);
+
             req.session = undefined;
+            req.trace = {
+              id: traceId,
+            };
             next();
           };
 
@@ -247,6 +275,7 @@ export default class Polka implements IModule, IServerHandler {
           ) => {
             const reqCtx = {
               session: req.session,
+              trace: req.trace,
               ...controller.ctx?.call(ctx, req),
             };
 
@@ -299,7 +328,7 @@ export default class Polka implements IModule, IServerHandler {
 
           (target as any)[method](
             path,
-            enricher,
+            reqEnricher,
             ...parsers,
             authentication,
             handler

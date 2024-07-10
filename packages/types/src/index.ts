@@ -25,3 +25,11 @@ export interface IModule {
   load(ctx: IContext, sig: Sig): Promise<void>;
   dispose(): Promise<void>;
 }
+
+export interface ITrace {
+  trace: { id: string };
+}
+
+export enum Headers {
+  TRACE_ID = 'x-trace-id',
+}
