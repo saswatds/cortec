@@ -1,3 +1,4 @@
+import { type IAxios } from '@cortec/axios';
 import { z } from '@cortec/config';
 import type { IDynamicConfig } from '@cortec/dynamic-config';
 import type { IRouter } from '@cortec/polka';
@@ -32,10 +33,15 @@ const Root = route({
   },
   async onRequest(req, ctx) {
     const dc = this.require<IDynamicConfig<ImportantConfig>>('dynamic-config');
+    const axios = this.require<IAxios>('axios');
+
+    const res = await axios.service('echo').with(ctx).get('/get');
+
     return Response.json({
       ac: req.body,
       session: ctx.session,
       message: 'Hello World! ' + dc.config.abc,
+      resp: res.data,
     });
   },
 });

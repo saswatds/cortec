@@ -1,3 +1,4 @@
+import Axios from '@cortec/axios';
 import Cortec from '@cortec/core';
 import DynamicConfig from '@cortec/dynamic-config';
 import MongoDB from '@cortec/mongodb';
@@ -22,12 +23,14 @@ const redis = new Redis();
 const mongodb = new MongoDB();
 const dc = new DynamicConfig(importantConfig);
 const sentry = new Sentry();
+const axios = new Axios(['echo']);
 
 cortec.use(newrelic);
 cortec.use(sentry);
 cortec.use(redis);
 cortec.use(mongodb);
 cortec.use(dc);
+cortec.use(axios);
 cortec.use(polka);
 cortec.use(server);
 
