@@ -116,7 +116,22 @@ export default class Axios implements IModule, IAxios {
           };
 
         // If not the method is not a HTTP method, return the original method
-        if (!['get', 'post', 'put', 'delete'].includes(prop as string) || !nr)
+        if (
+          ![
+            'request',
+            'get',
+            'post',
+            'put',
+            'delete',
+            'patch',
+            'head',
+            'options',
+            'postForm',
+            'putForm',
+            'patchForm',
+          ].includes(prop as string) ||
+          !nr
+        )
           return Reflect.get(target, prop, receiver);
 
         return (...args: any) =>
