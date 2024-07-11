@@ -1,7 +1,6 @@
 import type http from 'node:http';
 
 import type { ITrace } from '@cortec/types';
-import { Headers } from '@cortec/types';
 
 import HttpStatusCode from './HttpStatusCodes';
 import send from './send';
@@ -50,22 +49,15 @@ export default class ResponseError<T = unknown> extends Error {
   send(res: http.ServerResponse, req: ITrace) {
     const traceId = req.trace.id;
 
-    return send(
-      res,
-      this.statusCode,
-      {
-        error: {
-          name: this.name,
-          message: this.injectTraceInMessage
-            ? `${this.message} (Trace Id: ${traceId})`
-            : this.message,
-          traceId: req.trace.id,
-          details: this.details,
-        },
+    return send(res, this.statusCode, {
+      error: {
+        name: this.name,
+        message: this.injectTraceInMessage
+          ? `${this.message} (Trace Id: ${traceId})`
+          : this.message,
+        traceId: req.trace.id,
+        details: this.details,
       },
-      {
-        [Headers.TRACE_ID]: traceId,
-      }
-    );
+    });
   }
 }
