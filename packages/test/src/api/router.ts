@@ -35,7 +35,7 @@ const Root = route({
     const dc = this.require<IDynamicConfig<ImportantConfig>>('dynamic-config');
     const axios = this.require<IAxios>('axios');
 
-    const res = await axios.service('echo').with(ctx).get('/get');
+    const res = await axios.service('echo').trace(ctx).get('/get');
 
     return Response.json({
       ac: req.body,

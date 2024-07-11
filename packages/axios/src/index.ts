@@ -20,12 +20,12 @@ export interface IAxiosConfig {
   };
 }
 
-interface WithCtxAxios extends A.Axios {
-  with(ctx: ITrace): A.Axios;
+interface TracedAxios extends A.Axios {
+  trace(ctx: ITrace): A.Axios;
 }
 
 export interface IAxios {
-  service(name: string, flags?: RequestFlags): WithCtxAxios;
+  service(name: string, flags?: RequestFlags): TracedAxios;
 }
 
 export enum RequestFlags {
@@ -93,7 +93,7 @@ export default class Axios implements IModule, IAxios {
     this.instances.clear();
   }
 
-  service(name: string, flags: RequestFlags = RequestFlags.None): WithCtxAxios {
+  service(name: string, flags: RequestFlags = RequestFlags.None): TracedAxios {
     const nr = this.nr;
 
     const instance = this.instances.get(name);
@@ -107,9 +107,9 @@ export default class Axios implements IModule, IAxios {
     }
 
     // Else return a proxy that wraps the original instance
-    return new Proxy<WithCtxAxios>(instance as WithCtxAxios, {
+    return new Proxy<TracedAxios>(instance as TracedAxios, {
       get(target, prop, receiver) {
-        if (prop === 'with')
+        if (prop === 'trace')
           return (ctx: ITrace) => {
             target.defaults.headers.common[Headers.TRACE_ID] = ctx.trace.id;
             return receiver;
