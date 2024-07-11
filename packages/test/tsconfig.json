@@ -32,6 +32,9 @@
         },
         {
             "path": "../dynamic-config"
+        },
+        {
+            "path": "../axios"
         }
     ]
 }

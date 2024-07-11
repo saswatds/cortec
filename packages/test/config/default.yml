@@ -52,3 +52,8 @@ newrelic:
 
 custom:
   key: "value"
+
+axios:
+  api:
+    echo:
+      baseURL: "https://postman-echo.com"

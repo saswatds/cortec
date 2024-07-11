@@ -31,6 +31,7 @@
     "@cortec/server": "^1.4.3",
     "@cortec/types": "^1.6.0",
     "@cortec/dynamic-config": "^1.0.0",
+    "@cortec/axios": "^1.1.12",
     "config": "^3.3.9",
     "newrelic": "^9.14.1",
     "polka": "^0.5.2"

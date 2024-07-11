@@ -45,6 +45,10 @@ export class Config {
       throw new Error(err.toString());
     }
   }
+
+  static files() {
+    return config.util.getConfigSources().map((source) => source.name);
+  }
 }
 
 export { z } from 'zod';
