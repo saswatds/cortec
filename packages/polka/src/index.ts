@@ -108,20 +108,13 @@ export default class Polka implements IModule, IServerHandler {
         logger?.error(err);
 
         // Respond as internal server error
-        send(
-          res,
-          HttpStatusCode.INTERNAL_SERVER_ERROR,
-          {
-            error: {
-              name: 'InternalServerError',
-              message: 'Something went wrong on the server',
-              traceId: (req as Request).trace.id,
-            },
+        send(res, HttpStatusCode.INTERNAL_SERVER_ERROR, {
+          error: {
+            name: 'InternalServerError',
+            message: 'Something went wrong on the server',
+            traceId: (req as Request).trace.id,
           },
-          {
-            [Headers.TRACE_ID]: req.trace.id,
-          }
-        );
+        });
       },
 
       // Handle the case when no matching route was found
