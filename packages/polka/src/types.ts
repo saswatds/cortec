@@ -1,6 +1,6 @@
 import type http from 'node:http';
 
-import type { IContext, ITrace } from '@cortec/types';
+import type { IContext } from '@cortec/types';
 import type { Polka } from 'polka';
 import type querystring from 'querystring';
 import type { ServeStaticOptions } from 'serve-static';
@@ -118,3 +118,11 @@ export interface IApp extends Pick<Polka, 'use'> {
 }
 
 export type IRouter = (app: IApp, ctx: IContext) => void;
+
+export interface ITrace {
+  trace: { id: string };
+}
+
+export enum Headers {
+  TRACE_ID = 'x-trace-id',
+}
