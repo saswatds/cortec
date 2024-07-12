@@ -11,9 +11,7 @@ import {
   type IContext,
   type IModule,
   type IServerHandler,
-  type ITrace,
   type Sig,
-  Headers,
 } from '@cortec/types';
 import bodyParser from 'body-parser';
 import type { CompressionOptions } from 'compression';
@@ -36,7 +34,8 @@ import { fromZodError } from 'zod-validation-error';
 import HttpStatusCode from './HttpStatusCodes';
 import ResponseError from './ResponseError';
 import send from './send';
-import type { IApp, IRouter, route } from './types';
+import type { IApp, IRouter, ITrace, route } from './types';
+import { Headers } from './types';
 
 type PolkaConfig = {
   cors: CorsOptions;
@@ -63,7 +62,7 @@ const methods = [
   'put',
 ] as const;
 
-export interface Request extends p.Request, ITrace {
+interface Request extends p.Request, ITrace {
   session?: unknown;
   body?: unknown;
 }
@@ -112,7 +111,7 @@ export default class Polka implements IModule, IServerHandler {
           error: {
             name: 'InternalServerError',
             message: 'Something went wrong on the server',
-            traceId: (req as Request).trace.id,
+            traceId: req.trace.id,
           },
         });
       },

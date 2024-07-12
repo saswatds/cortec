@@ -1,26 +1,34 @@
 import type http from 'node:http';
 
-import type { ITrace } from '@cortec/types';
-
 import HttpStatusCode from './HttpStatusCodes';
 import send from './send';
+import type { ITrace } from './types';
+
+export enum ErrorFlags {
+  None = 0,
+  InjectTrace = 1 << 0, // using 0 for consistency
+}
+
+function match(trait: ErrorFlags, flag: ErrorFlags): boolean {
+  return (trait & flag) === flag;
+}
 
 export default class ResponseError<T = unknown> extends Error {
   statusCode: number;
   details: T;
-  private injectTraceInMessage;
+  private flags: ErrorFlags;
 
   constructor(
     statusCode: HttpStatusCode,
     message: string,
     details: T,
-    injectTraceInMessage = false
+    flags: ErrorFlags = ErrorFlags.None
   ) {
     super(message);
 
     this.statusCode = statusCode;
     this.details = details;
-    this.injectTraceInMessage = injectTraceInMessage;
+    this.flags = flags;
   }
 
   get name() {
@@ -52,7 +60,7 @@ export default class ResponseError<T = unknown> extends Error {
     return send(res, this.statusCode, {
       error: {
         name: this.name,
-        message: this.injectTraceInMessage
+        message: match(this.flags, ErrorFlags.InjectTrace)
           ? `${this.message} (Trace Id: ${traceId})`
           : this.message,
         traceId: req.trace.id,
