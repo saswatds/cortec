@@ -13,7 +13,13 @@
             "path": "../config"
         },
         {
+            "path": "../newrelic"
+        },
+        {
             "path": "../types"
+        },
+        {
+            "path": "../polka"
         }
     ]
 }
