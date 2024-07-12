@@ -3,12 +3,8 @@ import https from 'node:https';
 
 import { type IConfig, Config } from '@cortec/config';
 import type { INewrelic } from '@cortec/newrelic';
-import {
-  type IContext,
-  type IModule,
-  type ITrace,
-  Headers,
-} from '@cortec/types';
+import { type ITrace, Headers } from '@cortec/polka';
+import type { IContext, IModule } from '@cortec/types';
 import type * as A from 'axios';
 import axios, { isAxiosError } from 'axios';
 import capitalize from 'lodash.capitalize';
