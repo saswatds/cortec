@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.12.0...@cortec/polka@2.0.0) (2024-07-12)
+
+### ⚠ BREAKING CHANGES
+
+- added support tracking external services in newrelic
+
+### Features
+
+- added support for trace-id generation and logging in polka ([aebf602](https://github.com/saswatds/cortec/commit/aebf602a1d4754b196497c863d62d97af5c98045))
+- added support tracking external services in newrelic ([aa4f010](https://github.com/saswatds/cortec/commit/aa4f010b781daea35ccc48f4c3729813fe001ceb))
+
 ## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.11.2...@cortec/polka@1.12.0) (2024-05-24)
 
 ### Features

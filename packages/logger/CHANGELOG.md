@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.10](https://github.com/saswatds/cortec/compare/@cortec/logger@1.3.9...@cortec/logger@1.3.10) (2024-07-12)
+
+### Bug Fixes
+
+- update dependency mappings ([2a7a3b9](https://github.com/saswatds/cortec/commit/2a7a3b92828993a420a56b8b184c6af66f59abfd))
+
 ## [1.3.9](https://github.com/saswatds/cortec/compare/@cortec/logger@1.3.8...@cortec/logger@1.3.9) (2024-05-02)
 
 **Note:** Version bump only for package @cortec/logger

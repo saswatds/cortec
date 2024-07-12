@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://github.com/saswatds/cortec/compare/@cortec/axios@1.1.12...@cortec/axios@2.0.0) (2024-07-12)
+
+### ⚠ BREAKING CHANGES
+
+- added support tracking external services in newrelic
+
+### Features
+
+- added support tracking external services in newrelic ([aa4f010](https://github.com/saswatds/cortec/commit/aa4f010b781daea35ccc48f4c3729813fe001ceb))
+
+### Bug Fixes
+
+- update dependency mappings ([2a7a3b9](https://github.com/saswatds/cortec/commit/2a7a3b92828993a420a56b8b184c6af66f59abfd))
+
 ## [1.1.12](https://github.com/saswatds/cortec/compare/@cortec/axios@1.1.11...@cortec/axios@1.1.12) (2024-05-02)
 
 **Note:** Version bump only for package @cortec/axios
