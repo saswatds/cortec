@@ -35,6 +35,9 @@
       "path": "packages/polka"
     },
     {
+      "path": "packages/rabbitmq"
+    },
+    {
       "path": "packages/redis"
     },
     {
