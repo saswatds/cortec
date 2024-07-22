@@ -1,0 +1,40 @@
+{
+  "name": "@cortec/rabbitmq",
+  "version": "1.7.4",
+  "description": "RabbitMQ client for Cortec",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:saswatds/cortec.git",
+  "author": "Saswat Das <saswatds@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
+  "scripts": {
+    "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "prepack": "yarn build",
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc --build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
+    "test": "yarn build && jest --passWithNoTests",
+    "ci": "jest --passWithNoTests --maxWorker=20%"
+  },
+  "files": [
+    "./dist"
+  ],
+  "dependencies": {
+    "@cortec/types": "^1.12.0",
+    "amqplib": "^0.10.4"
+  },
+  "devDependencies": {
+    "@cortec/config": "^2.0.0",
+    "@types/config": "^3.3.0",
+    "@types/amqplib": "^0.10.5"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "tsconfig": "./tsconfig.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "8d2614cc04f339084ab02d832bdaf807246f7059"
+}
