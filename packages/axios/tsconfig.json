@@ -16,10 +16,10 @@
             "path": "../newrelic"
         },
         {
-            "path": "../types"
+            "path": "../polka"
         },
         {
-            "path": "../polka"
+            "path": "../types"
         }
     ]
 }
