@@ -22,7 +22,7 @@ const schema = z.record(
 type RabbitMQConfig = z.infer<typeof schema>;
 
 export interface IRabbitMQ {
-  channel: (identity: string) => void;
+  channel: (identity: string) => Channel;
 }
 
 export default class RabbitMQ implements IModule, IRabbitMQ {
@@ -31,6 +31,7 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
   private $connections: { [identity: string]: Connection } = {};
   private $channel: { [identity: string]: Channel } = {};
   private nr: INewrelic | undefined;
+  private isConnecting = false;
   constructor() {
     this.config = Config.get(this.name, schema);
   }
@@ -42,8 +43,11 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
       await this.connect(ctx, identity, connection, sig);
   }
 
-  async channel(identity: string) {
-    return this.$channel[identity];
+  channel(identity: string) {
+    const channel = this.$channel[identity];
+    if (!channel) throw new Error(`Channel ${identity} not found`);
+
+    return channel;
   }
 
   async dispose() {
@@ -60,6 +64,13 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
     connection: z.infer<typeof connectionSchema>,
     sig: Sig
   ) {
+    // If already connecting, return
+    if (this.isConnecting) {
+      sig.scope(this.name, identity).warn(`already connecting`);
+      return;
+    }
+
+    this.isConnecting = true;
     sig
       .scope(this.name, identity)
       .await(`connecting to ${connection.protocol}://${connection.hostname}`);
@@ -68,13 +79,26 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
       .scope(this.name, identity)
       .success(`connected to ${connection.protocol}://${connection.hostname}`);
 
+    this.isConnecting = false;
     // Listen for connection close
-    conn.on('close', () => {
-      sig
-        .scope(this.name, identity)
-        .error(
-          `connection to ${connection.protocol}://${connection.hostname} closed`
-        );
+    conn.on('close', (err) => {
+      if (err) {
+        // Track the error in newrelic if newrelic is available
+        this.nr?.api.noticeError(err);
+
+        sig
+          .scope(this.name, identity)
+          .error(
+            `connection to ${connection.protocol}://${connection.hostname} closed with error: ${err.message}`
+          );
+
+        this.reconnect(ctx, identity, connection, sig).catch((err) => {
+          // If it still results in an error. Restart the whole process
+          this.nr?.api.noticeError(err);
+          // Attempt to dispose the whole system
+          ctx.dispose(1);
+        });
+      }
     });
 
     // Listen for errors
@@ -123,16 +147,15 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
   ) {
     const channel = await connection.createChannel();
 
-    sig
-      .scope(this.name, identity)
-      .success(`channel created on for ${identity}`);
+    sig.scope(this.name, identity).success(`channel created`);
 
     // create a channel for publishing messages
     this.$channel[identity] = channel;
 
     // Listen for channel close
     channel.on('close', () => {
-      sig.scope(this.name, identity).error(`channel closed for ${identity}`);
+      sig.scope(this.name, identity).error(`channel closed`);
+      this.cleanChannel(identity);
     });
 
     channel.on('error', (err) => {
@@ -153,15 +176,11 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
   }
 
   private cleanConnection(identity: string) {
-    // Try and close the connection just in case
-    this.$connections[identity]?.close();
     this.$connections[identity]?.removeAllListeners();
     delete this.$connections[identity];
   }
 
   private cleanChannel(identity: string) {
-    // Try and close the channel just in case
-    this.$channel[identity]?.close();
     this.$channel[identity]?.removeAllListeners();
     delete this.$channel[identity];
   }
