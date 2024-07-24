@@ -3,6 +3,7 @@ import { z } from '@cortec/config';
 import type { IDynamicConfig } from '@cortec/dynamic-config';
 import type { IRouter } from '@cortec/polka';
 import { Response, route } from '@cortec/polka';
+import type { IRabbitMQ } from '@cortec/rabbitmq';
 import { join } from 'path';
 
 export const importantConfig = z.object({
@@ -34,8 +35,13 @@ const Root = route({
   async onRequest(req, ctx) {
     const dc = this.require<IDynamicConfig<ImportantConfig>>('dynamic-config');
     const axios = this.require<IAxios>('axios');
+    const rabbitmq = this.require<IRabbitMQ>('rabbitmq');
 
     const res = await axios.service('echo').trace(ctx).get('/get');
+
+    rabbitmq
+      .channel('primary')
+      .sendToQueue('test', Buffer.from('Hello World!'));
 
     return Response.json({
       ac: req.body,

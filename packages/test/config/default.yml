@@ -8,8 +8,10 @@ polka:
       limit: "100kb"
       strict: false
   helmet: {}
+
 sentry:
   dsn: null
+
 mongodb:
   test:
     connection:
@@ -38,7 +40,6 @@ redis:
       host: "localhost"
       port: 6379
       password: null
-      keyPrefix: "hook:postmanSession:session:" # Do not change this
       showFriendlyErrorStack: true
     cluster: false
     encryption: false
@@ -57,3 +58,12 @@ axios:
   api:
     echo:
       baseURL: "https://postman-echo.com"
+
+rabbitmq:
+  primary:
+    connection:
+      protocol: "amqp"
+      hostname: "localhost"
+      port: 5672
+      username: "root"
+      password: "password"
