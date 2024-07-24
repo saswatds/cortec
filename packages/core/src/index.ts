@@ -86,6 +86,7 @@ class Cortec implements IContext {
         code >= 0 && exit(code);
       });
   }
+
   async load() {
     const logger = this.logger.scope('cortec');
     return pEachSeries([...this.modules], async ([name, module]) => {
