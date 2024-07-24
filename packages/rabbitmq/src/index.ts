@@ -22,14 +22,14 @@ const schema = z.record(
 type RabbitMQConfig = z.infer<typeof schema>;
 
 export interface IRabbitMQ {
-  publish: (identity: string, queue: string, message: string) => void;
+  channel: (identity: string) => void;
 }
 
 export default class RabbitMQ implements IModule, IRabbitMQ {
   name = 'rabbitmq';
   private config: RabbitMQConfig;
-  private connections: { [identity: string]: Connection } = {};
-  private channel: { [identity: string]: Channel } = {};
+  private $connections: { [identity: string]: Connection } = {};
+  private $channel: { [identity: string]: Channel } = {};
   private nr: INewrelic | undefined;
   constructor() {
     this.config = Config.get(this.name, schema);
@@ -42,15 +42,15 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
       await this.connect(ctx, identity, connection, sig);
   }
 
-  async publish(identity: string, queue: string, message: string) {
-    this.channel[identity]?.sendToQueue(queue, Buffer.from(message));
+  async channel(identity: string) {
+    return this.$channel[identity];
   }
 
   async dispose() {
     // close the publisher channel and the connection
     for (const identity in this.config) {
-      await this.channel[identity]?.close();
-      await this.connections[identity]?.close();
+      await this.$channel[identity]?.close();
+      await this.$connections[identity]?.close();
     }
   }
 
@@ -92,7 +92,7 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
     });
 
     // Persist the connection
-    this.connections[identity] = conn;
+    this.$connections[identity] = conn;
 
     await this.createChannel(ctx, identity, conn, sig);
   }
@@ -128,7 +128,7 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
       .success(`channel created on for ${identity}`);
 
     // create a channel for publishing messages
-    this.channel[identity] = channel;
+    this.$channel[identity] = channel;
 
     // Listen for channel close
     channel.on('close', () => {
@@ -154,15 +154,15 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
 
   private cleanConnection(identity: string) {
     // Try and close the connection just in case
-    this.connections[identity]?.close();
-    this.connections[identity]?.removeAllListeners();
-    delete this.connections[identity];
+    this.$connections[identity]?.close();
+    this.$connections[identity]?.removeAllListeners();
+    delete this.$connections[identity];
   }
 
   private cleanChannel(identity: string) {
     // Try and close the channel just in case
-    this.channel[identity]?.close();
-    this.channel[identity]?.removeAllListeners();
-    delete this.channel[identity];
+    this.$channel[identity]?.close();
+    this.$channel[identity]?.removeAllListeners();
+    delete this.$channel[identity];
   }
 }
