@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.10.4...@cortec/core@1.11.0) (2024-07-24)
+
+### Features
+
+- implemented reconnection logic for rabbitmq ([ff5a69e](https://github.com/saswatds/cortec/commit/ff5a69ee8a7ce19629cd133b6e76c1936821d2e3))
+
 ## [1.10.4](https://github.com/saswatds/cortec/compare/@cortec/core@1.10.3...@cortec/core@1.10.4) (2024-07-12)
 
 **Note:** Version bump only for package @cortec/core

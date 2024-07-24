@@ -1,6 +1,6 @@
 {
   "name": "@cortec/rabbitmq",
-  "version": "1.7.4",
+  "version": "1.8.0",
   "description": "RabbitMQ client for Cortec",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,9 +25,9 @@
     "amqplib": "^0.10.4"
   },
   "devDependencies": {
-    "@cortec/types": ">=1",
     "@cortec/config": ">=2",
     "@cortec/newrelic": ">=1",
+    "@cortec/types": ">=1",
     "@types/amqplib": "^0.10.5"
   },
   "typedoc": {

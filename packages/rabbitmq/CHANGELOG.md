@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.0 (2024-07-24)
+
+### Features
+
+- added support for rabbitmq with amqplib ([10d3268](https://github.com/saswatds/cortec/commit/10d3268b7552b15b6d496cab1d9d877cf2bbb12f))
+- expose the channel instead of publish method ([9a4e27a](https://github.com/saswatds/cortec/commit/9a4e27a467bdee4daa9cfa3a2592d8e04776b6ad))
+- implemented reconnection logic for rabbitmq ([ff5a69e](https://github.com/saswatds/cortec/commit/ff5a69ee8a7ce19629cd133b6e76c1936821d2e3))
+
+### Bug Fixes
+
+- handle connection close properly ([3907ade](https://github.com/saswatds/cortec/commit/3907ade8a8eb02f9d20429c819e808ba5bd7d8f2))
+
 ## [1.7.4](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.7.3...@cortec/mongodb@1.7.4) (2024-07-12)
 
 **Note:** Version bump only for package @cortec/mongodb
