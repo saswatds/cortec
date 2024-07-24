@@ -318,6 +318,53 @@ dynamic-config:
   })
   ```
 
+### RabbitMQ - @cortec/rabbitmq
+
+The `rabbitmq` module is used to connect to a RabbitMQ server. The `rabbitmq` module is registered with the name `rabbitmq`.
+
+#### Usage
+```yaml
+rabbitmq:
+  primary:
+    connection:
+      protocol: "amqp"
+      hostname: "localhost"
+      port: 5672
+      username: "root"
+      password: "password"
+```
+
+```typescript
+import RabbitMQ from '@cortec/rabbitmq';
+
+const rabbitmq = new RabbitMQ();
+
+cortec.use(rabbitmq);
+
+await cortec.load();
+```
+
+
+### API
+* `channel(name: string): Channel`
+
+  The `channel` method is used to fetch a channel by identifier. The `channel` method returns the channel object.
+
+  ```typescript
+  import { IRabbitMQ } from '@cortec/rabbitmq';
+
+  // Usage in a route
+  route({
+    async onRequest(req, ctx) {
+      const rabbit = this.require<IRabbitMQ>('rabbitmq');
+
+      // Refresh the configuration in the current module manually
+      await rabbit.channel('primary').sendToQueue('myQueue', Buffer.from('Hello World!'));
+      return Response.text('Success');
+    },
+  })
+  ```
+
 ## Building a custom module
 
 A module is a class that implements the `IModule` interface. The `IModule` interface has two methods `load` and `dispose` that are called when the module is loaded and unloaded respectively.
