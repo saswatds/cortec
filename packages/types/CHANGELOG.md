@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.12.0...@cortec/types@1.13.0) (2024-07-30)
+
+### Features
+
+- added support for trace-id generation and logging in polka ([aebf602](https://github.com/saswatds/cortec/commit/aebf602a1d4754b196497c863d62d97af5c98045))
+- fix all dependency issues ([3e5041e](https://github.com/saswatds/cortec/commit/3e5041e97d6533fc2783718674853faadd4f4ae6))
+
 ## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/types@1.11.1...@cortec/types@1.12.0) (2023-08-22)
 
 ### Features

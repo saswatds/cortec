@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://github.com/saswatds/cortec/compare/@cortec/axios@2.0.1...@cortec/axios@2.1.0) (2024-07-30)
+
+### Features
+
+- fix all dependency issues ([3e5041e](https://github.com/saswatds/cortec/commit/3e5041e97d6533fc2783718674853faadd4f4ae6))
+- set peer dependency properly ([9b6be2b](https://github.com/saswatds/cortec/commit/9b6be2bcaa33da6cdcfbe1d2d00a5493e81e247e))
+
 ## [2.0.1](https://github.com/saswatds/cortec/compare/@cortec/axios@2.0.0...@cortec/axios@2.0.1) (2024-07-24)
 
 **Note:** Version bump only for package @cortec/axios

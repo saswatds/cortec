@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/saswatds/cortec/compare/@cortec/logger@1.3.10...@cortec/logger@1.4.0) (2024-07-30)
+
+### Features
+
+- fix all dependency issues ([3e5041e](https://github.com/saswatds/cortec/commit/3e5041e97d6533fc2783718674853faadd4f4ae6))
+- set peer dependency properly ([9b6be2b](https://github.com/saswatds/cortec/commit/9b6be2bcaa33da6cdcfbe1d2d00a5493e81e247e))
+
 ## [1.3.10](https://github.com/saswatds/cortec/compare/@cortec/logger@1.3.9...@cortec/logger@1.3.10) (2024-07-12)
 
 ### Bug Fixes

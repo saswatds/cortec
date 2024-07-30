@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://github.com/saswatds/cortec/compare/@cortec/polka@2.0.0...@cortec/polka@2.1.0) (2024-07-30)
+
+### Features
+
+- fix all dependency issues ([3e5041e](https://github.com/saswatds/cortec/commit/3e5041e97d6533fc2783718674853faadd4f4ae6))
+
 ## [2.0.0](https://github.com/saswatds/cortec/compare/@cortec/polka@1.12.0...@cortec/polka@2.0.0) (2024-07-12)
 
 ### ⚠ BREAKING CHANGES

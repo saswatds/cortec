@@ -1,6 +1,6 @@
 {
   "name": "@cortec/dynamic-config",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Module that provides dynamic configuration backed by remote sources",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,11 +22,11 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/config": "^2.0.0",
-    "@cortec/types": "^1.12.0"
+    "@cortec/config": "^2.1.0",
+    "@cortec/types": "^1.13.0"
   },
   "devDependencies": {
-    "@cortec/mongodb": "^1.7.4"
+    "@cortec/mongodb": "^1.8.0"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

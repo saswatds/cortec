@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.0](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.7.4...@cortec/mongodb@1.8.0) (2024-07-30)
+
+### Features
+
+- fix all dependency issues ([3e5041e](https://github.com/saswatds/cortec/commit/3e5041e97d6533fc2783718674853faadd4f4ae6))
+
 ## [1.7.4](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.7.3...@cortec/mongodb@1.7.4) (2024-07-12)
 
 **Note:** Version bump only for package @cortec/mongodb

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/sentry@1.4.12...@cortec/sentry@1.5.0) (2024-07-30)
+
+### Features
+
+- fix all dependency issues ([3e5041e](https://github.com/saswatds/cortec/commit/3e5041e97d6533fc2783718674853faadd4f4ae6))
+- set peer dependency properly ([9b6be2b](https://github.com/saswatds/cortec/commit/9b6be2bcaa33da6cdcfbe1d2d00a5493e81e247e))
+
 ## [1.4.12](https://github.com/saswatds/cortec/compare/@cortec/sentry@1.4.11...@cortec/sentry@1.4.12) (2024-07-12)
 
 **Note:** Version bump only for package @cortec/sentry
