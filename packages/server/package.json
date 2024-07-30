@@ -10,6 +10,7 @@
   "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
   "scripts": {
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "depcheck": "depcheck --ignore-patterns=dist",
     "prepack": "yarn build",
     "build": "yarn clean && yarn compile",
     "compile": "tsc --build",
@@ -21,7 +22,8 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.12.0"
+    "@cortec/types": "^1.12.0",
+    "@cortec/config": "^2.0.0"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

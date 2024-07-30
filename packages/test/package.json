@@ -11,6 +11,7 @@
   "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
   "scripts": {
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "depcheck": "depcheck --ignore-patterns=dist",
     "prepack": "yarn build",
     "build": "yarn clean && yarn compile",
     "compile": "tsc --build",
@@ -24,18 +25,18 @@
   ],
   "dependencies": {
     "@cortec/core": ">=1",
+    "@cortec/config": ">=1",
     "@cortec/mongodb": ">=1",
     "@cortec/newrelic": ">=1",
     "@cortec/polka": ">=1",
     "@cortec/redis": ">=1",
     "@cortec/server": ">=1",
-    "@cortec/types": ">=1",
     "@cortec/dynamic-config": ">=1",
     "@cortec/axios": ">=1",
     "@cortec/rabbitmq": ">=1",
+    "@cortec/sentry": ">=1",
     "config": "^3.3.9",
-    "newrelic": "^9.14.1",
-    "polka": "^0.5.2"
+    "newrelic": "^9.14.1"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

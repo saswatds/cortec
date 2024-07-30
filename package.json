@@ -44,6 +44,7 @@
     "build": "lerna run build --stream",
     "lint": "lerna run lint --parallel",
     "test": "lerna run test --parallel",
+    "depcheck": "lerna run depcheck --parallel",
     "ci": "lerna run ci",
     "docs": "typedoc && open doc/index.html",
     "test:e2e": "ts-node ./tests/index.ts"

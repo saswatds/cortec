@@ -10,6 +10,7 @@
   "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
   "scripts": {
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "depcheck": "depcheck --ignore-patterns=dist",
     "prepack": "yarn build",
     "build": "yarn clean && yarn compile",
     "compile": "tsc --build",
@@ -27,7 +28,6 @@
     "newrelic": ">=9"
   },
   "devDependencies": {
-    "@types/config": "^3.3.0",
     "@types/newrelic": "^9.4.0",
     "newrelic": "^9.14.0"
   },

@@ -13,6 +13,9 @@
             "path": "../core"
         },
         {
+            "path": "../config"
+        },
+        {
             "path": "../mongodb"
         },
         {
@@ -28,9 +31,6 @@
             "path": "../server"
         },
         {
-            "path": "../types"
-        },
-        {
             "path": "../dynamic-config"
         },
         {
@@ -38,6 +38,9 @@
         },
         {
             "path": "../rabbitmq"
+        },
+        {
+            "path": "../sentry"
         }
     ]
 }

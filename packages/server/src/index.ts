@@ -1,8 +1,8 @@
 import http from 'node:http';
 import util from 'node:util';
 
+import type { IConfig } from '@cortec/config';
 import type { IContext, IModule, IServerHandler, Sig } from '@cortec/types';
-import type { IConfig } from 'config';
 
 export interface IServerConfig {
   http: {
