@@ -10,6 +10,7 @@
   "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
   "scripts": {
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "depcheck": "depcheck --ignore-patterns=dist",
     "prepack": "yarn build",
     "build": "yarn clean && yarn compile",
     "compile": "tsc --build",
@@ -29,7 +30,6 @@
   },
   "devDependencies": {
     "@cortec/config": "^2.0.0",
-    "@types/config": "^3.3.0",
     "aws-sigv4-auth-cassandra-plugin": "^1.0.4",
     "cassandra-driver": "^4.6.4"
   },
