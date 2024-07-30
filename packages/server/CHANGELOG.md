@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://github.com/saswatds/cortec/compare/@cortec/server@1.6.0...@cortec/server@1.7.0) (2024-07-30)
+
+### Features
+
+- implement interface for bullMQ ([ce352ca](https://github.com/saswatds/cortec/commit/ce352ca8499e112986f0aa86b3398de508e66a6b))
+
 ## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/server@1.5.3...@cortec/server@1.6.0) (2024-07-30)
 
 ### Features

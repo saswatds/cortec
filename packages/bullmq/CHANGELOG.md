@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/saswatds/cortec/compare/@cortec/bullmq@1.5.0...@cortec/bullmq@1.6.0) (2024-07-30)
+
+### Features
+
+- implement interface for bullMQ ([ce352ca](https://github.com/saswatds/cortec/commit/ce352ca8499e112986f0aa86b3398de508e66a6b))
+
 ## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/bullmq@1.4.15...@cortec/bullmq@1.5.0) (2024-07-30)
 
 ### Features
