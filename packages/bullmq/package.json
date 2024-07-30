@@ -24,7 +24,7 @@
     "@cortec/types": "^1.12.0"
   },
   "peerDependencies": {
-    "bullmq": "^3.10.2"
+    "bullmq": ">=3"
   },
   "devDependencies": {
     "@cortec/config": "^2.0.0",

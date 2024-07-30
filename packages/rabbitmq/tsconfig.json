@@ -10,13 +10,13 @@
     ],
     "references": [
         {
-            "path": "../types"
-        },
-        {
             "path": "../config"
         },
         {
             "path": "../newrelic"
+        },
+        {
+            "path": "../types"
         }
     ]
 }
