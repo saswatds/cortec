@@ -1,49 +1,64 @@
 import type { IConfig } from '@cortec/config';
 import type Redis from '@cortec/redis';
 import type { IContext, IModule } from '@cortec/types';
+import type { DefaultJobOptions } from 'bullmq';
 import { FlowProducer, Queue } from 'bullmq';
 
 interface BullConfig {
   cache: string;
   concurrency: number;
-  options?: any;
+  flow?: boolean;
+  options?: DefaultJobOptions;
 }
 
-export interface BullMQConfig {
+interface BullMQConfig {
   queue?: { [name: string]: BullConfig };
   producer?: { [name: string]: BullConfig };
 }
 
-export default class CortecBullMQ implements IModule {
+export interface IBullMQ {
+  queue(name: string): Queue;
+  flow(name: string): FlowProducer;
+}
+
+export default class CortecBullMQ implements IModule, IBullMQ {
   name = 'bullMQ';
   private $queues: { [name: string]: Queue } = {};
   private $flows: { [name: string]: FlowProducer } = {};
 
   async load(ctx: IContext) {
-    const redis = ctx.provide<Redis>('redis');
-    const config = ctx.provide<IConfig>('config');
+    const redis = ctx.require<Redis>('redis');
+    const config = ctx.require<IConfig>('config');
     const bullConfig = config?.get<BullMQConfig>(this.name);
 
     Object.entries(bullConfig?.['queue'] ?? {}).forEach(([key, val]) => {
       this.$queues[key] = new Queue(key, {
-        connection: redis?.cache(val.cache),
+        connection: redis.cache(val.cache),
         defaultJobOptions: val.options,
       });
     });
 
     Object.entries(bullConfig?.['producer'] ?? {}).forEach(([key, val]) => {
       this.$flows[key] = new FlowProducer({
-        connection: redis?.cache(val.cache),
+        connection: redis.cache(val.cache),
       });
     });
   }
 
   queue(name: string) {
-    return this.$queues[name];
+    const q = this.$queues[name];
+
+    if (!q) throw new Error(`No BullMQ queue '${name}' found`);
+
+    return q;
   }
 
   flow(name: string) {
-    return this.$flows[name];
+    const q = this.$flows[name];
+
+    if (!q) throw new Error(`No BullMQ flow '${name}' found`);
+
+    return q;
   }
 
   async dispose() {
