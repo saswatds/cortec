@@ -24,7 +24,7 @@
     "@cortec/types": "^1.12.0"
   },
   "peerDependencies": {
-    "newrelic": "^10.0.0"
+    "newrelic": ">=9"
   },
   "devDependencies": {
     "@types/config": "^3.3.0",

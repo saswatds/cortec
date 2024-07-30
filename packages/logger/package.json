@@ -26,13 +26,9 @@
     "flat": "^5.0.2",
     "pino": "^8.11.0"
   },
-  "peerDependencies": {
-    "tslog": "4.8.2"
-  },
   "devDependencies": {
     "@cortec/config": "^2.0.0",
-    "@cortec/newrelic": "^1.5.2",
-    "tslog": "4.8.2"
+    "@cortec/newrelic": "^1.5.2"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
