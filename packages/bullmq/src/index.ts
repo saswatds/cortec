@@ -56,7 +56,7 @@ export default class CortecBullMQ implements IModule, IBullMQ {
       if (!workerConfig)
         throw new Error(`No BullMQ queue config found for '${key}'`);
 
-      this.$workers[key] = new Worker(key, val, {
+      this.$workers[key] = new Worker(key, val.bind(this), {
         connection: redis.cache(workerConfig.cache),
         concurrency: workerConfig.concurrency ?? 1,
       });
