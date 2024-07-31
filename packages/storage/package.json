@@ -1,0 +1,43 @@
+{
+  "name": "@cortec/storage",
+  "version": "1.0.0",
+  "description": "<description>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:saswatds/cortec.git",
+  "author": "Saswat Das <saswatds@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
+  "scripts": {
+    "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "depcheck": "depcheck --ignore-patterns=dist",
+    "prepack": "yarn build",
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc --build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
+    "test": "yarn build && jest --passWithNoTests",
+    "ci": "jest --passWithNoTests --maxWorker=20%"
+  },
+  "files": [
+    "./dist"
+  ],
+  "dependencies": {
+    "@cortec/types": "^1.13.0"
+  },
+  "peerDependencies": {
+    "fs-extra": ">=11"
+  },
+  "devDependencies": {
+    "fs-extra": "^11.2.0",
+    "@types/fs-extra": "^11.0.4",
+    "@cortec/config": "^2.1.0"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "tsconfig": "./tsconfig.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "068ea41a5413dbd7edf26f967507658b882aba3c"
+}

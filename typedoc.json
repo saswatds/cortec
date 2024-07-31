@@ -15,6 +15,7 @@
     "packages/redis",
     "packages/sentry",
     "packages/server",
+    "packages/storage",
     "packages/test",
     "packages/types"
   ],
