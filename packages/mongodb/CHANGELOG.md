@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.8.0...@cortec/mongodb@1.9.0) (2024-07-31)
+
+### Features
+
+- change name of the config key ([ad848cc](https://github.com/saswatds/cortec/commit/ad848ccc0a9c2d7952f836e04308f2d531e4c6eb))
+
 ## [1.8.0](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.7.4...@cortec/mongodb@1.8.0) (2024-07-30)
 
 ### Features
