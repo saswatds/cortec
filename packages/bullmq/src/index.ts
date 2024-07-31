@@ -1,6 +1,6 @@
 import type { IConfig } from '@cortec/config';
 import type Redis from '@cortec/redis';
-import type { IContext, IModule } from '@cortec/types';
+import type { IContext, IModule, Sig } from '@cortec/types';
 import type { DefaultJobOptions, Processor } from 'bullmq';
 import { FlowProducer, Queue, Worker } from 'bullmq';
 
@@ -23,17 +23,17 @@ export interface IBullMQ {
 }
 
 export default class CortecBullMQ implements IModule, IBullMQ {
-  name = 'bullMQ';
+  name = 'bullmq';
   private $queues: { [name: string]: Queue } = {};
   private $flows: { [name: string]: FlowProducer } = {};
   private $workers: { [name: string]: Worker } = {};
   private workerMap: Record<string, Processor>;
 
-  constructor(workerMap: Record<string, Processor>) {
+  constructor(workerMap: Record<string, Processor> = {}) {
     this.workerMap = workerMap;
   }
 
-  async load(ctx: IContext) {
+  async load(ctx: IContext, sig: Sig) {
     const redis = ctx.require<Redis>('redis');
     const config = ctx.require<IConfig>('config');
     const bullConfig = config?.get<BullMQConfig>(this.name);
@@ -43,12 +43,20 @@ export default class CortecBullMQ implements IModule, IBullMQ {
         connection: redis.cache(val.cache),
         defaultJobOptions: val.options,
       });
+
+      sig
+        .scope(this.name, key)
+        .success('created queue over redis: ' + val.cache);
     });
 
     Object.entries(bullConfig?.['producer'] ?? {}).forEach(([key, val]) => {
       this.$flows[key] = new FlowProducer({
         connection: redis.cache(val.cache),
       });
+
+      sig
+        .scope(this.name, key)
+        .success('created flow producer over redis: ' + val.cache);
     });
 
     Object.entries(this.workerMap).forEach(([key, val]) => {
@@ -60,6 +68,10 @@ export default class CortecBullMQ implements IModule, IBullMQ {
         connection: redis.cache(workerConfig.cache),
         concurrency: workerConfig.concurrency ?? 1,
       });
+
+      sig
+        .scope(this.name, key)
+        .success('created worker over redis: ' + workerConfig.cache);
     });
   }
 

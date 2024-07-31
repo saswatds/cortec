@@ -8,7 +8,7 @@ export interface IMongoDb {
   client(name: string): MongoClient;
 }
 
-export default class CortecMongodb implements IModule, IMongoDb {
+export default class CortecMongoDb implements IModule, IMongoDb {
   name = 'mongodb';
   private clients: { [name: string]: MongoClient } = {};
   private dbs: { [name: string]: Db } = {};
