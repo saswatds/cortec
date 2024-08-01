@@ -1,5 +1,6 @@
 import http from 'node:http';
 import https from 'node:https';
+import URL from 'node:url';
 
 import { type IConfig, Config } from '@cortec/config';
 import type { INewrelic } from '@cortec/newrelic';
@@ -27,6 +28,7 @@ export interface IAxios {
 export enum RequestFlags {
   None = 0,
   Notice4XX = 1 << 0,
+  InstrumentUrl = 1 << 1,
 }
 
 function match(trait: RequestFlags, flag: RequestFlags): boolean {
@@ -133,8 +135,22 @@ export default class Axios implements IModule, IAxios {
         return (...args: any) =>
           nr.api.startBackgroundTransaction(
             `ExternalService/${capitalize(name)}`,
-            () =>
-              Reflect.get(
+            () => {
+              if (
+                match(flags, RequestFlags.InstrumentUrl) &&
+                typeof args[0] === 'string'
+              ) {
+                //record the URL and the method of the request
+                const instrumentedUrl = URL.parse('http://localhost' + args[0]);
+
+                nr.api.addCustomAttribute(
+                  'path',
+                  instrumentedUrl.pathname ?? '<unknown>'
+                );
+                nr.api.addCustomAttribute('method', prop.toString());
+              }
+              
+              return Reflect.get(
                 target,
                 prop,
                 receiver
@@ -142,14 +158,14 @@ export default class Axios implements IModule, IAxios {
                 // We are trying to figure-out of the external service is at fault
                 // So any non axios errors should be ignored and we throw back the original error
                 if (!isAxiosError(err)) throw err;
-
+                
                 const status = err.response?.status ?? 0;
-
+                
                 // Now we know that the error is from axios, now we need to check if the error
                 // is a server error i.e 5xx.
                 if (status >= 500)
                   nr.api.noticeError(new ExternalServiceError(name, err));
-
+                
                 // 4xx are client side errors and must be ignored unless specifically
                 // asked to be reported
                 if (
@@ -157,10 +173,11 @@ export default class Axios implements IModule, IAxios {
                   status >= 400 &&
                   status < 500
                 )
-                  nr.api.noticeError(new ExternalServiceError(name, err));
-
+                nr.api.noticeError(new ExternalServiceError(name, err));
+                
                 throw err;
               })
+            }
           );
       },
     });
