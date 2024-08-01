@@ -10,10 +10,16 @@
     ],
     "references": [
         {
-            "path": "../core"
+            "path": "../axios"
         },
         {
             "path": "../config"
+        },
+        {
+            "path": "../core"
+        },
+        {
+            "path": "../dynamic-config"
         },
         {
             "path": "../mongodb"
@@ -25,22 +31,16 @@
             "path": "../polka"
         },
         {
-            "path": "../redis"
-        },
-        {
-            "path": "../server"
-        },
-        {
-            "path": "../dynamic-config"
-        },
-        {
-            "path": "../axios"
-        },
-        {
             "path": "../rabbitmq"
         },
         {
+            "path": "../redis"
+        },
+        {
             "path": "../sentry"
+        },
+        {
+            "path": "../server"
         }
     ]
 }

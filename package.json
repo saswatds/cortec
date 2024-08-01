@@ -37,7 +37,8 @@
   "author": "Saswat Das <saswatds@gmail.com>",
   "license": "MIT",
   "volta": {
-    "node": "18.18.2"
+    "node": "18.18.2",
+    "yarn": "1.22.22"
   },
   "scripts": {
     "prepare": "node ./auto-config.js && husky install",
