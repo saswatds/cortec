@@ -11,8 +11,11 @@ jobs:
   Unit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
       - name: Install Dependencies
-        run: pnpm i --ignore-scripts
-      - name: Unit Tests
+        run: pnpm install
+      - name: Run Tests
         run: pnpm test
