@@ -149,7 +149,7 @@ export default class Axios implements IModule, IAxios {
                 );
                 nr.api.addCustomAttribute('method', prop.toString());
               }
-              
+
               return Reflect.get(
                 target,
                 prop,
@@ -158,14 +158,14 @@ export default class Axios implements IModule, IAxios {
                 // We are trying to figure-out of the external service is at fault
                 // So any non axios errors should be ignored and we throw back the original error
                 if (!isAxiosError(err)) throw err;
-                
+
                 const status = err.response?.status ?? 0;
-                
+
                 // Now we know that the error is from axios, now we need to check if the error
                 // is a server error i.e 5xx.
                 if (status >= 500)
                   nr.api.noticeError(new ExternalServiceError(name, err));
-                
+
                 // 4xx are client side errors and must be ignored unless specifically
                 // asked to be reported
                 if (
@@ -173,10 +173,10 @@ export default class Axios implements IModule, IAxios {
                   status >= 400 &&
                   status < 500
                 )
-                nr.api.noticeError(new ExternalServiceError(name, err));
-                
+                  nr.api.noticeError(new ExternalServiceError(name, err));
+
                 throw err;
-              })
+              });
             }
           );
       },

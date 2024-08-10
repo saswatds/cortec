@@ -17,5 +17,7 @@ jobs:
         uses: pnpm/action-setup@v4
       - name: Install Dependencies
         run: pnpm install
+      - name: Run Lint
+        run: pnpm lint
       - name: Run Tests
         run: pnpm test
