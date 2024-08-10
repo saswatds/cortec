@@ -1,5 +1,19 @@
 # Change Log
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: migrated to use pnpm and turborepo
+- feat: outbound url call instrumentation
+
+### Patch Changes
+
+- chore: fix lint issue
+- Updated dependencies
+  - @cortec/polka@2.2.0
+  - @cortec/types@1.14.0
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
