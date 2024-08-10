@@ -7,16 +7,5 @@
     },
     "include": [
         "src/**/*"
-    ],
-    "references": [
-        {
-            "path": "../config"
-        },
-        {
-            "path": "../redis"
-        },
-        {
-            "path": "../types"
-        }
     ]
 }

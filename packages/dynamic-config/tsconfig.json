@@ -7,16 +7,5 @@
     },
     "include": [
         "src/**/*"
-    ],
-    "references": [
-        {
-            "path": "../mongodb"
-        },
-        {
-            "path": "../config"
-        },
-        {
-            "path": "../types"
-        }
     ]
 }

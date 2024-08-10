@@ -7,16 +7,5 @@
     },
     "include": [
         "src/**/*"
-    ],
-    "references": [
-        {
-            "path": "../config"
-        },
-        {
-            "path": "../newrelic"
-        },
-        {
-            "path": "../types"
-        }
     ]
 }

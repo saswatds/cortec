@@ -13,6 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install Dependencies
-        run: yarn install --ignore-scripts
+        run: pnpm i --ignore-scripts
       - name: Unit Tests
-        run: yarn test
+        run: pnpm test

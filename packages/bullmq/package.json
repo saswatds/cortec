@@ -11,25 +11,24 @@
   "scripts": {
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
     "depcheck": "depcheck --ignore-patterns=dist",
-    "prepack": "yarn build",
-    "build": "yarn clean && yarn compile",
-    "compile": "tsc --build",
+    "check-types": "tsc --noEmit",
+    "build": "tsc --build",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
-    "test": "yarn build && jest --passWithNoTests",
+    "test": "jest --passWithNoTests",
     "ci": "jest --passWithNoTests --maxWorker=20%"
   },
   "files": [
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "^1.13.0"
+    "@cortec/types": "workspace:*"
   },
   "peerDependencies": {
     "bullmq": ">=3"
   },
   "devDependencies": {
-    "@cortec/config": "^2.1.0",
-    "@cortec/redis": "^1.8.0",
+    "@cortec/config": "workspace:*",
+    "@cortec/redis": "workspace:*",
     "bullmq": "^3.10.2"
   },
   "typedoc": {
