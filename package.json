@@ -49,7 +49,7 @@
     "depcheck": "turbo depcheck",
     "ci": "turbo ci",
     "docs": "typedoc && open doc/index.html",
-    "publish-packages": "turbo build lint test && changeset version && changeset publish"
+    "publish-packages": "turbo build && pnpm changeset-conventional && changeset version && git add -A && git commit -m \"chore: release\" && changeset publish && git push origin"
   },
   "commitlint": {
     "extends": [
