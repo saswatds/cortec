@@ -7,19 +7,5 @@
     },
     "include": [
         "src/**/*"
-    ],
-    "references": [
-        {
-            "path": "../config"
-        },
-        {
-            "path": "../newrelic"
-        },
-        {
-            "path": "../polka"
-        },
-        {
-            "path": "../types"
-        }
     ]
 }

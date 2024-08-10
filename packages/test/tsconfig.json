@@ -7,40 +7,5 @@
     },
     "include": [
         "src/**/*"
-    ],
-    "references": [
-        {
-            "path": "../axios"
-        },
-        {
-            "path": "../config"
-        },
-        {
-            "path": "../core"
-        },
-        {
-            "path": "../dynamic-config"
-        },
-        {
-            "path": "../mongodb"
-        },
-        {
-            "path": "../newrelic"
-        },
-        {
-            "path": "../polka"
-        },
-        {
-            "path": "../rabbitmq"
-        },
-        {
-            "path": "../redis"
-        },
-        {
-            "path": "../sentry"
-        },
-        {
-            "path": "../server"
-        }
     ]
 }

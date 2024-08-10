@@ -7,25 +7,5 @@
     },
     "include": [
         "src/**/*"
-    ],
-    "references": [
-        {
-            "path": "../config"
-        },
-        {
-            "path": "../logger"
-        },
-        {
-            "path": "../newrelic"
-        },
-        {
-            "path": "../redis"
-        },
-        {
-            "path": "../sentry"
-        },
-        {
-            "path": "../types"
-        }
     ]
 }

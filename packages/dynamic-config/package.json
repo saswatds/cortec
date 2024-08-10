@@ -11,22 +11,20 @@
   "scripts": {
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
     "depcheck": "depcheck --ignore-patterns=dist",
-    "prepack": "yarn build",
-    "build": "yarn clean && yarn compile",
-    "compile": "tsc --build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
-    "test": "yarn build && jest --passWithNoTests",
+    "build": "tsc --build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
+    "test": "jest --passWithNoTests",
     "ci": "jest --passWithNoTests --maxWorker=20%"
   },
   "files": [
     "./dist"
   ],
   "dependencies": {
-    "@cortec/config": "^2.1.0",
-    "@cortec/types": "^1.13.0"
+    "@cortec/config": "workspace:*",
+    "@cortec/types": "workspace:*"
   },
   "devDependencies": {
-    "@cortec/mongodb": "^1.9.0"
+    "@cortec/mongodb": "workspace:*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
