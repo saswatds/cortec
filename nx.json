@@ -21,12 +21,16 @@
   },
   "plugins": [],
   "release": {
+    "releaseTagPattern": "{version}",
     "version": {
       "conventionalCommits": true
     },
+    "git": {
+      "commitMessage": "chore(release): {version}"
+    },
     "projects": [
-      "*",
-      "!test"
+      "packages/*",
+      "!packages/test"
     ]
   }
 }
