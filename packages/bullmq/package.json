@@ -18,14 +18,14 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "1.15.0"
+    "@cortec/types": "workspace:*"
   },
   "peerDependencies": {
     "bullmq": ">=3"
   },
   "devDependencies": {
-    "@cortec/config": "2.3.0",
-    "@cortec/redis": "1.10.0",
+    "@cortec/config": "workspace:*",
+    "@cortec/redis": "workspace:*",
     "bullmq": "^3.10.2"
   },
   "typedoc": {

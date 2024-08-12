@@ -18,7 +18,7 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "1.15.0",
+    "@cortec/types": "workspace:*",
     "config": "^3.3.11",
     "js-yaml": "^4.1.0",
     "zod": "^3.23.5",

@@ -18,10 +18,10 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "1.15.0"
+    "@cortec/types": "workspace:*"
   },
   "devDependencies": {
-    "@cortec/config": "2.3.0",
+    "@cortec/config": "workspace:*",
     "mongodb": "^5.1.0"
   },
   "typedoc": {

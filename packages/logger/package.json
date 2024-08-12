@@ -18,14 +18,14 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "1.15.0",
+    "@cortec/types": "workspace:*",
     "@types/flat": "^5.0.2",
     "flat": "^5.0.2",
     "pino": "^8.11.0"
   },
   "devDependencies": {
-    "@cortec/config": "2.3.0",
-    "@cortec/newrelic": "1.8.0"
+    "@cortec/config": "workspace:*",
+    "@cortec/newrelic": "workspace:*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
