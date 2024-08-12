@@ -91,7 +91,7 @@ importers:
         version: 6.0.1
       ts-jest:
         specifier: ^29.0.3
-        version: 29.0.5(@babel/core@7.25.2)(@jest/types@29.5.0)(babel-jest@29.5.0(@babel/core@7.25.2))(jest@29.5.0(@types/node@18.15.5)(ts-node@10.9.1(@swc/core@1.7.10)(@types/node@18.15.5)(typescript@4.9.5)))(typescript@4.9.5)
+        version: 29.0.5(@babel/core@7.21.3)(@jest/types@29.5.0)(babel-jest@29.5.0(@babel/core@7.21.3))(jest@29.5.0(@types/node@18.15.5)(ts-node@10.9.1(@swc/core@1.7.10)(@types/node@18.15.5)(typescript@4.9.5)))(typescript@4.9.5)
       ts-node:
         specifier: ^10.9.1
         version: 10.9.1(@swc/core@1.7.10)(@types/node@18.15.5)(typescript@4.9.5)
@@ -105,21 +105,21 @@ importers:
   packages/axios:
     dependencies:
       '@cortec/polka':
-        specifier: workspace:*
-        version: link:../polka
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
       lodash.capitalize:
         specifier: ^4.2.1
         version: 4.2.1
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/newrelic':
-        specifier: workspace:*
-        version: link:../newrelic
+        specifier: 1.8.0
+        version: 1.8.0(newrelic@9.14.1)
       '@types/lodash.capitalize':
         specifier: ^4.2.9
         version: 4.2.9
@@ -130,15 +130,15 @@ importers:
   packages/bullmq:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/redis':
-        specifier: workspace:*
-        version: link:../redis
+        specifier: 1.10.0
+        version: 1.10.0(ioredis@5.3.1)
       bullmq:
         specifier: ^3.10.2
         version: 3.10.2
@@ -146,12 +146,12 @@ importers:
   packages/cassandra:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       aws-sigv4-auth-cassandra-plugin:
         specifier: ^1.0.4
         version: 1.0.4
@@ -162,8 +162,8 @@ importers:
   packages/config:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
       config:
         specifier: ^3.3.11
         version: 3.3.11
@@ -184,11 +184,11 @@ importers:
   packages/core:
     dependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
       '@types/exit':
         specifier: ^0.1.31
         version: 0.1.31
@@ -220,21 +220,21 @@ importers:
   packages/dynamic-config:
     dependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
     devDependencies:
       '@cortec/mongodb':
-        specifier: workspace:*
-        version: link:../mongodb
+        specifier: 1.10.0
+        version: 1.10.0
 
   packages/logger:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
       '@types/flat':
         specifier: ^5.0.2
         version: 5.0.2
@@ -246,21 +246,21 @@ importers:
         version: 8.11.0
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/newrelic':
-        specifier: workspace:*
-        version: link:../newrelic
+        specifier: 1.8.0
+        version: 1.8.0(newrelic@9.14.1)
 
   packages/mongodb:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       mongodb:
         specifier: ^5.1.0
         version: 5.1.0
@@ -268,8 +268,8 @@ importers:
   packages/newrelic:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
     devDependencies:
       '@types/newrelic':
         specifier: ^9.4.0
@@ -318,23 +318,23 @@ importers:
         version: 1.1.0(zod@3.23.5)
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/logger':
-        specifier: workspace:*
-        version: link:../logger
+        specifier: 1.6.0
+        version: 1.6.0
       '@cortec/newrelic':
-        specifier: workspace:*
-        version: link:../newrelic
+        specifier: 1.8.0
+        version: 1.8.0(newrelic@9.14.1)
       '@cortec/redis':
-        specifier: workspace:*
-        version: link:../redis
+        specifier: 1.10.0
+        version: 1.10.0(ioredis@5.3.1)
       '@cortec/sentry':
-        specifier: workspace:*
-        version: link:../sentry
+        specifier: 1.7.0
+        version: 1.7.0(@sentry/node@7.44.2)
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
       '@total-typescript/ts-reset':
         specifier: ^0.4.2
         version: 0.4.2
@@ -355,14 +355,14 @@ importers:
         version: 0.10.4
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/newrelic':
-        specifier: workspace:*
-        version: link:../newrelic
+        specifier: 1.8.0
+        version: 1.8.0(newrelic@9.14.1)
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
       '@types/amqplib':
         specifier: ^0.10.5
         version: 0.10.5
@@ -370,12 +370,12 @@ importers:
   packages/redis:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       ioredis:
         specifier: ^5.3.1
         version: 5.3.1
@@ -383,12 +383,12 @@ importers:
   packages/sentry:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@sentry/node':
         specifier: ^7.44.2
         version: 7.44.2
@@ -396,21 +396,21 @@ importers:
   packages/server:
     dependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
 
   packages/storage:
     dependencies:
       '@cortec/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: 1.15.0
+        version: 1.15.0
     devDependencies:
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -424,35 +424,35 @@ importers:
         specifier: workspace:*
         version: link:../axios
       '@cortec/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: 1.14.0
+        version: 1.14.0
       '@cortec/dynamic-config':
-        specifier: workspace:*
-        version: link:../dynamic-config
+        specifier: 1.3.0
+        version: 1.3.0
       '@cortec/mongodb':
-        specifier: workspace:*
-        version: link:../mongodb
+        specifier: 1.10.0
+        version: 1.10.0
       '@cortec/newrelic':
-        specifier: workspace:*
-        version: link:../newrelic
+        specifier: 1.8.0
+        version: 1.8.0(newrelic@9.14.1)
       '@cortec/polka':
-        specifier: workspace:*
-        version: link:../polka
+        specifier: 2.3.0
+        version: 2.3.0
       '@cortec/rabbitmq':
-        specifier: workspace:*
-        version: link:../rabbitmq
+        specifier: 1.11.0
+        version: 1.11.0
       '@cortec/redis':
-        specifier: workspace:*
-        version: link:../redis
+        specifier: 1.10.0
+        version: 1.10.0(ioredis@5.3.1)
       '@cortec/sentry':
-        specifier: workspace:*
-        version: link:../sentry
+        specifier: 1.7.0
+        version: 1.7.0(@sentry/node@7.44.2)
       '@cortec/server':
-        specifier: workspace:*
-        version: link:../server
+        specifier: 1.9.0
+        version: 1.9.0
       config:
         specifier: ^3.3.9
         version: 3.3.11
@@ -1302,6 +1302,54 @@ packages:
   '@contrast/fn-inspect@3.3.0':
     resolution: {integrity: sha512-iulijoAuhfamXZNWsEy4ORNd8TxqD6aKeMiukDpWSwuRJ3sB+4lOmY2DkP2WwlBpYMmh3k4/7LHP2I925Y2xKQ==}
     engines: {node: '>=12.13.0'}
+
+  '@cortec/config@2.2.0':
+    resolution: {integrity: sha512-574qjblf52fqyKE90RFU7RtXfrvL6QyQQmAFXDvUDylIa5Uzuwt6L+/9jH65IMfg6QrA4i0ZrGtyH1cwasv0LA==}
+
+  '@cortec/config@2.3.0':
+    resolution: {integrity: sha512-jGl3FvE8FjEjMn7wzsHLxtkvWMiy42rly77gzDbwnnMQQHUYr/h0yO5Kncl/TA4hv4KJsGUUxFF5klYIWIByLQ==}
+
+  '@cortec/core@1.14.0':
+    resolution: {integrity: sha512-Sj0XEBAWvKmcFzmp0CyFifYG49+VpfPD10clAAXHxBcvlaWZbIWxZEvriWiGXbpKPLt4jjZ4vNXHxp8CO98M0w==}
+
+  '@cortec/dynamic-config@1.3.0':
+    resolution: {integrity: sha512-6986da/MaApuOuSs1IqUBM+S19cTKQDGAzxcxRQf6+NT4xt+OrPhSpgiadw4ALmJkTSFM60cLin0BQXfTnFykg==}
+
+  '@cortec/logger@1.6.0':
+    resolution: {integrity: sha512-HuQh2qQBu1Koc93p3gP5ZLw8lzPQh+Jx2ckUreISF8dtkyWi4zfDixC1iuRS8J7ucd4rwfQygnsstHOCGmAG2w==}
+
+  '@cortec/mongodb@1.10.0':
+    resolution: {integrity: sha512-NyySAQugQsAhqnZlvSANxltxPrnVA2jtwUYTH79C4SeW1muqjA8OuTYePwVb4ra5Rqonr5WlxRfQn33heu9PrQ==}
+
+  '@cortec/newrelic@1.8.0':
+    resolution: {integrity: sha512-hOCPSGq9srfvOUhhjZ2mkoRR/R7UVaFCHlds9OV+bjKcBv0/g79pKAphbhDMxzIqRR0LaGmM6XfOTuy6W9PBQA==}
+    peerDependencies:
+      newrelic: '>=9'
+
+  '@cortec/polka@2.3.0':
+    resolution: {integrity: sha512-v1sG9VLAtoAKtPBlgHAovQa7WaID3dgqfGSxbpgBoNghxToPvJlIpEdOyAiFQGuF+xlKNQQUphS5nrVIOpyekQ==}
+
+  '@cortec/rabbitmq@1.11.0':
+    resolution: {integrity: sha512-m7G+Fkjvc3O59mb5ZykeDS/5ypw6G5TwNlNwGVOXn7mtJDufHWA1rylbqgBwZDAZfX0gzE6TujtZbVdTn8ESuA==}
+
+  '@cortec/redis@1.10.0':
+    resolution: {integrity: sha512-Ls+gj3Aq9tPCCSL986tc0Ei99L91obqVK21oQkdb0VF4RdRkZLfehRz23cd256O/4+ghriY8z4TG92t0xws3ng==}
+    peerDependencies:
+      ioredis: '>=5'
+
+  '@cortec/sentry@1.7.0':
+    resolution: {integrity: sha512-Tahh7Ty5bQlqjjqAUFR6tlOFLzdBrFHd4PwvH/2rFRCXJtoPU52WKB38Fr2MMVhOb+wtQ1xktQtuKzORwX+cDg==}
+    peerDependencies:
+      '@sentry/node': '>=7'
+
+  '@cortec/server@1.9.0':
+    resolution: {integrity: sha512-d2cQyLHl+TbSMWXGZia6HZ4X1m3XuPgVHqJANga8PZMnsVCzIWu7/ManyA1UqsDU6I1okDcC8vnOja9PhtworA==}
+
+  '@cortec/types@1.14.0':
+    resolution: {integrity: sha512-500F679RISq+RrYV0r786UUeAQn9308NFJr36dwPPLBfMa+1j5NdPZkEJMNkEh+5Nn6c/o3uG9Sce3vdbx3AnA==}
+
+  '@cortec/types@1.15.0':
+    resolution: {integrity: sha512-aPhkCp7G/A6tOVNkRxV9DYE9kpeLM4+Cxtkfg6KOLAh0bmSyJpvqIUGfUUcVUnu5t6cFDaP05oQ2/kRkAV8QeQ==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -6682,12 +6730,6 @@ snapshots:
       '@babel/core': 7.21.3
       '@babel/helper-plugin-utils': 7.20.2
 
-  '@babel/plugin-syntax-bigint@7.8.3(@babel/core@7.25.2)':
-    dependencies:
-      '@babel/core': 7.25.2
-      '@babel/helper-plugin-utils': 7.20.2
-    optional: true
-
   '@babel/plugin-syntax-class-properties@7.12.13(@babel/core@7.21.3)':
     dependencies:
       '@babel/core': 7.21.3
@@ -7550,6 +7592,103 @@ snapshots:
       nan: 2.17.0
       node-gyp-build: 4.6.0
     optional: true
+
+  '@cortec/config@2.2.0':
+    dependencies:
+      '@cortec/types': 1.14.0
+      config: 3.3.11
+      js-yaml: 4.1.0
+      zod: 3.23.5
+      zod-validation-error: 3.2.0(zod@3.23.5)
+
+  '@cortec/config@2.3.0':
+    dependencies:
+      '@cortec/types': 1.15.0
+      config: 3.3.11
+      js-yaml: 4.1.0
+      zod: 3.23.5
+      zod-validation-error: 3.2.0(zod@3.23.5)
+
+  '@cortec/core@1.14.0':
+    dependencies:
+      '@cortec/config': 2.3.0
+      '@cortec/types': 1.15.0
+      '@types/exit': 0.1.31
+      '@types/promise-timeout': 1.3.0
+      '@types/signale': 1.4.4
+      '@types/wtfnode': 0.7.0
+      exit: 0.1.2
+      p-each-series: 2.2.0
+      promise-timeout: 1.3.0
+      signale: 1.4.0
+      wtfnode: 0.9.1
+
+  '@cortec/dynamic-config@1.3.0':
+    dependencies:
+      '@cortec/config': 2.2.0
+      '@cortec/types': 1.14.0
+
+  '@cortec/logger@1.6.0':
+    dependencies:
+      '@cortec/types': 1.15.0
+      '@types/flat': 5.0.2
+      flat: 5.0.2
+      pino: 8.11.0
+
+  '@cortec/mongodb@1.10.0':
+    dependencies:
+      '@cortec/types': 1.14.0
+
+  '@cortec/newrelic@1.8.0(newrelic@9.14.1)':
+    dependencies:
+      '@cortec/types': 1.15.0
+      newrelic: 9.14.1
+
+  '@cortec/polka@2.3.0':
+    dependencies:
+      '@types/body-parser': 1.19.5
+      '@types/serve-static': 1.15.7
+      body-parser: 1.20.2
+      compression: 1.7.4
+      cors: 2.8.5
+      helmet: 6.0.1
+      nanoid: 3.3.7
+      polka: 0.5.2
+      rate-limiter-flexible: 2.4.1
+      serve-static: 1.15.0
+      zod: 3.23.5
+      zod-validation-error: 1.1.0(zod@3.23.5)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@cortec/rabbitmq@1.11.0':
+    dependencies:
+      amqplib: 0.10.4
+    transitivePeerDependencies:
+      - supports-color
+
+  '@cortec/redis@1.10.0(ioredis@5.3.1)':
+    dependencies:
+      '@cortec/types': 1.15.0
+      ioredis: 5.3.1
+
+  '@cortec/sentry@1.7.0(@sentry/node@7.44.2)':
+    dependencies:
+      '@cortec/types': 1.15.0
+      '@sentry/node': 7.44.2
+
+  '@cortec/server@1.9.0':
+    dependencies:
+      '@cortec/config': 2.3.0
+      '@cortec/types': 1.15.0
+
+  '@cortec/types@1.14.0':
+    dependencies:
+      '@types/signale': 1.4.4
+
+  '@cortec/types@1.15.0':
+    dependencies:
+      '@types/signale': 1.4.4
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -9259,20 +9398,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  babel-jest@29.5.0(@babel/core@7.25.2):
-    dependencies:
-      '@babel/core': 7.25.2
-      '@jest/transform': 29.5.0
-      '@types/babel__core': 7.20.0
-      babel-plugin-istanbul: 6.1.1
-      babel-preset-jest: 29.5.0(@babel/core@7.25.2)
-      chalk: 4.1.2
-      graceful-fs: 4.2.11
-      slash: 3.0.0
-    transitivePeerDependencies:
-      - supports-color
-    optional: true
-
   babel-plugin-const-enum@1.2.0(@babel/core@7.25.2):
     dependencies:
       '@babel/core': 7.25.2
@@ -9352,35 +9477,11 @@ snapshots:
       '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.21.3)
       '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.21.3)
 
-  babel-preset-current-node-syntax@1.0.1(@babel/core@7.25.2):
-    dependencies:
-      '@babel/core': 7.25.2
-      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.25.2)
-      '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.25.2)
-      '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.25.2)
-      '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.25.2)
-      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.25.2)
-      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.25.2)
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.25.2)
-      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.25.2)
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.25.2)
-      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.25.2)
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.25.2)
-      '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.25.2)
-    optional: true
-
   babel-preset-jest@29.5.0(@babel/core@7.21.3):
     dependencies:
       '@babel/core': 7.21.3
       babel-plugin-jest-hoist: 29.5.0
       babel-preset-current-node-syntax: 1.0.1(@babel/core@7.21.3)
-
-  babel-preset-jest@29.5.0(@babel/core@7.25.2):
-    dependencies:
-      '@babel/core': 7.25.2
-      babel-plugin-jest-hoist: 29.5.0
-      babel-preset-current-node-syntax: 1.0.1(@babel/core@7.25.2)
-    optional: true
 
   balanced-match@1.0.2: {}
 
@@ -13313,7 +13414,7 @@ snapshots:
 
   ts-dedent@2.2.0: {}
 
-  ts-jest@29.0.5(@babel/core@7.25.2)(@jest/types@29.5.0)(babel-jest@29.5.0(@babel/core@7.25.2))(jest@29.5.0(@types/node@18.15.5)(ts-node@10.9.1(@swc/core@1.7.10)(@types/node@18.15.5)(typescript@4.9.5)))(typescript@4.9.5):
+  ts-jest@29.0.5(@babel/core@7.21.3)(@jest/types@29.5.0)(babel-jest@29.5.0(@babel/core@7.21.3))(jest@29.5.0(@types/node@18.15.5)(ts-node@10.9.1(@swc/core@1.7.10)(@types/node@18.15.5)(typescript@4.9.5)))(typescript@4.9.5):
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
@@ -13326,9 +13427,9 @@ snapshots:
       typescript: 4.9.5
       yargs-parser: 21.1.1
     optionalDependencies:
-      '@babel/core': 7.25.2
+      '@babel/core': 7.21.3
       '@jest/types': 29.5.0
-      babel-jest: 29.5.0(@babel/core@7.25.2)
+      babel-jest: 29.5.0(@babel/core@7.21.3)
 
   ts-node@10.9.1(@swc/core@1.7.10)(@types/node@18.15.5)(typescript@4.9.5):
     dependencies:
