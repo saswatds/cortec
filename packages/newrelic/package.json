@@ -1,6 +1,6 @@
 {
   "name": "@cortec/newrelic",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "workspace:*"
+    "@cortec/types": "1.15.0"
   },
   "peerDependencies": {
     "newrelic": ">=9"

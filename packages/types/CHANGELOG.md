@@ -1,3 +1,10 @@
+## 1.15.0 (2024-08-12)
+
+
+### 🚀 Features
+
+- setup publish command
+
 # Change Log
 
 ## 1.14.0

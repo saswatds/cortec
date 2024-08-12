@@ -1,3 +1,16 @@
+## 1.11.0 (2024-08-12)
+
+
+### 🚀 Features
+
+- setup publish command
+
+
+### 🧱 Updated Dependencies
+
+- Updated @cortec/config to 2.3.0
+- Updated @cortec/types to 1.15.0
+
 # Change Log
 
 ## 1.10.0

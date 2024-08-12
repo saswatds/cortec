@@ -1,6 +1,6 @@
 {
   "name": "@cortec/config",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "workspace:*",
+    "@cortec/types": "1.15.0",
     "config": "^3.3.11",
     "js-yaml": "^4.1.0",
     "zod": "^3.23.5",

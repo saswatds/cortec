@@ -1,6 +1,6 @@
 {
   "name": "@cortec/polka",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,12 +35,12 @@
     "zod-validation-error": "^1.1.0"
   },
   "devDependencies": {
-    "@cortec/config": "workspace:*",
-    "@cortec/logger": "workspace:*",
-    "@cortec/newrelic": "workspace:*",
-    "@cortec/redis": "workspace:*",
-    "@cortec/sentry": "workspace:*",
-    "@cortec/types": "workspace:*",
+    "@cortec/config": "2.3.0",
+    "@cortec/logger": "1.6.0",
+    "@cortec/newrelic": "1.8.0",
+    "@cortec/redis": "1.10.0",
+    "@cortec/sentry": "1.7.0",
+    "@cortec/types": "1.15.0",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.17",
