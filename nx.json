@@ -31,7 +31,8 @@
     "version": {
       "conventionalCommits": true,
       "generatorOptions": {
-        "updateDependents": "auto"
+        "updateDependents": "auto",
+        "skipLockFileUpdate": true
       }
     },
     "git": {
