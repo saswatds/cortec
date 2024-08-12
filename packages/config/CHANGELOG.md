@@ -1,30 +1,11 @@
-## 2.3.0 (2024-08-12)
-
-
-### 🚀 Features
-
-- setup publish command
-
-
-### 🧱 Updated Dependencies
-
-- Updated @cortec/types to 1.15.0
-
 # Change Log
-
-## 2.2.0
-
-### Minor Changes
-
-- feat: migrated to use pnpm and turborepo
-
-### Patch Changes
-
-- Updated dependencies
-  - @cortec/types@1.14.0
 
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.3.1](https://github.com/saswatds/cortec/compare/@cortec/config@2.3.0...@cortec/config@2.3.1) (2024-08-12)
+
+**Note:** Version bump only for package @cortec/config
 
 ## [2.1.0](https://github.com/saswatds/cortec/compare/@cortec/config@2.0.0...@cortec/config@2.1.0) (2024-07-30)
 

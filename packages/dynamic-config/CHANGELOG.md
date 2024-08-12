@@ -1,19 +1,11 @@
 # Change Log
 
-## 1.3.0
-
-### Minor Changes
-
-- feat: migrated to use pnpm and turborepo
-
-### Patch Changes
-
-- Updated dependencies
-  - @cortec/config@2.2.0
-  - @cortec/types@1.14.0
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.4.1](https://github.com/saswatds/cortec/compare/@cortec/dynamic-config@1.4.0...@cortec/dynamic-config@1.4.1) (2024-08-12)
+
+**Note:** Version bump only for package @cortec/dynamic-config
 
 ## [1.2.1](https://github.com/saswatds/cortec/compare/@cortec/dynamic-config@1.2.0...@cortec/dynamic-config@1.2.1) (2024-07-31)
 

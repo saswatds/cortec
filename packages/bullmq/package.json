@@ -1,6 +1,6 @@
 {
   "name": "@cortec/bullmq",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

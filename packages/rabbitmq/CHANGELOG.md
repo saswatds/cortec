@@ -1,27 +1,11 @@
-## 1.11.0 (2024-08-12)
-
-
-### 🚀 Features
-
-- setup publish command
-
-
-### 🧱 Updated Dependencies
-
-- Updated @cortec/newrelic to 1.8.0
-- Updated @cortec/config to 2.3.0
-- Updated @cortec/types to 1.15.0
-
 # Change Log
-
-## 1.10.0
-
-### Minor Changes
-
-- feat: migrated to use pnpm and turborepo
 
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.11.1](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.11.0...@cortec/rabbitmq@1.11.1) (2024-08-12)
+
+**Note:** Version bump only for package @cortec/rabbitmq
 
 ## [1.9.0](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.8.0...@cortec/rabbitmq@1.9.0) (2024-07-30)
 

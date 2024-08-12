@@ -1,31 +1,11 @@
-## 1.7.0 (2024-08-12)
-
-
-### 🚀 Features
-
-- setup publish command
-
-
-### 🧱 Updated Dependencies
-
-- Updated @cortec/config to 2.3.0
-- Updated @cortec/types to 1.15.0
-
 # Change Log
-
-## 1.6.0
-
-### Minor Changes
-
-- feat: migrated to use pnpm and turborepo
-
-### Patch Changes
-
-- Updated dependencies
-  - @cortec/types@1.14.0
 
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.7.1](https://github.com/saswatds/cortec/compare/@cortec/cassandra@1.7.0...@cortec/cassandra@1.7.1) (2024-08-12)
+
+**Note:** Version bump only for package @cortec/cassandra
 
 ## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/cassandra@1.4.12...@cortec/cassandra@1.5.0) (2024-07-30)
 
