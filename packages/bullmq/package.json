@@ -9,13 +9,10 @@
   "license": "MIT",
   "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
   "scripts": {
-    "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
     "depcheck": "depcheck --ignore-patterns=dist",
-    "check-types": "tsc --noEmit",
     "build": "tsc --build",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
-    "test": "jest --passWithNoTests",
-    "ci": "jest --passWithNoTests --maxWorker=20%"
+    "test": "jest --passWithNoTests"
   },
   "files": [
     "./dist"
