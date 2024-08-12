@@ -18,14 +18,14 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "1.15.0"
+    "@cortec/types": "workspace:*"
   },
   "peerDependencies": {
     "aws-sigv4-auth-cassandra-plugin": "^1.0.4",
     "cassandra-driver": "^4.6.4"
   },
   "devDependencies": {
-    "@cortec/config": "2.3.0",
+    "@cortec/config": "workspace:*",
     "aws-sigv4-auth-cassandra-plugin": "^1.0.4",
     "cassandra-driver": "^4.6.4"
   },

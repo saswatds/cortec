@@ -18,13 +18,13 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "1.15.0"
+    "@cortec/types": "workspace:*"
   },
   "peerDependencies": {
     "@sentry/node": ">=7"
   },
   "devDependencies": {
-    "@cortec/config": "2.3.0",
+    "@cortec/config": "workspace:*",
     "@sentry/node": "^7.44.2"
   },
   "typedoc": {

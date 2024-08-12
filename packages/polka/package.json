@@ -35,12 +35,12 @@
     "zod-validation-error": "^1.1.0"
   },
   "devDependencies": {
-    "@cortec/config": "2.3.0",
-    "@cortec/logger": "1.6.0",
-    "@cortec/newrelic": "1.8.0",
-    "@cortec/redis": "1.10.0",
-    "@cortec/sentry": "1.7.0",
-    "@cortec/types": "1.15.0",
+    "@cortec/config": "workspace:*",
+    "@cortec/logger": "workspace:*",
+    "@cortec/newrelic": "workspace:*",
+    "@cortec/redis": "workspace:*",
+    "@cortec/sentry": "workspace:*",
+    "@cortec/types": "workspace:*",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.17",

@@ -77,9 +77,6 @@ importers:
       prettier:
         specifier: ^2.7.1
         version: 2.8.6
-      rimraf:
-        specifier: ^6.0.1
-        version: 6.0.1
       ts-jest:
         specifier: ^29.0.3
         version: 29.0.5(@babel/core@7.21.3)(@jest/types@29.5.0)(babel-jest@29.5.0(@babel/core@7.21.3))(jest@29.5.0(@types/node@18.15.5)(ts-node@10.9.1(@swc/core@1.7.10)(@types/node@18.15.5)(typescript@4.9.5)))(typescript@4.9.5)
@@ -96,21 +93,21 @@ importers:
   packages/axios:
     dependencies:
       '@cortec/polka':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../polka
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
       lodash.capitalize:
         specifier: ^4.2.1
         version: 4.2.1
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@cortec/newrelic':
-        specifier: 1.8.0
-        version: 1.8.0(newrelic@9.14.1)
+        specifier: workspace:*
+        version: link:../newrelic
       '@types/lodash.capitalize':
         specifier: ^4.2.9
         version: 4.2.9
@@ -121,15 +118,15 @@ importers:
   packages/bullmq:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@cortec/redis':
-        specifier: 1.10.0
-        version: 1.10.0(ioredis@5.3.1)
+        specifier: workspace:*
+        version: link:../redis
       bullmq:
         specifier: ^3.10.2
         version: 3.10.2
@@ -137,12 +134,12 @@ importers:
   packages/cassandra:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       aws-sigv4-auth-cassandra-plugin:
         specifier: ^1.0.4
         version: 1.0.4
@@ -153,8 +150,8 @@ importers:
   packages/config:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
       config:
         specifier: ^3.3.11
         version: 3.3.11
@@ -175,11 +172,11 @@ importers:
   packages/core:
     dependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
       '@types/exit':
         specifier: ^0.1.31
         version: 0.1.31
@@ -211,21 +208,21 @@ importers:
   packages/dynamic-config:
     dependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@cortec/mongodb':
-        specifier: 1.10.0
-        version: 1.10.0
+        specifier: workspace:*
+        version: link:../mongodb
 
   packages/logger:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
       '@types/flat':
         specifier: ^5.0.2
         version: 5.0.2
@@ -237,21 +234,21 @@ importers:
         version: 8.11.0
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@cortec/newrelic':
-        specifier: 1.8.0
-        version: 1.8.0(newrelic@9.14.1)
+        specifier: workspace:*
+        version: link:../newrelic
 
   packages/mongodb:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       mongodb:
         specifier: ^5.1.0
         version: 5.1.0
@@ -259,8 +256,8 @@ importers:
   packages/newrelic:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@types/newrelic':
         specifier: ^9.4.0
@@ -309,23 +306,23 @@ importers:
         version: 1.1.0(zod@3.23.5)
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@cortec/logger':
-        specifier: 1.6.0
-        version: 1.6.0
+        specifier: workspace:*
+        version: link:../logger
       '@cortec/newrelic':
-        specifier: 1.8.0
-        version: 1.8.0(newrelic@9.14.1)
+        specifier: workspace:*
+        version: link:../newrelic
       '@cortec/redis':
-        specifier: 1.10.0
-        version: 1.10.0(ioredis@5.3.1)
+        specifier: workspace:*
+        version: link:../redis
       '@cortec/sentry':
-        specifier: 1.7.0
-        version: 1.7.0(@sentry/node@7.44.2)
+        specifier: workspace:*
+        version: link:../sentry
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
       '@total-typescript/ts-reset':
         specifier: ^0.4.2
         version: 0.4.2
@@ -346,14 +343,14 @@ importers:
         version: 0.10.4
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@cortec/newrelic':
-        specifier: 1.8.0
-        version: 1.8.0(newrelic@9.14.1)
+        specifier: workspace:*
+        version: link:../newrelic
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
       '@types/amqplib':
         specifier: ^0.10.5
         version: 0.10.5
@@ -361,12 +358,12 @@ importers:
   packages/redis:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       ioredis:
         specifier: ^5.3.1
         version: 5.3.1
@@ -374,12 +371,12 @@ importers:
   packages/sentry:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@sentry/node':
         specifier: ^7.44.2
         version: 7.44.2
@@ -396,12 +393,12 @@ importers:
   packages/storage:
     dependencies:
       '@cortec/types':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -415,35 +412,35 @@ importers:
         specifier: workspace:*
         version: link:../axios
       '@cortec/config':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../config
       '@cortec/core':
-        specifier: 1.14.0
-        version: 1.14.0
+        specifier: workspace:*
+        version: link:../core
       '@cortec/dynamic-config':
-        specifier: 1.3.0
-        version: 1.3.0
+        specifier: workspace:*
+        version: link:../dynamic-config
       '@cortec/mongodb':
-        specifier: 1.10.0
-        version: 1.10.0
+        specifier: workspace:*
+        version: link:../mongodb
       '@cortec/newrelic':
-        specifier: 1.8.0
-        version: 1.8.0(newrelic@9.14.1)
+        specifier: workspace:*
+        version: link:../newrelic
       '@cortec/polka':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: workspace:*
+        version: link:../polka
       '@cortec/rabbitmq':
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: workspace:*
+        version: link:../rabbitmq
       '@cortec/redis':
-        specifier: 1.10.0
-        version: 1.10.0(ioredis@5.3.1)
+        specifier: workspace:*
+        version: link:../redis
       '@cortec/sentry':
-        specifier: 1.7.0
-        version: 1.7.0(@sentry/node@7.44.2)
+        specifier: workspace:*
+        version: link:../sentry
       '@cortec/server':
-        specifier: 1.9.0
-        version: 1.9.0
+        specifier: workspace:*
+        version: link:../server
       config:
         specifier: ^3.3.9
         version: 3.3.11
@@ -756,50 +753,8 @@ packages:
     resolution: {integrity: sha512-iulijoAuhfamXZNWsEy4ORNd8TxqD6aKeMiukDpWSwuRJ3sB+4lOmY2DkP2WwlBpYMmh3k4/7LHP2I925Y2xKQ==}
     engines: {node: '>=12.13.0'}
 
-  '@cortec/config@2.2.0':
-    resolution: {integrity: sha512-574qjblf52fqyKE90RFU7RtXfrvL6QyQQmAFXDvUDylIa5Uzuwt6L+/9jH65IMfg6QrA4i0ZrGtyH1cwasv0LA==}
-
   '@cortec/config@2.3.0':
     resolution: {integrity: sha512-jGl3FvE8FjEjMn7wzsHLxtkvWMiy42rly77gzDbwnnMQQHUYr/h0yO5Kncl/TA4hv4KJsGUUxFF5klYIWIByLQ==}
-
-  '@cortec/core@1.14.0':
-    resolution: {integrity: sha512-Sj0XEBAWvKmcFzmp0CyFifYG49+VpfPD10clAAXHxBcvlaWZbIWxZEvriWiGXbpKPLt4jjZ4vNXHxp8CO98M0w==}
-
-  '@cortec/dynamic-config@1.3.0':
-    resolution: {integrity: sha512-6986da/MaApuOuSs1IqUBM+S19cTKQDGAzxcxRQf6+NT4xt+OrPhSpgiadw4ALmJkTSFM60cLin0BQXfTnFykg==}
-
-  '@cortec/logger@1.6.0':
-    resolution: {integrity: sha512-HuQh2qQBu1Koc93p3gP5ZLw8lzPQh+Jx2ckUreISF8dtkyWi4zfDixC1iuRS8J7ucd4rwfQygnsstHOCGmAG2w==}
-
-  '@cortec/mongodb@1.10.0':
-    resolution: {integrity: sha512-NyySAQugQsAhqnZlvSANxltxPrnVA2jtwUYTH79C4SeW1muqjA8OuTYePwVb4ra5Rqonr5WlxRfQn33heu9PrQ==}
-
-  '@cortec/newrelic@1.8.0':
-    resolution: {integrity: sha512-hOCPSGq9srfvOUhhjZ2mkoRR/R7UVaFCHlds9OV+bjKcBv0/g79pKAphbhDMxzIqRR0LaGmM6XfOTuy6W9PBQA==}
-    peerDependencies:
-      newrelic: '>=9'
-
-  '@cortec/polka@2.3.0':
-    resolution: {integrity: sha512-v1sG9VLAtoAKtPBlgHAovQa7WaID3dgqfGSxbpgBoNghxToPvJlIpEdOyAiFQGuF+xlKNQQUphS5nrVIOpyekQ==}
-
-  '@cortec/rabbitmq@1.11.0':
-    resolution: {integrity: sha512-m7G+Fkjvc3O59mb5ZykeDS/5ypw6G5TwNlNwGVOXn7mtJDufHWA1rylbqgBwZDAZfX0gzE6TujtZbVdTn8ESuA==}
-
-  '@cortec/redis@1.10.0':
-    resolution: {integrity: sha512-Ls+gj3Aq9tPCCSL986tc0Ei99L91obqVK21oQkdb0VF4RdRkZLfehRz23cd256O/4+ghriY8z4TG92t0xws3ng==}
-    peerDependencies:
-      ioredis: '>=5'
-
-  '@cortec/sentry@1.7.0':
-    resolution: {integrity: sha512-Tahh7Ty5bQlqjjqAUFR6tlOFLzdBrFHd4PwvH/2rFRCXJtoPU52WKB38Fr2MMVhOb+wtQ1xktQtuKzORwX+cDg==}
-    peerDependencies:
-      '@sentry/node': '>=7'
-
-  '@cortec/server@1.9.0':
-    resolution: {integrity: sha512-d2cQyLHl+TbSMWXGZia6HZ4X1m3XuPgVHqJANga8PZMnsVCzIWu7/ManyA1UqsDU6I1okDcC8vnOja9PhtworA==}
-
-  '@cortec/types@1.14.0':
-    resolution: {integrity: sha512-500F679RISq+RrYV0r786UUeAQn9308NFJr36dwPPLBfMa+1j5NdPZkEJMNkEh+5Nn6c/o3uG9Sce3vdbx3AnA==}
 
   '@cortec/types@1.15.0':
     resolution: {integrity: sha512-aPhkCp7G/A6tOVNkRxV9DYE9kpeLM4+Cxtkfg6KOLAh0bmSyJpvqIUGfUUcVUnu5t6cFDaP05oQ2/kRkAV8QeQ==}
@@ -866,10 +821,6 @@ packages:
 
   '@ioredis/commands@1.2.0':
     resolution: {integrity: sha512-Sx1pU8EM64o2BrqNpEO1CNLtKQwyhuXuqyfH7oGKCk+1a33d2r5saW8zNwm3j6BTExtjrv2BxTgzzkMwts6vGg==}
-
-  '@isaacs/cliui@8.0.2':
-    resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
-    engines: {node: '>=12'}
 
   '@isaacs/string-locale-compare@1.1.0':
     resolution: {integrity: sha512-SQ7Kzhh9+D+ZW9MA0zkYv3VXhIDNx+LzM6EJ+/65I3QY+enU6Itte7E5XX7EWrqLW2FN4n06GWzBnPoC3th2aQ==}
@@ -1319,10 +1270,6 @@ packages:
     resolution: {integrity: sha512-jjMmK1tnZbm1Jq5a7fBliM4gQwjxMU7TFoRNwIyzwlO+eHPRCFv/Nv+H/Gi1jc3WR7QURG8D5d0Tn12YGrUqBQ==}
     peerDependencies:
       typescript: ^3 || ^4
-
-  '@pkgjs/parseargs@0.11.0':
-    resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
-    engines: {node: '>=14'}
 
   '@pkgr/utils@2.3.1':
     resolution: {integrity: sha512-wfzX8kc1PMyUILA+1Z/EqoE4UCXGy0iRGMhPwdfae1+f0OXlLqCk+By+aMzgJBzR9AzS4CDizioG6Ss1gvAFJw==}
@@ -1827,10 +1774,6 @@ packages:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
 
-  ansi-regex@6.0.1:
-    resolution: {integrity: sha512-n5M855fKb2SsfMIiFFoVrABHJC8QtHwVx+mHWP3QcEqBHYienj5dHSgjbxtC0WEZXYt4wcD6zrQElDPhFuZgfA==}
-    engines: {node: '>=12'}
-
   ansi-sequence-parser@1.1.0:
     resolution: {integrity: sha512-lEm8mt52to2fT8GhciPCGeCXACSz2UwIN4X2e2LJSnZ5uAbn2/dsYdOmUXq0AtWS5cpAupysIneExOgH0Vd2TQ==}
 
@@ -1845,10 +1788,6 @@ packages:
   ansi-styles@5.2.0:
     resolution: {integrity: sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==}
     engines: {node: '>=10'}
-
-  ansi-styles@6.2.1:
-    resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
-    engines: {node: '>=12'}
 
   anymatch@3.1.3:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
@@ -2484,9 +2423,6 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eastasianwidth@0.2.0:
-    resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
-
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
@@ -2504,9 +2440,6 @@ packages:
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
-
-  emoji-regex@9.2.2:
-    resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
   encodeurl@1.0.2:
     resolution: {integrity: sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==}
@@ -2845,10 +2778,6 @@ packages:
   for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
 
-  foreground-child@3.3.0:
-    resolution: {integrity: sha512-Ld2g8rrAyMYFXBhEqMz8ZAHBi4J4uS1i/CxGMDnjyFWddMXLVcDp051DZfu+t7+ab7Wv6SMqpWmyFIj5UbfFvg==}
-    engines: {node: '>=14'}
-
   form-data@4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
     engines: {node: '>= 6'}
@@ -2975,11 +2904,6 @@ packages:
   glob-parent@6.0.2:
     resolution: {integrity: sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==}
     engines: {node: '>=10.13.0'}
-
-  glob@11.0.0:
-    resolution: {integrity: sha512-9UiX/Bl6J2yaBbxKoEBRm4Cipxgok8kQYcOPEhScPwebu2I0HoQOuYdIO6S3hLuWoZgpDpwQZMzTFxgpkyT76g==}
-    engines: {node: 20 || >=22}
-    hasBin: true
 
   glob@7.1.4:
     resolution: {integrity: sha512-hkLPepehmnKk41pUGm3sYxoFs/umurYfYJCerbXEyFIWcAzvpipAgVkBqqT9RBKMGjnq6kMuyYwha6csxbiM1A==}
@@ -3399,10 +3323,6 @@ packages:
     resolution: {integrity: sha512-nUsEMa9pBt/NOHqbcbeJEgqIlY/K7rVWUX6Lql2orY5e9roQOthbR3vtY4zzf2orPELg80fnxxk9zUyPlgwD1w==}
     engines: {node: '>=8'}
 
-  jackspeak@4.0.1:
-    resolution: {integrity: sha512-cub8rahkh0Q/bw1+GxP7aeSe29hHHn2V4m29nnDlvCdlgU+3UGxkZp7Z53jLUdpX3jdTO0nJZUDl3xvbWc2Xog==}
-    engines: {node: 20 || >=22}
-
   jake@10.8.5:
     resolution: {integrity: sha512-sVpxYeuAhWt0OTWITwT98oyV0GsXyMlXCF+3L1SuafBVUIr/uILGRB+NqwkzhgXKvoJpDIpQvqkUALgdmQsQxw==}
     engines: {node: '>=10'}
@@ -3757,10 +3677,6 @@ packages:
   long@5.2.1:
     resolution: {integrity: sha512-GKSNGeNAtw8IryjjkhZxuKB3JzlcLTwjtiQCHKvqQet81I93kXslhDQruGI/QsddO83mcDToBVy7GqGS/zYf/A==}
 
-  lru-cache@11.0.0:
-    resolution: {integrity: sha512-Qv32eSV1RSCfhY3fpPE2GNZ8jgM9X7rdAfemLWqTUxwiyIC4jJ6Sy0fZ8H+oLWevO6i4/bizg7c8d8i6bxrzbA==}
-    engines: {node: 20 || >=22}
-
   lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
 
@@ -3882,10 +3798,6 @@ packages:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
 
-  minimatch@10.0.1:
-    resolution: {integrity: sha512-ethXTt3SGGR+95gudmqJ1eNhRO7eGEGIgYA9vnPatK4/etz2MEVDno5GMCibdMTuBMyElzIlgxMna3K94XDIDQ==}
-    engines: {node: 20 || >=22}
-
   minimatch@3.0.5:
     resolution: {integrity: sha512-tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==}
 
@@ -3937,10 +3849,6 @@ packages:
   minipass@4.2.5:
     resolution: {integrity: sha512-+yQl7SX3bIT83Lhb4BVorMAHVuqsskxRdlmO9kTpyukp8vsm2Sn/fUOV9xlnG8/a5JsypJzap21lz/y3FBMJ8Q==}
     engines: {node: '>=8'}
-
-  minipass@7.1.2:
-    resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
-    engines: {node: '>=16 || 14 >=14.17'}
 
   minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
@@ -4295,9 +4203,6 @@ packages:
     resolution: {integrity: sha512-RRTnDb2TBG/epPRI2yYXsimO0v3BXC8Yd3ogr1545IaqKK17VGhbWVeGGN+XfCm/08OK8635nH31c8bATkHuSw==}
     engines: {node: '>=8'}
 
-  package-json-from-dist@1.0.0:
-    resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
-
   pacote@13.6.1:
     resolution: {integrity: sha512-L+2BI1ougAPsFjXRyBhcKmfT016NscRFLv6Pz5EiNf1CCFJFU0pSKKQwsZTyAQB+sTuUL4TyFyp6J1Ork3dOqw==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
@@ -4356,10 +4261,6 @@ packages:
 
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
-
-  path-scurry@2.0.0:
-    resolution: {integrity: sha512-ypGJsmGtdXUOeM5u93TyeIEfEhM6s+ljAhrk5vAvSx8uyY/02OvrZnA0YNGUrPXfpJMgI1ODd3nwz8Npx4O4cg==}
-    engines: {node: 20 || >=22}
 
   path-type@3.0.0:
     resolution: {integrity: sha512-T2ZUsdZFHgA3u4e5PfPbjd7HDDpxPnQb5jN0SrDsjNSuVXHJqtwTnWqG0B1jZrgmJ/7lj1EmVIByWt1gxGkWvg==}
@@ -4726,11 +4627,6 @@ packages:
     deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
-  rimraf@6.0.1:
-    resolution: {integrity: sha512-9dkvaxAsk/xNXSJzMgFqqMCuFgt2+KsOFek3TMLfo8NCPfWpBmqwyNn5Y+NX56QUYfCtsyhF3ayiboEoUmJk/A==}
-    engines: {node: 20 || >=22}
-    hasBin: true
-
   run-async@2.4.1:
     resolution: {integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==}
     engines: {node: '>=0.12.0'}
@@ -4835,10 +4731,6 @@ packages:
 
   signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
-
-  signal-exit@4.1.0:
-    resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
-    engines: {node: '>=14'}
 
   signale@1.4.0:
     resolution: {integrity: sha512-iuh+gPf28RkltuJC7W5MRi6XAjTDCAPC/prJUpQoG4vIP3MJZ+GTydVnodXA7pwvTKb2cA0m9OFZW/cdWy/I/w==}
@@ -4952,10 +4844,6 @@ packages:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
 
-  string-width@5.1.2:
-    resolution: {integrity: sha512-HnLOCR3vjcY8beoNLtcjZ5/nxn2afmME6lhrDrebokqMap+XbeW8n9TXpPDOqdGK5qcI3oT0GKTW6wC7EMiVqA==}
-    engines: {node: '>=12'}
-
   string.prototype.trim@1.2.7:
     resolution: {integrity: sha512-p6TmeT1T3411M8Cgg9wBTMRtY2q9+PNy9EV1i2lIXUN/btt763oIfxwN3RR8VU6wHX8j/1CFy0L+YuThm6bgOg==}
     engines: {node: '>= 0.4'}
@@ -4978,10 +4866,6 @@ packages:
   strip-ansi@6.0.1:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==}
     engines: {node: '>=8'}
-
-  strip-ansi@7.1.0:
-    resolution: {integrity: sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==}
-    engines: {node: '>=12'}
 
   strip-bom@3.0.0:
     resolution: {integrity: sha512-vavAMRXOgBVNF6nyEEmL3DBK19iRpDcoIwW+swQ+CbGiu7lju6t+JklA1MHweoWtadgt4ISVUsXLyDq34ddcwA==}
@@ -5414,10 +5298,6 @@ packages:
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
     engines: {node: '>=10'}
-
-  wrap-ansi@8.1.0:
-    resolution: {integrity: sha512-si7QWI6zUMq56bESFvagtmzMdGOtoxfR+Sez11Mobfc7tm+VkUckk9bW2UeffTGVUbOksxmSw0AA2gs8g71NCQ==}
-    engines: {node: '>=12'}
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
@@ -5926,14 +5806,6 @@ snapshots:
       node-gyp-build: 4.6.0
     optional: true
 
-  '@cortec/config@2.2.0':
-    dependencies:
-      '@cortec/types': 1.14.0
-      config: 3.3.11
-      js-yaml: 4.1.0
-      zod: 3.23.5
-      zod-validation-error: 3.2.0(zod@3.23.5)
-
   '@cortec/config@2.3.0':
     dependencies:
       '@cortec/types': 1.15.0
@@ -5941,83 +5813,6 @@ snapshots:
       js-yaml: 4.1.0
       zod: 3.23.5
       zod-validation-error: 3.2.0(zod@3.23.5)
-
-  '@cortec/core@1.14.0':
-    dependencies:
-      '@cortec/config': 2.3.0
-      '@cortec/types': 1.15.0
-      '@types/exit': 0.1.31
-      '@types/promise-timeout': 1.3.0
-      '@types/signale': 1.4.4
-      '@types/wtfnode': 0.7.0
-      exit: 0.1.2
-      p-each-series: 2.2.0
-      promise-timeout: 1.3.0
-      signale: 1.4.0
-      wtfnode: 0.9.1
-
-  '@cortec/dynamic-config@1.3.0':
-    dependencies:
-      '@cortec/config': 2.2.0
-      '@cortec/types': 1.14.0
-
-  '@cortec/logger@1.6.0':
-    dependencies:
-      '@cortec/types': 1.15.0
-      '@types/flat': 5.0.2
-      flat: 5.0.2
-      pino: 8.11.0
-
-  '@cortec/mongodb@1.10.0':
-    dependencies:
-      '@cortec/types': 1.14.0
-
-  '@cortec/newrelic@1.8.0(newrelic@9.14.1)':
-    dependencies:
-      '@cortec/types': 1.15.0
-      newrelic: 9.14.1
-
-  '@cortec/polka@2.3.0':
-    dependencies:
-      '@types/body-parser': 1.19.5
-      '@types/serve-static': 1.15.7
-      body-parser: 1.20.2
-      compression: 1.7.4
-      cors: 2.8.5
-      helmet: 6.0.1
-      nanoid: 3.3.7
-      polka: 0.5.2
-      rate-limiter-flexible: 2.4.1
-      serve-static: 1.15.0
-      zod: 3.23.5
-      zod-validation-error: 1.1.0(zod@3.23.5)
-    transitivePeerDependencies:
-      - supports-color
-
-  '@cortec/rabbitmq@1.11.0':
-    dependencies:
-      amqplib: 0.10.4
-    transitivePeerDependencies:
-      - supports-color
-
-  '@cortec/redis@1.10.0(ioredis@5.3.1)':
-    dependencies:
-      '@cortec/types': 1.15.0
-      ioredis: 5.3.1
-
-  '@cortec/sentry@1.7.0(@sentry/node@7.44.2)':
-    dependencies:
-      '@cortec/types': 1.15.0
-      '@sentry/node': 7.44.2
-
-  '@cortec/server@1.9.0':
-    dependencies:
-      '@cortec/config': 2.3.0
-      '@cortec/types': 1.15.0
-
-  '@cortec/types@1.14.0':
-    dependencies:
-      '@types/signale': 1.4.4
 
   '@cortec/types@1.15.0':
     dependencies:
@@ -6096,15 +5891,6 @@ snapshots:
   '@hutson/parse-repository-url@3.0.2': {}
 
   '@ioredis/commands@1.2.0': {}
-
-  '@isaacs/cliui@8.0.2':
-    dependencies:
-      string-width: 5.1.2
-      string-width-cjs: string-width@4.2.3
-      strip-ansi: 7.1.0
-      strip-ansi-cjs: strip-ansi@6.0.1
-      wrap-ansi: 8.1.0
-      wrap-ansi-cjs: wrap-ansi@7.0.0
 
   '@isaacs/string-locale-compare@1.1.0': {}
 
@@ -6742,9 +6528,6 @@ snapshots:
       esquery: 1.5.0
       typescript: 4.9.5
 
-  '@pkgjs/parseargs@0.11.0':
-    optional: true
-
   '@pkgr/utils@2.3.1':
     dependencies:
       cross-spawn: 7.0.3
@@ -7306,8 +7089,6 @@ snapshots:
 
   ansi-regex@5.0.1: {}
 
-  ansi-regex@6.0.1: {}
-
   ansi-sequence-parser@1.1.0: {}
 
   ansi-styles@3.2.1:
@@ -7319,8 +7100,6 @@ snapshots:
       color-convert: 2.0.1
 
   ansi-styles@5.2.0: {}
-
-  ansi-styles@6.2.1: {}
 
   anymatch@3.1.3:
     dependencies:
@@ -8056,8 +7835,6 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eastasianwidth@0.2.0: {}
-
   ee-first@1.1.1: {}
 
   ejs@3.1.9:
@@ -8069,8 +7846,6 @@ snapshots:
   emittery@0.13.1: {}
 
   emoji-regex@8.0.0: {}
-
-  emoji-regex@9.2.2: {}
 
   encodeurl@1.0.2: {}
 
@@ -8495,11 +8270,6 @@ snapshots:
     dependencies:
       is-callable: 1.2.7
 
-  foreground-child@3.3.0:
-    dependencies:
-      cross-spawn: 7.0.3
-      signal-exit: 4.1.0
-
   form-data@4.0.0:
     dependencies:
       asynckit: 0.4.0
@@ -8638,15 +8408,6 @@ snapshots:
   glob-parent@6.0.2:
     dependencies:
       is-glob: 4.0.3
-
-  glob@11.0.0:
-    dependencies:
-      foreground-child: 3.3.0
-      jackspeak: 4.0.1
-      minimatch: 10.0.1
-      minipass: 7.1.2
-      package-json-from-dist: 1.0.0
-      path-scurry: 2.0.0
 
   glob@7.1.4:
     dependencies:
@@ -9090,12 +8851,6 @@ snapshots:
     dependencies:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.0
-
-  jackspeak@4.0.1:
-    dependencies:
-      '@isaacs/cliui': 8.0.2
-    optionalDependencies:
-      '@pkgjs/parseargs': 0.11.0
 
   jake@10.8.5:
     dependencies:
@@ -9718,8 +9473,6 @@ snapshots:
 
   long@5.2.1: {}
 
-  lru-cache@11.0.0: {}
-
   lru-cache@4.1.5:
     dependencies:
       pseudomap: 1.0.2
@@ -9849,10 +9602,6 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  minimatch@10.0.1:
-    dependencies:
-      brace-expansion: 2.0.1
-
   minimatch@3.0.5:
     dependencies:
       brace-expansion: 1.1.11
@@ -9911,8 +9660,6 @@ snapshots:
       yallist: 4.0.0
 
   minipass@4.2.5: {}
-
-  minipass@7.1.2: {}
 
   minizlib@2.1.2:
     dependencies:
@@ -10358,8 +10105,6 @@ snapshots:
     dependencies:
       p-reduce: 2.1.0
 
-  package-json-from-dist@1.0.0: {}
-
   pacote@13.6.1:
     dependencies:
       '@npmcli/git': 3.0.2
@@ -10457,11 +10202,6 @@ snapshots:
   path-key@3.1.1: {}
 
   path-parse@1.0.7: {}
-
-  path-scurry@2.0.0:
-    dependencies:
-      lru-cache: 11.0.0
-      minipass: 7.1.2
 
   path-type@3.0.0:
     dependencies:
@@ -10816,11 +10556,6 @@ snapshots:
     dependencies:
       glob: 7.2.3
 
-  rimraf@6.0.1:
-    dependencies:
-      glob: 11.0.0
-      package-json-from-dist: 1.0.0
-
   run-async@2.4.1: {}
 
   run-parallel@1.2.0:
@@ -10931,8 +10666,6 @@ snapshots:
       object-inspect: 1.12.3
 
   signal-exit@3.0.7: {}
-
-  signal-exit@4.1.0: {}
 
   signale@1.4.0:
     dependencies:
@@ -11052,12 +10785,6 @@ snapshots:
       is-fullwidth-code-point: 3.0.0
       strip-ansi: 6.0.1
 
-  string-width@5.1.2:
-    dependencies:
-      eastasianwidth: 0.2.0
-      emoji-regex: 9.2.2
-      strip-ansi: 7.1.0
-
   string.prototype.trim@1.2.7:
     dependencies:
       call-bind: 1.0.2
@@ -11089,10 +10816,6 @@ snapshots:
   strip-ansi@6.0.1:
     dependencies:
       ansi-regex: 5.0.1
-
-  strip-ansi@7.1.0:
-    dependencies:
-      ansi-regex: 6.0.1
 
   strip-bom@3.0.0: {}
 
@@ -11528,12 +11251,6 @@ snapshots:
       ansi-styles: 4.3.0
       string-width: 4.2.3
       strip-ansi: 6.0.1
-
-  wrap-ansi@8.1.0:
-    dependencies:
-      ansi-styles: 6.2.1
-      string-width: 5.1.2
-      strip-ansi: 7.1.0
 
   wrappy@1.0.2: {}
 

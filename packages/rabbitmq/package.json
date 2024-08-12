@@ -21,9 +21,9 @@
     "amqplib": "^0.10.4"
   },
   "devDependencies": {
-    "@cortec/config": "2.3.0",
-    "@cortec/newrelic": "1.8.0",
-    "@cortec/types": "1.15.0",
+    "@cortec/config": "workspace:*",
+    "@cortec/newrelic": "workspace:*",
+    "@cortec/types": "workspace:*",
     "@types/amqplib": "^0.10.5"
   },
   "typedoc": {

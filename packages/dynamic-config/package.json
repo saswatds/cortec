@@ -18,11 +18,11 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/config": "2.3.0",
-    "@cortec/types": "1.15.0"
+    "@cortec/config": "workspace:*",
+    "@cortec/types": "workspace:*"
   },
   "devDependencies": {
-    "@cortec/mongodb": "1.10.0"
+    "@cortec/mongodb": "workspace:*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
