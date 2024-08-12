@@ -25,29 +25,5 @@
     },
     "depcheck": {}
   },
-  "plugins": [],
-  "release": {
-    "projectsRelationship": "independent",
-    "version": {
-      "conventionalCommits": true,
-      "generatorOptions": {
-        "updateDependents": "auto",
-        "skipLockFileUpdate": true
-      }
-    },
-    "git": {
-      "commitMessage": "chore(release): {version}"
-    },
-    "projects": [
-      "packages/*",
-      "!packages/test"
-    ],
-    "changelog": {
-      "projectChangelogs": {
-        "renderOptions": {
-          "authors": false
-        }
-      }
-    }
-  }
+  "plugins": []
 }
