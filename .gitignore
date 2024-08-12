@@ -54,5 +54,6 @@ Thumbs.db
 *.mov
 *.wmv
 
-# Turbo files
-.turbo
+# Nx files
+.nx/cache
+.nx/workspace-data
