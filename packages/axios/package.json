@@ -18,7 +18,7 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/polka": "2.2.4",
+    "@cortec/polka": "2.3.0",
     "@cortec/types": "1.15.0",
     "lodash.capitalize": "^4.2.1"
   },
