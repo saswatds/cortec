@@ -21,9 +21,12 @@
   },
   "plugins": [],
   "release": {
-    "releaseTagPattern": "{version}",
+    "projectsRelationship": "independent",
     "version": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "generatorOptions": {
+        "updateDependents": "auto"
+      }
     },
     "git": {
       "commitMessage": "chore(release): {version}"
@@ -31,6 +34,13 @@
     "projects": [
       "packages/*",
       "!packages/test"
-    ]
+    ],
+    "changelog": {
+      "projectChangelogs": {
+        "renderOptions": {
+          "authors": false
+        }
+      }
+    }
   }
 }
