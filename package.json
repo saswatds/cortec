@@ -6,8 +6,6 @@
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@commitlint/config-lerna-scopes": "^17.4.2",
-    "@nx/eslint": "19.5.7",
-    "@nx/jest": "19.5.7",
     "@swc-node/register": "^1.10.9",
     "@swc/core": "^1.7.10",
     "@types/jest": "^29.2.0",
@@ -27,7 +25,6 @@
     "jest": "^29.2.1",
     "jest-silent-reporter": "^0.5.0",
     "lerna": "^6.5.1",
-    "nx": "19.5.7",
     "prettier": "^2.7.1",
     "rimraf": "^6.0.1",
     "ts-jest": "^29.0.3",
@@ -45,10 +42,10 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "nx run-many -t build",
-    "lint": "nx run-many -t lint",
-    "test": "nx run-many -t test",
-    "depcheck": "nx run-many -t depcheck",
+    "build": "lerna run build --stream",
+    "lint": "lerna run lint --stream",
+    "test": "lerna run test --stream",
+    "depcheck": "lerna run depcheck --stream",
     "docs": "typedoc && open doc/index.html"
   },
   "commitlint": {
