@@ -1,35 +1,11 @@
-## 2.3.0 (2024-08-12)
-
-
-### 🚀 Features
-
-- setup publish command
-
-
-### 🧱 Updated Dependencies
-
-- Updated @cortec/newrelic to 1.8.0
-- Updated @cortec/config to 2.3.0
-- Updated @cortec/types to 1.15.0
-
 # Change Log
-
-## 2.2.0
-
-### Minor Changes
-
-- feat: migrated to use pnpm and turborepo
-- feat: outbound url call instrumentation
-
-### Patch Changes
-
-- chore: fix lint issue
-- Updated dependencies
-  - @cortec/polka@2.2.0
-  - @cortec/types@1.14.0
 
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.3.1](https://github.com/saswatds/cortec/compare/@cortec/axios@2.3.0...@cortec/axios@2.3.1) (2024-08-12)
+
+**Note:** Version bump only for package @cortec/axios
 
 ## [2.1.0](https://github.com/saswatds/cortec/compare/@cortec/axios@2.0.1...@cortec/axios@2.1.0) (2024-07-30)
 
