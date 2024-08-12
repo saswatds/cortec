@@ -19,5 +19,14 @@
     },
     "depcheck": {}
   },
-  "plugins": []
+  "plugins": [],
+  "release": {
+    "version": {
+      "conventionalCommits": true
+    },
+    "projects": [
+      "*",
+      "!test"
+    ]
+  }
 }
