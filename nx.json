@@ -8,8 +8,7 @@
       ],
       "outputs": [
         "{projectRoot}/dist"
-      ],
-      "cache": true
+      ]
     },
     "lint": {
       "cache": true,
@@ -23,7 +22,22 @@
         "build"
       ]
     },
-    "depcheck": {}
+    "depcheck": {
+      "cache": true
+    }
   },
-  "plugins": []
+  "plugins": [],
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "depcheck"
+        ]
+      }
+    }
+  }
 }
