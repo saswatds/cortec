@@ -18,10 +18,8 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "workspace:*"
-  },
-  "peerDependencies": {
-    "fs-extra": ">=11"
+    "@cortec/types": "workspace:*",
+    "fs-extra": "^11.2.0"
   },
   "devDependencies": {
     "@cortec/config": "workspace:*",

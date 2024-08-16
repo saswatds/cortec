@@ -11,7 +11,7 @@ import {
   pathExists,
   readdir,
   readFile,
-  rm,
+  remove,
   stat,
 } from 'fs-extra';
 
@@ -77,7 +77,7 @@ export class DiskStorage implements IBaseStorage {
   }
 
   async delete(fileOrDirectory: string) {
-    return rm(path.join(this.basePath, fileOrDirectory), { recursive: true });
+    return remove(path.join(this.basePath, fileOrDirectory));
   }
 
   dispose(): Promise<void> {
