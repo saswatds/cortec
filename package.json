@@ -45,6 +45,7 @@
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",
     "depcheck": "lerna run depcheck --stream",
+    "preversion": "pnpm run build",
     "docs": "typedoc && open doc/index.html"
   },
   "commitlint": {
