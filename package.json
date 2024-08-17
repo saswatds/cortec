@@ -43,7 +43,7 @@
     "preinstall": "npx only-allow pnpm",
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
-    "test": "lerna run test --stream",
+    "test": "pnpm --filter test run test",
     "depcheck": "lerna run depcheck --stream",
     "preversion": "pnpm run build",
     "docs": "typedoc && open doc/index.html"
