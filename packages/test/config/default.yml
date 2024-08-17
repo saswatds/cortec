@@ -67,3 +67,8 @@ rabbitmq:
       port: 5672
       username: "root"
       password: "password"
+
+storage:
+  test:
+    dir: ".storage"
+    makeParent: false
