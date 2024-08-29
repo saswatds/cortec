@@ -20,6 +20,8 @@ class Cortec implements IContext {
   service: ICortecConfig;
   private modules: Map<string, IModule> = new Map();
   private logger: Signale;
+  private isDisposing = false;
+
   constructor(service: ICortecConfig) {
     this.service = service;
     this.logger = new Signale({
@@ -63,6 +65,10 @@ class Cortec implements IContext {
   }
 
   dispose(code: number) {
+    // Don't dispose if already disposing
+    if (this.isDisposing) return;
+    this.isDisposing = true;
+
     // Print to stderr that we are existing
     const logger = this.logger.scope('cortec');
     logger.pending('Exiting (%d)...', code);
@@ -93,6 +99,9 @@ class Cortec implements IContext {
   }
 
   async load() {
+    // Reset the disposing flag
+    this.isDisposing = false;
+
     const logger = this.logger.scope('cortec');
     return pEachSeries([...this.modules], async ([name, module]) => {
       logger.start('loading module "' + name + '"');
