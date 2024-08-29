@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.14.1...@cortec/core@1.15.0) (2024-08-29)
+
+### Features
+
+- catch errors that happen during module dispose ([2d112e1](https://github.com/saswatds/cortec/commit/2d112e1adc1540db9ea1975cdddb19b176900bb8))
+
 ## [1.14.1](https://github.com/saswatds/cortec/compare/@cortec/core@1.14.0...@cortec/core@1.14.1) (2024-08-12)
 
 **Note:** Version bump only for package @cortec/core
