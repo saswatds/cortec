@@ -66,7 +66,9 @@ class Cortec implements IContext {
     return pTimeout(
       pEachSeries([...this.modules].reverse(), ([_name, module]) => {
         logger.pending('disposing module "' + module.name + '"');
-        return module.dispose();
+        return module.dispose().catch((err) => {
+          logger.scope(module.name).error(err);
+        });
       }),
       this.service.disposeTimeout ?? 5000
     )
