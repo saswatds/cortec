@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.1](https://github.com/saswatds/cortec/compare/@cortec/core@1.15.0...@cortec/core@1.15.1) (2024-08-29)
+
+### Bug Fixes
+
+- prevent disposing if already disposing ([ba2527a](https://github.com/saswatds/cortec/commit/ba2527aa1e0bdb233299fbba9527c0716d6a643d))
+
 ## [1.15.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.14.1...@cortec/core@1.15.0) (2024-08-29)
 
 ### Features
