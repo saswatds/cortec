@@ -38,7 +38,10 @@ class Cortec implements IContext {
     process.on('SIGTERM', () => this.dispose(0));
 
     // If an exception is not handled, kill the process
-    process.on('uncaughtException', () => this.dispose(1));
+    process.on('uncaughtException', (err) => {
+      this.logger.fatal(err);
+      this.dispose(1);
+    });
   }
 
   has(name: string): boolean {
@@ -64,10 +67,10 @@ class Cortec implements IContext {
     const logger = this.logger.scope('cortec');
     logger.pending('Exiting (%d)...', code);
     return pTimeout(
-      pEachSeries([...this.modules].reverse(), ([_name, module]) => {
-        logger.pending('disposing module "' + module.name + '"');
+      pEachSeries([...this.modules].reverse(), ([name, module]) => {
+        logger.pending('disposing module "' + name + '"');
         return module.dispose().catch((err) => {
-          logger.scope(module.name).error(err);
+          logger.scope(name).error(err);
         });
       }),
       this.service.disposeTimeout ?? 5000
