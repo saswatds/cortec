@@ -53,8 +53,8 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
   async dispose() {
     // close the publisher channel and the connection
     for (const identity in this.config) {
-      await this.$channel[identity]?.close();
-      await this.$connections[identity]?.close();
+      await this.$channel[identity]?.close().catch(() => null);
+      await this.$connections[identity]?.close().catch(() => null);
     }
   }
 
