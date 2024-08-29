@@ -96,6 +96,11 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
           // If it still results in an error. Restart the whole process
           this.nr?.api.noticeError(err);
           // Attempt to dispose the whole system
+          sig
+            .scope(this.name, identity)
+            .error(
+              `reconnection to ${connection.protocol}://${connection.hostname} failed with error: ${err.message}`
+            );
           ctx.dispose(1);
         });
       }
@@ -111,6 +116,11 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
         // If it still results in an error. Restart the whole process
         this.nr?.api.noticeError(err);
         // Attempt to dispose the whole system
+        sig
+          .scope(this.name, identity)
+          .error(
+            `reconnection to ${connection.protocol}://${connection.hostname} failed with error: ${err.message}`
+          );
         ctx.dispose(1);
       });
     });
