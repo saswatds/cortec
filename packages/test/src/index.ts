@@ -45,4 +45,9 @@ cortec.load().then(() => {
   setInterval(() => {
     dc.update({ abc: 'count+' + count }).catch(console.error);
   }, 60000);
+
+  // Subscribe to the 'test' queue
+  rabbitmq.channel('primary').consume('test', (msg) => {
+    console.log(msg?.content.toString());
+  });
 });

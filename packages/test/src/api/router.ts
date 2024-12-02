@@ -41,7 +41,7 @@ const Root = route({
 
     rabbitmq
       .channel('primary')
-      .sendToQueue('test', Buffer.from('Hello World!'));
+      .sendToQueue('test', Buffer.from('q: Hello World!'));
 
     return Response.json({
       ac: req.body,
