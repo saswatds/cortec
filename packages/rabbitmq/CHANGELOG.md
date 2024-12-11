@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.11.3...@cortec/rabbitmq@1.12.0) (2024-12-11)
+
+### Features
+
+- added support for automatic consumer re-subscribe ([fcea0af](https://github.com/saswatds/cortec/commit/fcea0af1518e3dcbac957f7644b7746ee2bc4816))
+
 ## [1.11.3](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.11.2...@cortec/rabbitmq@1.11.3) (2024-08-29)
 
 **Note:** Version bump only for package @cortec/rabbitmq

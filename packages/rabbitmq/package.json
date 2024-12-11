@@ -1,6 +1,6 @@
 {
   "name": "@cortec/rabbitmq",
-  "version": "1.11.3",
+  "version": "1.12.0",
   "description": "RabbitMQ client for Cortec",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
