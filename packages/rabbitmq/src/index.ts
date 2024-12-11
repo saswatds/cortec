@@ -30,6 +30,11 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
   private config: RabbitMQConfig;
   private $connections: { [identity: string]: Connection } = {};
   private $channel: { [identity: string]: Channel } = {};
+  private $channel_prefetch: { [identity: string]: number } = {};
+  private $consumers: {
+    [identity: string]: Parameters<Channel['consume']>[];
+  } = {};
+
   private nr: INewrelic | undefined;
   private isConnecting = false;
   constructor() {
@@ -39,18 +44,51 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
   async load(ctx: IContext, sig: Sig) {
     this.nr = ctx.provide('newrelic');
 
-    for (const [identity, { connection }] of Object.entries(this.config))
+    for (const [identity, { connection }] of Object.entries(this.config)) {
+      // Create the array for the consumers
+      this.$consumers[identity] = [];
+
+      // Connect to the rabbitmq server
       await this.connect(ctx, identity, connection, sig);
+    }
   }
 
   channel(identity: string) {
     const channel = this.$channel[identity];
     if (!channel) throw new Error(`Channel ${identity} not found`);
 
-    return channel;
+    return new Proxy(channel, {
+      get: (target, prop, receiver) => {
+        // If the property being accesses is consumer or prefetch, return the value
+        if (prop === 'prefetch') {
+          return async (count: number, global?: boolean) => {
+            // Cache the prefetch count
+            this.$channel_prefetch[identity] = count;
+
+            // Reflect the call to the original prefetch method
+            return Reflect.apply(target.prefetch, target, [count, global]);
+          };
+        }
+
+        if (prop === 'consume') {
+          return async (...args: Parameters<Channel['consume']>) => {
+            // Cache the consumer for this channel
+            this.$consumers[identity]?.push(args);
+
+            // Reflect the call to the original consume method
+            return Reflect.apply(target.consume, target, args);
+          };
+        }
+
+        return Reflect.get(target, prop, receiver);
+      },
+    });
   }
 
   async dispose() {
+    // Reset all the prefect count and consumers
+    this.$channel_prefetch = {};
+    this.$consumers = {};
     // close the publisher channel and the connection
     for (const identity in this.config) {
       await this.$channel[identity]?.close().catch(() => null);
@@ -183,6 +221,27 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
         ctx.dispose(1);
       });
     });
+
+    // Set the prefetch count if it exists
+    const prefetch = this.$channel_prefetch[identity];
+    if (prefetch) {
+      await channel.prefetch(prefetch);
+      sig
+        .scope(this.name, identity)
+        .success(`setting prefetch count to ${prefetch}`);
+    }
+
+    const consumers = this.$consumers[identity];
+    // Add the consumers to the channel if they exist
+    if (consumers) {
+      // Add the consumers back to the channel
+      for (const consumer of consumers) {
+        await channel.consume(...consumer);
+        sig
+          .scope(this.name, identity)
+          .success(`re-subscribing consumer to queue '${consumer[0]}'`);
+      }
+    }
   }
 
   private cleanConnection(identity: string) {
