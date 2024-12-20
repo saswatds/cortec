@@ -288,15 +288,24 @@ export default class Polka implements IModule, IServerHandler {
 
               if (controller.schema) {
                 try {
-                  z.object({
-                    params: controller.schema.params ?? z.unknown(),
-                    query: controller.schema.query ?? z.unknown(),
-                    body: controller.schema.body ?? z.unknown(),
-                  }).parse({
-                    params: req.params,
-                    query: req.query,
-                    body: req.body,
-                  });
+                  const parsed = z
+                    .object({
+                      params: controller.schema.params ?? z.record(z.string()),
+                      query:
+                        controller.schema.query ??
+                        z.record(z.union([z.string(), z.string().array()])),
+                      body: controller.schema.body ?? z.unknown(),
+                    })
+                    .parse({
+                      params: req.params,
+                      query: req.query,
+                      body: req.body,
+                    });
+
+                  // Store the parsed values in the request object
+                  req.params = parsed.params;
+                  req.query = parsed.query;
+                  req.body = parsed.body;
                 } catch (err: any) {
                   throw new ResponseError(
                     HttpStatusCode.BAD_REQUEST,

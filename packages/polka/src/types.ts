@@ -2,7 +2,6 @@ import type http from 'node:http';
 
 import type { IContext } from '@cortec/types';
 import type { Polka } from 'polka';
-import type querystring from 'querystring';
 import type { ServeStaticOptions } from 'serve-static';
 import type { z } from 'zod';
 
@@ -14,7 +13,7 @@ export interface IResponse<T> {
 
 export interface IRequest<
   ParamsT extends Record<string, string> | unknown,
-  QueryT extends querystring.ParsedUrlQuery | unknown,
+  QueryT extends Record<string, string | string[]> | unknown,
   BodyT
 > extends http.IncomingMessage {
   params: ParamsT;
@@ -23,9 +22,9 @@ export interface IRequest<
 }
 
 export interface IRoute<
-  ParamsT extends Record<string, string> | unknown,
+  ParamsT extends Record<string, string>,
   ParamsD extends z.ZodTypeDef,
-  QueryT extends querystring.ParsedUrlQuery | unknown,
+  QueryT extends Record<string, string | string[]>,
   QueryD extends z.ZodTypeDef,
   BodyT,
   BodyD extends z.ZodTypeDef,
@@ -68,9 +67,12 @@ export interface IRoute<
 }
 
 export function route<
-  ParamsT extends Record<string, string> | unknown = unknown,
+  ParamsT extends Record<string, string> = Record<string, string>,
   ParamsD extends z.ZodTypeDef = never,
-  QueryT extends querystring.ParsedUrlQuery | unknown = unknown,
+  QueryT extends Record<string, string | string[]> = Record<
+    string,
+    string | string[]
+  >,
   QueryD extends z.ZodTypeDef = never,
   BodyT = unknown,
   BodyD extends z.ZodTypeDef = never,
