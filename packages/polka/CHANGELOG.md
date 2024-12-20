@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.0](https://github.com/saswatds/cortec/compare/@cortec/polka@2.3.1...@cortec/polka@2.4.0) (2024-12-20)
+
+### Features
+
+- update request properties with parsed result ([1a295aa](https://github.com/saswatds/cortec/commit/1a295aacb4d2c0e1baa4166565c193e4a743071f))
+
 ## [2.3.1](https://github.com/saswatds/cortec/compare/@cortec/polka@2.3.0...@cortec/polka@2.3.1) (2024-08-12)
 
 **Note:** Version bump only for package @cortec/polka
