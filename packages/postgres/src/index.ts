@@ -1,6 +1,5 @@
 import { Config, z } from '@cortec/config';
 import type { IContext, IModule, Sig } from '@cortec/types';
-import { drizzle } from 'drizzle-orm/node-postgres';
 import { readFileSync } from 'fs';
 import { Pool } from 'pg';
 
@@ -39,15 +38,12 @@ type PostgresConfig = z.infer<typeof schema>;
 
 export interface IPostgres {
   db(identity: string): Pool;
-  drizzle(identity: string): ReturnType<typeof drizzle>;
 }
 
 export default class CortecPostgres implements IModule, IPostgres {
   name = 'postgres';
+  protected clients: { [identity: string]: Pool } = {};
   private config: PostgresConfig;
-  private clients: { [identity: string]: Pool } = {};
-  private drizzleClients: { [identity: string]: ReturnType<typeof drizzle> } =
-    {};
 
   constructor() {
     this.config = Config.get<PostgresConfig>(this.name, schema);
@@ -70,9 +66,6 @@ export default class CortecPostgres implements IModule, IPostgres {
       // Create the pool
       this.clients[identity] = new Pool(connection);
 
-      // Create the drizzle client
-      this.drizzleClients[identity] = drizzle(this.clients[identity]);
-
       sig
         .scope(this.name, identity)
         .await('connecting to postgres://' + connection.host);
@@ -91,12 +84,6 @@ export default class CortecPostgres implements IModule, IPostgres {
 
   db(identity: string) {
     const client = this.clients[identity];
-    if (!client) throw new Error(`No postgres database '${identity}' found`);
-    return client;
-  }
-
-  drizzle(identity: string) {
-    const client = this.drizzleClients[identity];
     if (!client) throw new Error(`No postgres database '${identity}' found`);
     return client;
   }
