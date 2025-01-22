@@ -17,8 +17,8 @@ export interface IAxiosConfig {
   };
 }
 
-interface TracedAxios extends A.Axios {
-  trace(ctx: ITrace): A.Axios;
+interface TracedAxios extends A.AxiosInstance {
+  trace(ctx: ITrace): A.AxiosInstance;
 }
 
 export interface IAxios {
