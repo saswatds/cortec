@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.11.1...@cortec/mongodb@1.12.0) (2025-01-23)
+
+### Features
+
+- added healthcheck apis to mongodb and redis ([7506c96](https://github.com/saswatds/cortec/commit/7506c96dd21140efabccce62e9a46acc2207ba1b))
+
 ## [1.11.1](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.11.0...@cortec/mongodb@1.11.1) (2024-08-12)
 
 **Note:** Version bump only for package @cortec/mongodb
