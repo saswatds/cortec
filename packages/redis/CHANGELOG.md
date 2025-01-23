@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/redis@1.11.0...@cortec/redis@1.12.0) (2025-01-23)
+
+### Features
+
+- add support for transforming objects ([6390545](https://github.com/saswatds/cortec/commit/639054585f611e0035f5b18decf44653f33954d8))
+
 ## [1.11.0](https://github.com/saswatds/cortec/compare/@cortec/redis@1.10.1...@cortec/redis@1.11.0) (2025-01-23)
 
 ### Features
