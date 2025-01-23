@@ -18,7 +18,8 @@
     "./dist"
   ],
   "dependencies": {
-    "@cortec/types": "workspace:*"
+    "@cortec/types": "workspace:*",
+    "fast-safe-stringify": "2.1.1"
   },
   "peerDependencies": {
     "ioredis": ">=5"

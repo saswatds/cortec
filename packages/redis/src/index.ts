@@ -1,7 +1,58 @@
 import type { IConfig } from '@cortec/config';
 import type { IContext, IModule, Sig } from '@cortec/types';
+import stringify from 'fast-safe-stringify';
 import type { Cluster, RedisOptions } from 'ioredis';
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
+
+const parseJSON = (data: string) => {
+  try {
+    return JSON.parse(data);
+  } catch (_e) {
+    return data;
+  }
+};
+
+const objectToArray = function (
+  obj: Record<string, any>,
+  prefix?: string,
+  arr: unknown[] = []
+) {
+  if (!obj) {
+    return arr;
+  }
+
+  const usePrefix = prefix && typeof prefix === 'string';
+
+  usePrefix && (prefix += '.');
+
+  Object.keys(obj).forEach((key) => {
+    const value = obj[key];
+
+    usePrefix && (key = prefix + key);
+
+    if (typeof value === 'object') {
+      objectToArray(value, key, arr);
+    } else {
+      arr.push(key, stringify(value));
+    }
+  });
+
+  return arr;
+};
+
+const arrayToObject = (arr: any[]) => {
+  const obj: Record<string, any> = {};
+
+  // eslint-disable-next-line no-magic-numbers
+  for (let index = 0; index < arr.length; index += 2) {
+    const key = arr[index];
+
+    // eslint-disable-next-line no-magic-numbers
+    obj[key] = parseJSON(arr[index + 1]);
+  }
+
+  return obj;
+};
 
 export interface IRedis {
   cache(name: string): Cluster | Redis;
@@ -16,11 +67,29 @@ const defaultRedisConfig: RedisOptions = {
 
 export default class CortecRedis implements IModule, IRedis {
   name = 'redis';
-
+  private transformObjects: boolean;
   private $cache: { [name: string]: Cluster | Redis } = {};
+
+  constructor(transformObjects = false) {
+    this.transformObjects = transformObjects;
+  }
+
   async load(ctx: IContext, sig: Sig) {
     const config = ctx.provide<IConfig>('config');
     const cacheConfig = config?.get<any>(this.name);
+
+    if (this.transformObjects) {
+      Redis.Command.setArgumentTransformer('hset', (args) => {
+        if (args.length === 2 && typeof args[1] === 'object') {
+          args = args.slice(0, 1).concat(objectToArray(args[1]));
+        }
+        return args;
+      });
+
+      Redis.Command.setReplyTransformer('hgetall', (result) => {
+        return Array.isArray(result) ? arrayToObject(result) : result;
+      });
+    }
 
     Object.keys(cacheConfig).forEach((identity) => {
       const defaultConfig = cacheConfig[identity] || {},
