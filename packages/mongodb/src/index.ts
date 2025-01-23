@@ -6,6 +6,7 @@ import { MongoClient } from 'mongodb';
 export interface IMongoDb {
   db(name: string): Db;
   client(name: string): MongoClient;
+  healthCheck(): Promise<void>;
 }
 
 export default class CortecMongoDb implements IModule, IMongoDb {
@@ -64,5 +65,11 @@ export default class CortecMongoDb implements IModule, IMongoDb {
     if (!client) throw new Error(`No mongodb client with for ${name} found`);
 
     return client;
+  }
+
+  healthCheck(): Promise<void> {
+    return Promise.all(
+      Object.values(this.dbs).map((db) => db.command({ ping: 1 }))
+    ).then(() => undefined);
   }
 }

@@ -5,6 +5,7 @@ import Redis from 'ioredis';
 
 export interface IRedis {
   cache(name: string): Cluster | Redis;
+  healthCheck(): Promise<void>;
 }
 
 const defaultRedisConfig: RedisOptions = {
@@ -103,5 +104,11 @@ export default class CortecRedis implements IModule, IRedis {
     if (!cache) throw new Error(`Redis cache '${name}' not found`);
 
     return cache;
+  }
+
+  healthCheck(): Promise<void> {
+    return Promise.all(
+      Object.values(this.$cache).map((redis) => redis.ping())
+    ).then(() => undefined);
   }
 }
