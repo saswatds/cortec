@@ -8,6 +8,7 @@ import { type ITrace, Headers } from '@cortec/polka';
 import type { IContext, IModule } from '@cortec/types';
 import type * as A from 'axios';
 import axios, { isAxiosError } from 'axios';
+import { backOff } from 'exponential-backoff';
 import capitalize from 'lodash.capitalize';
 
 export interface IAxiosConfig {
@@ -29,6 +30,7 @@ export enum RequestFlags {
   None = 0,
   Notice4XX = 1 << 0,
   InstrumentUrl = 1 << 1,
+  NoRetry = 1 << 2,
 }
 
 function match(trait: RequestFlags, flag: RequestFlags): boolean {
@@ -150,11 +152,26 @@ export default class Axios implements IModule, IAxios {
                 nr.api.addCustomAttribute('method', prop.toString());
               }
 
-              return Reflect.get(
-                target,
-                prop,
-                receiver
-              )(...args).catch((err: A.AxiosError) => {
+              const instance = Reflect.get(target, prop, receiver);
+
+              // Execute the request and retry it if it fails
+              return backOff(() => instance(...args), {
+                numOfAttempts: 5,
+                startingDelay: 100,
+                retry: (err: A.AxiosError) => {
+                  // If the request is marked as no retry, we should not retry
+                  if (match(flags, RequestFlags.NoRetry)) return false;
+
+                  // If the error is not an axios error, we should not retry
+                  if (!isAxiosError(err)) return false;
+
+                  // Get the status code of the error and default to 0 if it's not present
+                  const status = err.response?.status ?? 0;
+
+                  // If the error is a server error, we should retry
+                  return status >= 500;
+                },
+              }).catch((err: A.AxiosError) => {
                 // We are trying to figure-out of the external service is at fault
                 // So any non axios errors should be ignored and we throw back the original error
                 if (!isAxiosError(err)) throw err;
