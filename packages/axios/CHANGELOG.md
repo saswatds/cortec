@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.0](https://github.com/saswatds/cortec/compare/@cortec/axios@2.3.6...@cortec/axios@2.4.0) (2025-02-12)
+
+### Features
+
+- added automatic retry logic for axios requests ([556dbeb](https://github.com/saswatds/cortec/commit/556dbebe4419a5e134cf4da8fa63dfd70972e312))
+
 ## [2.3.6](https://github.com/saswatds/cortec/compare/@cortec/axios@2.3.5...@cortec/axios@2.3.6) (2025-01-23)
 
 **Note:** Version bump only for package @cortec/axios

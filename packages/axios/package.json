@@ -1,6 +1,6 @@
 {
   "name": "@cortec/axios",
-  "version": "2.3.6",
+  "version": "2.4.0",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,8 +20,8 @@
   "dependencies": {
     "@cortec/polka": "workspace:*",
     "@cortec/types": "workspace:*",
-    "lodash.capitalize": "^4.2.1",
-    "exponential-backoff": "^3.1.2"
+    "exponential-backoff": "^3.1.2",
+    "lodash.capitalize": "^4.2.1"
   },
   "peerDependencies": {
     "axios": ">=1"
