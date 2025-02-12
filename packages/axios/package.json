@@ -20,7 +20,8 @@
   "dependencies": {
     "@cortec/polka": "workspace:*",
     "@cortec/types": "workspace:*",
-    "lodash.capitalize": "^4.2.1"
+    "lodash.capitalize": "^4.2.1",
+    "exponential-backoff": "^3.1.2"
   },
   "peerDependencies": {
     "axios": ">=1"
