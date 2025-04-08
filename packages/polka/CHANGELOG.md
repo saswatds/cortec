@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.3](https://github.com/saswatds/cortec/compare/@cortec/polka@2.4.2...@cortec/polka@2.4.3) (2025-04-08)
+
+**Note:** Version bump only for package @cortec/polka
+
 ## [2.4.2](https://github.com/saswatds/cortec/compare/@cortec/polka@2.4.1...@cortec/polka@2.4.2) (2025-01-23)
 
 **Note:** Version bump only for package @cortec/polka
