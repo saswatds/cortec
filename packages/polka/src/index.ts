@@ -1,5 +1,3 @@
-import '@total-typescript/ts-reset';
-
 import type http from 'node:http';
 
 import type { IConfig } from '@cortec/config';
@@ -165,7 +163,7 @@ export default class Polka implements IModule, IServerHandler {
           };
         }
 
-        if (!methods.includes(method))
+        if (!methods.includes(method as any))
           return Reflect.get(target, method, receive);
 
         return (path: string, controller: ReturnType<typeof route>) => {
