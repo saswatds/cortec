@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.0](https://github.com/saswatds/cortec/compare/@cortec/polka@2.4.3...@cortec/polka@2.5.0) (2025-04-09)
+
+### Features
+
+- disable compression when compression setting is not available ([453d754](https://github.com/saswatds/cortec/commit/453d75400f72e019fb57388dcee60aebe3d979e3))
+
 ## [2.4.3](https://github.com/saswatds/cortec/compare/@cortec/polka@2.4.2...@cortec/polka@2.4.3) (2025-04-08)
 
 **Note:** Version bump only for package @cortec/polka
