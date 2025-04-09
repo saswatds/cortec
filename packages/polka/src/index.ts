@@ -138,7 +138,13 @@ export default class Polka implements IModule, IServerHandler {
     app.use(cors(polkaConfig?.cors));
 
     // Setup compression
-    app.use(compression(polkaConfig?.compression));
+    if (
+      polkaConfig &&
+      'compression' in polkaConfig &&
+      polkaConfig.compression
+    ) {
+      app.use(compression(polkaConfig.compression));
+    }
 
     // Setup the proxy for the app
     this.app = new Proxy(app, {
