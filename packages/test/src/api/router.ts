@@ -43,9 +43,7 @@ const Root = route({
 
     const res = await axios.service('echo').trace(ctx).get('/get');
 
-    rabbitmq
-      .channel('primary')
-      .sendToQueue('test', Buffer.from('q: Hello World!'));
+    rabbitmq.channel('primary').sendToQueue('test', 'q: Hello World!');
 
     return Response.json({
       ac: req.body,
