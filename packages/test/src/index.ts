@@ -46,8 +46,9 @@ cortec.load().then(() => {
     dc.update({ abc: 'count+' + count }).catch(console.error);
   }, 60000);
 
+  const channel = rabbitmq.channel('primary');
   // Subscribe to the 'test' queue
-  rabbitmq.channel('primary').consume('test', (msg) => {
-    console.log(msg?.content.toString());
+  channel.consume('test', async (msg: string) => {
+    console.log(msg);
   });
 });
