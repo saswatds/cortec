@@ -39,7 +39,7 @@ class RabbitMQChannel {
   private consumers: {
     [queue: string]: { fn: IRabbitMQConsumer; prefetch: number | undefined };
   } = {};
-  private bindedConsumers: { [queue: string]: Replies.Consume } = {};
+  private boundConsumers: { [queue: string]: Replies.Consume } = {};
   constructor(
     private sig: Sig,
     private nr: INewrelic | undefined,
@@ -63,7 +63,14 @@ class RabbitMQChannel {
       return;
     }
 
-    this.channel.sendToQueue(queue, Buffer.from(message));
+    const sent = this.channel.sendToQueue(queue, Buffer.from(message));
+
+    if (!sent) {
+      this.sig?.error(`failed to send message to queue: ${queue}`);
+      this.nr?.api.noticeError(
+        new Error(`rabbitmq query ${queue} sendToQueue failed`)
+      );
+    }
   }
 
   consume(
@@ -121,7 +128,7 @@ class RabbitMQChannel {
     this.sig?.info(`resetting channel`);
     this.channel?.removeAllListeners();
     this.channel = undefined;
-    this.bindedConsumers = {};
+    this.boundConsumers = {};
   }
 
   dispose() {
@@ -129,11 +136,11 @@ class RabbitMQChannel {
     this.channel?.removeAllListeners();
 
     // Unbind all consumers
-    for (const queue of Object.values(this.bindedConsumers)) {
+    for (const queue of Object.values(this.boundConsumers)) {
       this.channel?.cancel(queue.consumerTag);
     }
 
-    this.bindedConsumers = {};
+    this.boundConsumers = {};
     this.consumers = {};
     this.channel = undefined;
   }
@@ -144,7 +151,7 @@ class RabbitMQChannel {
     // Check if we already have a consumer for the queue
     for (const [queue, { prefetch }] of Object.entries(this.consumers)) {
       // Check if we already have a consumer for the queue
-      if (this.bindedConsumers[queue]) continue;
+      if (this.boundConsumers[queue]) continue;
 
       this.sig?.info(`binding consumer to queue: ${queue}`);
 
@@ -152,7 +159,7 @@ class RabbitMQChannel {
       if (prefetch) await this.channel.prefetch(prefetch);
 
       // Bind the consumer to the queue
-      this.bindedConsumers[queue] = await this.channel.consume(queue, (msg) => {
+      this.boundConsumers[queue] = await this.channel.consume(queue, (msg) => {
         if (!msg) return;
         // Get the consumer again to ensure that the consumer is still bound to the queue
         const consumer = this.consumers[queue];

@@ -48,7 +48,7 @@ cortec.load().then(() => {
 
   const channel = rabbitmq.channel('primary');
   // Subscribe to the 'test' queue
-  channel.consume('test', async (msg: string) => {
+  channel.consume('test', 10, async (msg: string) => {
     console.log(msg);
   });
 });
