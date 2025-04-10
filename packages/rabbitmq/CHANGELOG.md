@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.0](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.13.0...@cortec/rabbitmq@1.14.0) (2025-04-10)
+
+### Features
+
+- handle prefetch separate from consumer ([3aa4879](https://github.com/saswatds/cortec/commit/3aa4879124679dc49ee42a6268351df0463ce788))
+
 ## [1.13.0](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.12.0...@cortec/rabbitmq@1.13.0) (2025-04-10)
 
 ### Features
