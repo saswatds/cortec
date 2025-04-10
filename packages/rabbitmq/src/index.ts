@@ -36,7 +36,9 @@ export class RabbitRejectError extends Error {
 class RabbitMQChannel {
   private channel: Channel | undefined;
   private buffer: [string, string][] = [];
-  private consumers: { [queue: string]: IRabbitMQConsumer } = {};
+  private consumers: {
+    [queue: string]: { fn: IRabbitMQConsumer; prefetch: number | undefined };
+  } = {};
   private bindedConsumers: { [queue: string]: Replies.Consume } = {};
   constructor(
     private sig: Sig,
@@ -64,14 +66,18 @@ class RabbitMQChannel {
     this.channel.sendToQueue(queue, Buffer.from(message));
   }
 
-  consume(queue: string, consumer: IRabbitMQConsumer) {
+  consume(
+    queue: string,
+    prefetch: number | undefined,
+    consumer: IRabbitMQConsumer
+  ) {
     // If the consumer is already bound to the queue, then reject the request
     if (this.consumers[queue]) {
       this.sig?.error(`consumer already bound to queue: ${queue}`);
       throw new Error(`consumer already bound to queue: ${queue}`);
     }
 
-    this.consumers[queue] = consumer;
+    this.consumers[queue] = { fn: consumer, prefetch };
 
     // Bind the consumer to the queue
     this.bindConsumers();
@@ -136,21 +142,26 @@ class RabbitMQChannel {
     // If the channel is not yet created then ignore the request
     if (!this.channel) return;
     // Check if we already have a consumer for the queue
-    for (const queue of Object.keys(this.consumers)) {
+    for (const [queue, { prefetch }] of Object.entries(this.consumers)) {
       // Check if we already have a consumer for the queue
       if (this.bindedConsumers[queue]) continue;
 
       this.sig?.info(`binding consumer to queue: ${queue}`);
 
+      // Set the prefetch
+      if (prefetch) await this.channel.prefetch(prefetch);
+
       // Bind the consumer to the queue
       this.bindedConsumers[queue] = await this.channel.consume(queue, (msg) => {
         if (!msg) return;
+        // Get the consumer again to ensure that the consumer is still bound to the queue
         const consumer = this.consumers[queue];
 
         if (!consumer) return;
 
         // Call the consumer
-        consumer(msg.content.toString())
+        consumer
+          .fn(msg.content.toString())
           .then(() => {
             this.channel?.ack(msg);
           })
