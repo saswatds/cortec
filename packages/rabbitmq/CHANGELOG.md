@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.0](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.12.0...@cortec/rabbitmq@1.13.0) (2025-04-10)
+
+### Features
+
+- added support for defining prefetch ([1df677e](https://github.com/saswatds/cortec/commit/1df677e69948be501787e053004b9120db3ebb5e))
+- implement a better handling for rabbitmq connections ([85a2e19](https://github.com/saswatds/cortec/commit/85a2e197c2b15e72d7e1a2bf00748c217e2a3946))
+
 ## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.11.3...@cortec/rabbitmq@1.12.0) (2024-12-11)
 
 ### Features
