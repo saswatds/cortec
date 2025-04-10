@@ -37,9 +37,10 @@ class RabbitMQChannel {
   private channel: Channel | undefined;
   private buffer: [string, string][] = [];
   private consumers: {
-    [queue: string]: { fn: IRabbitMQConsumer; prefetch: number | undefined };
+    [queue: string]: IRabbitMQConsumer;
   } = {};
   private boundConsumers: { [queue: string]: Replies.Consume } = {};
+  private $prefetch: number | undefined;
   constructor(
     private sig: Sig,
     private nr: INewrelic | undefined,
@@ -73,18 +74,14 @@ class RabbitMQChannel {
     }
   }
 
-  consume(
-    queue: string,
-    prefetch: number | undefined,
-    consumer: IRabbitMQConsumer
-  ) {
+  consume(queue: string, consumer: IRabbitMQConsumer) {
     // If the consumer is already bound to the queue, then reject the request
     if (this.consumers[queue]) {
       this.sig?.error(`consumer already bound to queue: ${queue}`);
       throw new Error(`consumer already bound to queue: ${queue}`);
     }
 
-    this.consumers[queue] = { fn: consumer, prefetch };
+    this.consumers[queue] = consumer;
 
     // Bind the consumer to the queue
     this.bindConsumers();
@@ -94,6 +91,13 @@ class RabbitMQChannel {
     const channel = await connection.createChannel();
 
     this.sig?.success(`channel created`);
+
+    // Set the prefetch
+    if (this.$prefetch)
+      await channel.prefetch(this.$prefetch).catch((err) => {
+        this.sig?.error(`failed to set prefetch: ${err.message}`);
+        this.nr?.api.noticeError(err);
+      });
 
     // create a channel for publishing messages
     this.channel = channel;
@@ -145,18 +149,24 @@ class RabbitMQChannel {
     this.channel = undefined;
   }
 
+  prefetch(prefetch: number) {
+    this.$prefetch = prefetch;
+    // If the channel is already created, then set the prefetch
+    this.channel?.prefetch(prefetch).catch((err) => {
+      this.sig?.error(`failed to set prefetch: ${err.message}`);
+      this.nr?.api.noticeError(err);
+    });
+  }
+
   private async bindConsumers() {
     // If the channel is not yet created then ignore the request
     if (!this.channel) return;
     // Check if we already have a consumer for the queue
-    for (const [queue, { prefetch }] of Object.entries(this.consumers)) {
+    for (const queue of Object.keys(this.consumers)) {
       // Check if we already have a consumer for the queue
       if (this.boundConsumers[queue]) continue;
 
       this.sig?.info(`binding consumer to queue: ${queue}`);
-
-      // Set the prefetch
-      if (prefetch) await this.channel.prefetch(prefetch);
 
       // Bind the consumer to the queue
       this.boundConsumers[queue] = await this.channel.consume(queue, (msg) => {
@@ -167,8 +177,7 @@ class RabbitMQChannel {
         if (!consumer) return;
 
         // Call the consumer
-        consumer
-          .fn(msg.content.toString())
+        consumer(msg.content.toString())
           .then(() => {
             this.channel?.ack(msg);
           })

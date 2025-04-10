@@ -47,8 +47,11 @@ cortec.load().then(() => {
   }, 60000);
 
   const channel = rabbitmq.channel('primary');
+
+  channel.prefetch(10);
+
   // Subscribe to the 'test' queue
-  channel.consume('test', 10, async (msg: string) => {
+  channel.consume('test', async (msg: string) => {
     console.log(msg);
   });
 });
