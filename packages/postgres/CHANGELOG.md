@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0 (2025-05-01)
+
+### Features
+
+- added support for postgres and drizzle orm ([f463ced](https://github.com/saswatds/cortec/commit/f463ced0942497f3f316adb208197db890325f77))
+
 ## [1.11.1](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.11.0...@cortec/mongodb@1.11.1) (2024-08-12)
 
 **Note:** Version bump only for package @cortec/mongodb
