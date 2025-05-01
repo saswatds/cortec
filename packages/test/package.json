@@ -32,6 +32,7 @@
     "@cortec/rabbitmq": "workspace:*",
     "@cortec/sentry": "workspace:*",
     "@cortec/storage": "workspace:*",
+    "@cortec/postgres": "workspace:*",
     "config": "^3.3.9",
     "newrelic": "^9.14.1"
   },

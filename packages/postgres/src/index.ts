@@ -64,16 +64,18 @@ export default class CortecPostgres implements IModule, IPostgres {
       }
 
       // Create the pool
-      this.clients[identity] = new Pool(connection);
+      const pool = new Pool(connection);
 
       sig
         .scope(this.name, identity)
         .await('connecting to postgres://' + connection.host);
       // Ping the database
-      await this.clients[identity].query('SELECT 1');
+      await pool.query('SELECT 1');
       sig
         .scope(this.name, identity)
         .success('connected to postgres://' + connection.host);
+
+      this.clients[identity] = pool;
     }
   }
   async dispose() {

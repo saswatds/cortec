@@ -41,3 +41,13 @@ services:
       RABBITMQ_DEFAULT_USER: "root"
       RABBITMQ_DEFAULT_PASS: "password"
     restart: unless-stopped
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test_db
+    ports:
+      - 5432:5432
