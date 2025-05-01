@@ -3,6 +3,7 @@ import { z } from '@cortec/config';
 import type { IDynamicConfig } from '@cortec/dynamic-config';
 import type { IRouter } from '@cortec/polka';
 import { Response, route } from '@cortec/polka';
+import type { IPostgres } from '@cortec/postgres';
 import type { IRabbitMQ } from '@cortec/rabbitmq';
 import { join } from 'path';
 
@@ -40,16 +41,21 @@ const Root = route({
     const dc = this.require<IDynamicConfig<ImportantConfig>>('dynamic-config');
     const axios = this.require<IAxios>('axios');
     const rabbitmq = this.require<IRabbitMQ>('rabbitmq');
+    const postgres = this.require<IPostgres>('postgres');
 
     const res = await axios.service('echo').trace(ctx).get('/get');
-
     rabbitmq.channel('primary').sendToQueue('test', 'q: Hello World!');
+
+    // Get a row from postgres
+
+    const row = await postgres.db('test').query('SELECT * FROM test');
 
     return Response.json({
       ac: req.body,
       session: ctx.session,
       message: 'Hello World! ' + dc.config.abc,
-      resp: res.data,
+      axios: res.data,
+      postgres: row.rows,
     });
   },
 });

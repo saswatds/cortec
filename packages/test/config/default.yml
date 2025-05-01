@@ -72,3 +72,12 @@ storage:
   test:
     dir: ".storage"
     makeParent: false
+
+postgres:
+  test:
+    connection:
+      host: "localhost"
+      port: 5432
+      user: "root"
+      password: "password"
+      database: "test_db"

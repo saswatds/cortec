@@ -47,6 +47,13 @@ class RabbitMQChannel {
     private bufferSize: number = 1000
   ) {}
 
+  /**
+   * Get the channel for internal use
+   */
+  get $channel() {
+    return this.channel;
+  }
+
   sendToQueue(queue: string, message: string) {
     if (!this.channel) {
       // If the channel is not yet created, then we need to buffer the message until the channel is created
@@ -291,7 +298,7 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
     // Persist the connection
     this.$connections[identity] = conn;
 
-    this.channel(identity).create(conn);
+    await this.channel(identity).create(conn);
   }
 
   private async reconnect(
