@@ -1,7 +1,7 @@
 {
-  "name": "@cortec/postgres",
+  "name": "@cortec/elastic",
   "version": "1.1.0",
-  "description": "Postgres module for Cortec",
+  "description": "Elasticsearch module for Cortec",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:saswatds/cortec.git",
@@ -20,10 +20,10 @@
   "dependencies": {
     "@cortec/config": "workspace:*",
     "@cortec/types": "workspace:*",
-    "pg": "^8.13.1"
+    "@elastic/elasticsearch": "^9.0.1"
   },
   "devDependencies": {
-    "@cortec/newrelic": "workspace:*",
+    "@cortec/newrelic": "workspace:*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
