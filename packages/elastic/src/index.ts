@@ -1,8 +1,7 @@
-import { Config } from '@cortec/config';
-import { IContext, IModule, Sig } from '@cortec/types';
+import { Config, z } from '@cortec/config';
+import type { IContext, IModule, Sig } from '@cortec/types';
 import { Client } from '@elastic/elasticsearch';
-import { readFileSync } from 'fs';
-import { z } from 'zod';
+import fs from 'fs';
 
 const connectionSchema = z.object({
   user: z.string(),
@@ -49,7 +48,7 @@ export class Elastic implements IModule, IElastic {
 
       if (connection.caFile) {
         clientConfig.ssl = {
-          ca: fs.readFileSync(connection.caFile);
+          ca: fs.readFileSync(connection.caFile),
         };
       }
       const client = new Client(clientConfig);
