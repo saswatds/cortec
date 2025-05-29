@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/saswatds/cortec/compare/@cortec/elastic@1.1.0...@cortec/elastic@1.1.1) (2025-05-29)
+
+### Bug Fixes
+
+- remove duplicate ssl field from elastic config ([3a1841a](https://github.com/saswatds/cortec/commit/3a1841ae04bc948ce8b54f3a18a083e3461b1a85))
+- type for client config ([50835b2](https://github.com/saswatds/cortec/commit/50835b2849feae6efde5a8237d9705018a3a17a2))
+
 ## 1.1.0 (2025-05-22)
 
 ### Features
