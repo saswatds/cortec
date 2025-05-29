@@ -23,6 +23,17 @@ export interface IElastic {
   client: (identity: string) => Client;
 }
 
+type ClientConfig = {
+  node: string;
+  auth: {
+    username: string;
+    password: string;
+  };
+  ssl?: {
+    ca: any;
+  };
+};
+
 export class Elastic implements IModule, IElastic {
   name = 'elastic';
   protected clients: { [identity: string]: Client } = {};
@@ -35,7 +46,7 @@ export class Elastic implements IModule, IElastic {
   async load(_: IContext, sig: Sig): Promise<void> {
     for (const [identity, { connection }] of Object.entries(this.config)) {
       const node = `${connection.host}:${connection.port}`;
-      const clientConfig = {
+      const clientConfig: ClientConfig = {
         node,
         auth: {
           username: connection.user,
