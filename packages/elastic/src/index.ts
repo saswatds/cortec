@@ -37,9 +37,6 @@ export class Elastic implements IModule, IElastic {
       const node = `${connection.host}:${connection.port}`;
       const clientConfig = {
         node,
-        ssl: {
-          ca: fs.readFileSync(connection.caFile),
-        },
         auth: {
           username: connection.user,
           password: connection.password,
