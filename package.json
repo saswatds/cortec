@@ -53,5 +53,8 @@
       "@commitlint/config-conventional",
       "@commitlint/config-lerna-scopes"
     ]
+  },
+  "dependencies": {
+    "pnpm": "^10.11.1"
   }
 }
