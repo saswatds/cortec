@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.12.0...@cortec/mongodb@1.12.1) (2025-06-09)
+
+**Note:** Version bump only for package @cortec/mongodb
+
 ## [1.12.0](https://github.com/saswatds/cortec/compare/@cortec/mongodb@1.11.1...@cortec/mongodb@1.12.0) (2025-01-23)
 
 ### Features
