@@ -29,6 +29,10 @@ export default class CortecMongoDb implements IModule, IMongoDb {
         options.sslValidate = true;
       }
 
+      sig
+        .scope(this.name, identity)
+        .await('connecting to ' + url.replace(connection.password, '********'));
+
       // eslint-disable-next-line no-await-in-loop
       const client = await MongoClient.connect(
         url,
@@ -38,9 +42,6 @@ export default class CortecMongoDb implements IModule, IMongoDb {
       this.dbs[identity] = client.db(connection.database);
       this.clients[identity] = client;
 
-      sig
-        .scope(this.name, identity)
-        .await('connecting to mongodb://' + connection.host);
       await client.db(connection.database).command({ ping: 1 });
       sig
         .scope(this.name, identity)
