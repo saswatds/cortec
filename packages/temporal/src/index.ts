@@ -42,7 +42,7 @@ export interface ITemporal {
   worker: (identity: string) => NativeConnection;
 }
 
-export class Temporal implements IModule, ITemporal {
+export default class Temporal implements IModule, ITemporal {
   name = 'temporal';
   protected clients: { [identity: string]: Connection } = {};
   protected workers: { [identity: string]: NativeConnection } = {};
@@ -58,14 +58,16 @@ export class Temporal implements IModule, ITemporal {
     )) {
       const tlsConfig = await this.getTLSConfig(
         tls,
-        sig.scope(this.name, identity)
+        sig.scope(this.name + ':worker', identity)
       );
       const worker = await NativeConnection.connect({
         address,
         tls: tlsConfig,
       });
 
-      sig.scope(this.name, identity).info(`connected to ${address}`);
+      sig
+        .scope(this.name + ':worker', identity)
+        .success(`connected to ${address}`);
 
       this.workers[identity] = worker;
     }
@@ -75,11 +77,13 @@ export class Temporal implements IModule, ITemporal {
     )) {
       const tlsConfig = await this.getTLSConfig(
         tls,
-        sig.scope(this.name, identity)
+        sig.scope(this.name + ':client', identity)
       );
       const client = await Connection.connect({ address, tls: tlsConfig });
 
-      sig.scope(this.name, identity).info(`connected to ${address}`);
+      sig
+        .scope(this.name + ':client', identity)
+        .success(`connected to ${address}`);
 
       this.clients[identity] = client;
     }
@@ -134,20 +138,24 @@ export class Temporal implements IModule, ITemporal {
         };
         break;
       case 's3': {
-        sig.info(`loading tls config from s3`);
+        sig.info(`loading tls config from s3 ${tls.region} ${tls.bucket}`);
         const s3 = new S3Client({ region: tls.region });
-        const ca = await s3.send(
-          new GetObjectCommand({
-            Bucket: tls.bucket,
-            Key: tls.paths.ca,
-          })
-        );
 
-        const caBuffer = await ca.Body?.transformToByteArray();
-        if (caBuffer) {
-          tlsConfig.serverRootCACertificate = Buffer.from(caBuffer);
+        if (tls.paths.ca) {
+          const ca = await s3.send(
+            new GetObjectCommand({
+              Bucket: tls.bucket,
+              Key: tls.paths.ca,
+            })
+          );
+
+          const caBuffer = await ca.Body?.transformToByteArray();
+          if (caBuffer) {
+            tlsConfig.serverRootCACertificate = Buffer.from(caBuffer);
+          }
         }
 
+        sig.info(`loading cert from s3 ${tls.bucket} ${tls.paths.cert}`);
         const cert = await s3.send(
           new GetObjectCommand({
             Bucket: tls.bucket,
