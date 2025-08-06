@@ -39,15 +39,21 @@ const ConfigSchema = z.object({
 type TemporalConfig = z.infer<typeof ConfigSchema>;
 
 export interface ITemporal {
-  client: (identity: string) => Connection;
-  worker: (identity: string) => NativeConnection;
-  namespace: (type: 'workers' | 'clients', identity: string) => string;
+  client: (identity: string) => { namespace: string; connection: Connection };
+  worker: (identity: string) => {
+    namespace: string;
+    connection: NativeConnection;
+  };
 }
 
 export default class Temporal implements IModule, ITemporal {
   name = 'temporal';
-  protected clients: { [identity: string]: Connection } = {};
-  protected workers: { [identity: string]: NativeConnection } = {};
+  protected clients: {
+    [identity: string]: { namespace: string; connection: Connection };
+  } = {};
+  protected workers: {
+    [identity: string]: { namespace: string; connection: NativeConnection };
+  } = {};
   private config: TemporalConfig;
 
   constructor() {
@@ -55,7 +61,7 @@ export default class Temporal implements IModule, ITemporal {
   }
 
   async load(_: IContext, sig: Sig): Promise<void> {
-    for (const [identity, { address, tls }] of Object.entries(
+    for (const [identity, { address, tls, namespace }] of Object.entries(
       this.config.workers ?? {}
     )) {
       const tlsConfig = await this.getTLSConfig(
@@ -71,10 +77,10 @@ export default class Temporal implements IModule, ITemporal {
         .scope(this.name + ':worker', identity)
         .success(`connected to ${address}`);
 
-      this.workers[identity] = worker;
+      this.workers[identity] = { namespace, connection: worker };
     }
 
-    for (const [identity, { address, tls }] of Object.entries(
+    for (const [identity, { address, tls, namespace }] of Object.entries(
       this.config.clients ?? {}
     )) {
       const tlsConfig = await this.getTLSConfig(
@@ -87,7 +93,7 @@ export default class Temporal implements IModule, ITemporal {
         .scope(this.name + ':client', identity)
         .success(`connected to ${address}`);
 
-      this.clients[identity] = client;
+      this.clients[identity] = { namespace, connection: client };
     }
   }
 
@@ -101,7 +107,7 @@ export default class Temporal implements IModule, ITemporal {
     );
   }
 
-  client(identity: string): Connection {
+  client(identity: string): { namespace: string; connection: Connection } {
     const client = this.clients[identity];
     if (!client) {
       throw new Error(`client ${identity} not found`);
@@ -110,22 +116,16 @@ export default class Temporal implements IModule, ITemporal {
     return client;
   }
 
-  worker(identity: string): NativeConnection {
+  worker(identity: string): {
+    namespace: string;
+    connection: NativeConnection;
+  } {
     const worker = this.workers[identity];
     if (!worker) {
       throw new Error(`worker ${identity} not found`);
     }
 
     return worker;
-  }
-
-  namespace(type: 'workers' | 'clients', identity: string): string {
-    const config = this.config[type]?.[identity];
-    if (!config) {
-      throw new Error(`${type} ${identity} not found`);
-    }
-
-    return config.namespace;
   }
 
   private async getTLSConfig(
