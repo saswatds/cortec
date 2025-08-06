@@ -99,11 +99,11 @@ export default class Temporal implements IModule, ITemporal {
 
   async dispose(): Promise<void> {
     await Promise.all(
-      Object.values(this.clients).map((client) => client.close())
+      Object.values(this.clients).map((client) => client.connection.close())
     );
 
     await Promise.all(
-      Object.values(this.workers).map((worker) => worker.close())
+      Object.values(this.workers).map((worker) => worker.connection.close())
     );
   }
 
