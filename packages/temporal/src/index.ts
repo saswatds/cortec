@@ -7,6 +7,7 @@ import { NativeConnection } from '@temporalio/worker';
 import fs from 'fs';
 
 const ConnectionSchema = z.object({
+  namespace: z.string(),
   address: z.string(),
   tls: z.discriminatedUnion('source', [
     z.object({
@@ -31,8 +32,8 @@ const ConnectionSchema = z.object({
 });
 
 const ConfigSchema = z.object({
-  workers: z.record(ConnectionSchema),
-  clients: z.record(ConnectionSchema),
+  workers: z.record(ConnectionSchema).optional(),
+  clients: z.record(ConnectionSchema).optional(),
 });
 
 type TemporalConfig = z.infer<typeof ConfigSchema>;
@@ -40,6 +41,7 @@ type TemporalConfig = z.infer<typeof ConfigSchema>;
 export interface ITemporal {
   client: (identity: string) => Connection;
   worker: (identity: string) => NativeConnection;
+  namespace: (type: 'workers' | 'clients', identity: string) => string;
 }
 
 export default class Temporal implements IModule, ITemporal {
@@ -54,7 +56,7 @@ export default class Temporal implements IModule, ITemporal {
 
   async load(_: IContext, sig: Sig): Promise<void> {
     for (const [identity, { address, tls }] of Object.entries(
-      this.config.workers
+      this.config.workers ?? {}
     )) {
       const tlsConfig = await this.getTLSConfig(
         tls,
@@ -73,7 +75,7 @@ export default class Temporal implements IModule, ITemporal {
     }
 
     for (const [identity, { address, tls }] of Object.entries(
-      this.config.clients
+      this.config.clients ?? {}
     )) {
       const tlsConfig = await this.getTLSConfig(
         tls,
@@ -115,6 +117,15 @@ export default class Temporal implements IModule, ITemporal {
     }
 
     return worker;
+  }
+
+  namespace(type: 'workers' | 'clients', identity: string): string {
+    const config = this.config[type]?.[identity];
+    if (!config) {
+      throw new Error(`${type} ${identity} not found`);
+    }
+
+    return config.namespace;
   }
 
   private async getTLSConfig(
