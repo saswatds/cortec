@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/saswatds/cortec/compare/@cortec/storage@1.4.0...@cortec/storage@1.5.0) (2025-08-28)
+
+### Features
+
+- added ability to copy files from one directory to another ([1f56086](https://github.com/saswatds/cortec/commit/1f560867bdfe79e5daa0f9cb726a2a855f6fdf8f))
+
 ## [1.4.0](https://github.com/saswatds/cortec/compare/@cortec/storage@1.3.1...@cortec/storage@1.4.0) (2024-08-17)
 
 ### Features
