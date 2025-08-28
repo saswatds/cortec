@@ -2,8 +2,9 @@ import type * as nodefs from 'node:fs';
 import path from 'node:path';
 import type { Readable } from 'node:stream';
 
-import type { ReadStream, Stats } from 'fs-extra';
+import type { CopyOptions, ReadStream, Stats } from 'fs-extra';
 import {
+  copy,
   createReadStream,
   createWriteStream,
   mkdirpSync,
@@ -16,6 +17,7 @@ import {
 } from 'fs-extra';
 
 export interface IBaseStorage {
+  copy(source: string, destination: string): Promise<void>;
   readdir(dir: string): Promise<string[]>;
   read(file: string): Promise<string>;
   readStream(file: string): nodefs.ReadStream;
@@ -33,6 +35,18 @@ export class DiskStorage implements IBaseStorage {
   constructor(basePath: string, makeParent: boolean) {
     this.basePath = basePath;
     makeParent && mkdirpSync(this.basePath);
+  }
+
+  async copy(
+    source: string,
+    destination: string,
+    options?: CopyOptions
+  ): Promise<void> {
+    return copy(
+      path.join(this.basePath, source),
+      path.join(this.basePath, destination),
+      options
+    );
   }
 
   async readdir(dir: string): Promise<string[]> {
