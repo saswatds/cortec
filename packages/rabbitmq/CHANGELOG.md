@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.0](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.14.1...@cortec/rabbitmq@1.15.0) (2025-09-26)
+
+### Features
+
+- added support for showing which user is being connected to ([5af2783](https://github.com/saswatds/cortec/commit/5af278344bf52db08e6169f1cfd7e0aa7efc6fb4))
+
 ## [1.14.1](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.14.0...@cortec/rabbitmq@1.14.1) (2025-05-01)
 
 **Note:** Version bump only for package @cortec/rabbitmq
