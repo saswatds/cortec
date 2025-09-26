@@ -7,10 +7,10 @@ import retry from 'async-retry';
 
 const connectionConfig = z.object({
   protocol: z.enum(['amqp', 'amqps']),
-  hostname: z.string(),
+  hostname: z.string().min(1, 'hostname cannot be empty'),
   port: z.coerce.number(),
-  username: z.string(),
-  password: z.string(),
+  username: z.string().min(1, 'username cannot be empty'),
+  password: z.string().min(1, 'password cannot be empty'),
 });
 
 const schema = z.record(
@@ -201,6 +201,14 @@ class RabbitMQChannel {
   }
 }
 
+const maskPassword = (str: string, charsToShow = 2) => {
+  // Mask the password except the last charsToShow characters
+  // If password is less than charsToShow characters, then show the entire password
+  // Example: password -> ********rd
+  if (str.length <= charsToShow) return str;
+  return '*'.repeat(str.length - charsToShow) + str.slice(-charsToShow);
+};
+
 export default class RabbitMQ implements IModule, IRabbitMQ {
   name = 'rabbitmq';
   private config: RabbitMQConfig;
@@ -261,7 +269,13 @@ export default class RabbitMQ implements IModule, IRabbitMQ {
   ) {
     this.sig
       ?.scope(this.name, identity)
-      .await(`connecting to ${connection.protocol}://${connection.hostname}`);
+      .await(
+        `connecting to ${connection.protocol}://${
+          connection.hostname
+        } with user ${connection.username} and password ${maskPassword(
+          connection.password
+        )}`
+      );
     const conn = await connect(connection);
     this.sig
       ?.scope(this.name, identity)
