@@ -1,9 +1,9 @@
 import type http from 'node:http';
 
+import type { z } from '@cortec/config';
 import type { IContext } from '@cortec/types';
 import type { Polka } from 'polka';
 import type { ServeStaticOptions } from 'serve-static';
-import type { z } from 'zod';
 
 export interface IResponse<T> {
   status: number;

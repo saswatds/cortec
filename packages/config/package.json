@@ -21,7 +21,7 @@
     "@cortec/types": "workspace:*",
     "config": "^3.3.11",
     "js-yaml": "^4.1.0",
-    "zod": "^3.23.5",
+    "zod": "3.23.5",
     "zod-validation-error": "^3.2.0"
   },
   "typedoc": {

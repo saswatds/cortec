@@ -1,6 +1,7 @@
 import type http from 'node:http';
 
 import type { IConfig } from '@cortec/config';
+import { z } from '@cortec/config';
 import type { ILogger } from '@cortec/logger';
 import type { INewrelic } from '@cortec/newrelic';
 import type { IRedis } from '@cortec/redis';
@@ -26,7 +27,6 @@ import type { RateLimiterRes } from 'rate-limiter-flexible';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
 import type { ServeStaticOptions } from 'serve-static';
 import serveStatic from 'serve-static';
-import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
 import HttpStatusCode from './HttpStatusCodes';
