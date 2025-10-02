@@ -1,0 +1,35 @@
+{
+  "name": "@cortec/opensearch",
+  "version": "1.0.0",
+  "description": "Opensearch module for Cortec",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:saswatds/cortec.git",
+  "author": "Saswat Das <saswatds@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/saswatds/cortec/blob/main/README.md",
+  "scripts": {
+    "depcheck": "depcheck --ignore-patterns=dist",
+    "build": "tsc --build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=10",
+    "test": "jest --passWithNoTests"
+  },
+  "files": [
+    "./dist"
+  ],
+  "dependencies": {
+    "@cortec/config": "workspace:*",
+    "@cortec/types": "workspace:*",
+    "@opensearch-project/opensearch": "^3.5.1"
+  },
+  "devDependencies": {
+    "@cortec/newrelic": "workspace:*"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "tsconfig": "./tsconfig.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
