@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.6.0](https://github.com/saswatds/cortec/compare/@cortec/polka@2.5.0...@cortec/polka@2.6.0) (2025-10-02)
+
+### Features
+
+- freeze the version of zod from config ([169f930](https://github.com/saswatds/cortec/commit/169f93087eaa120ee1aa1a54229e92cb7843b982))
+
 ## [2.5.0](https://github.com/saswatds/cortec/compare/@cortec/polka@2.4.3...@cortec/polka@2.5.0) (2025-04-09)
 
 ### Features

@@ -1,6 +1,6 @@
 {
   "name": "@cortec/sentry",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
