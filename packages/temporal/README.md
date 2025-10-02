@@ -8,53 +8,70 @@
 
 ## Configuration Options
 
-Configuration is provided via the `temporal` section in your config files. The schema supports both `clients` and `workers`, each keyed by an identity string.
+**Where to put config:**
+Place your Temporal config in `config/default.yml` (or your environment-specific config file).
 
-### Example Configuration
+**Schema:**
 
 ```yaml
 temporal:
   clients:
     main:
-      namespace: 'default'
-      address: 'temporal.example.com:7233'
+      namespace: "default"                # Temporal namespace
+      address: "temporal.example.com:7233"# Temporal server address
       tls:
-        source: 'filesystem'
+        source: "filesystem"              # "filesystem" or "s3"
         paths:
-          ca: '/path/to/ca.pem'
-          cert: '/path/to/cert.pem'
-          key: '/path/to/key.pem'
+          ca: "/path/to/ca.pem"           # optional, CA certificate
+          cert: "/path/to/cert.pem"       # required, client certificate
+          key: "/path/to/key.pem"         # required, client key
   workers:
     worker1:
-      namespace: 'default'
-      address: 'temporal.example.com:7233'
+      namespace: "default"
+      address: "temporal.example.com:7233"
       tls:
-        source: 's3'
-        region: 'us-east-1'
-        bucket: 'my-tls-bucket'
+        source: "s3"
+        region: "us-east-1"               # AWS region (required for S3)
+        bucket: "my-tls-bucket"           # S3 bucket name (required for S3)
         paths:
-          ca: 'ca.pem'
-          cert: 'cert.pem'
-          key: 'key.pem'
+          ca: "ca.pem"                    # optional, CA certificate in S3
+          cert: "cert.pem"                # required, client certificate in S3
+          key: "key.pem"                  # required, client key in S3
 ```
 
-### Schema
+**Field-by-field explanation:**
 
-- `clients` / `workers`: Record of identities, each with:
-  - `namespace`: Temporal namespace (string)
-  - `address`: Temporal server address (string)
-  - `tls`: TLS configuration (see below)
+- `temporal`: Root key for Temporal config.
+- `clients`: Map of client identities to config.
+  - `namespace`: Temporal namespace (string, required).
+  - `address`: Temporal server address (string, required).
+  - `tls`: TLS configuration for secure connection.
+    - `source`: `"filesystem"` or `"s3"`. Determines where TLS certs are loaded from.
+    - `paths`: Object with certificate file paths or S3 keys.
+      - `ca`: CA certificate (optional, recommended for security).
+      - `cert`: Client certificate (required).
+      - `key`: Client key (required).
+    - For S3:
+      - `region`: AWS region (required).
+      - `bucket`: S3 bucket name (required).
+- `workers`: Map of worker identities to config (same structure as `clients`).
 
-#### TLS Configuration
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
 
-- **Filesystem**
-  - `source`: `"filesystem"`
-  - `paths`: `{ ca?: string, cert: string, key: string }`
-- **S3**
-  - `source`: `"s3"`
-  - `region`: AWS region (string)
-  - `bucket`: S3 bucket name (string)
-  - `paths`: `{ ca?: string, cert: string, key: string }`
+```typescript
+const config = ctx.provide<IConfig>('config');
+const temporalConfig = config?.get<any>('temporal');
+```
+
+If config is missing or invalid, an error is thrown at startup.
+
+**Caveats:**
+
+- TLS certificates must be accessible at the configured paths or S3 locations.
+- If any required field is missing, the module will throw an error and fail to connect.
+- You can define multiple clients and workers for different namespaces or environments.
 
 ---
 

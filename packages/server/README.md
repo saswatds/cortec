@@ -10,13 +10,25 @@ This module is typically used as the entry point for web services in a Cortec-ba
 
 ## Configuration Options
 
-The server configuration is loaded from the `server` section of your config files (e.g., `config/default.yml`). The expected structure is:
+**Where to put config:**
+Place your server config in `config/default.yml` (or your environment-specific config file).
+
+**Schema:**
 
 ```yaml
 server:
   http:
     port: 8080 # The port number the server will listen on (default: 8080)
 ```
+
+**Field-by-field explanation:**
+
+- `server`: Root key for server config.
+- `http`: Section for HTTP server options.
+  - `port`: The port number the server will listen on.
+    - **Type:** number
+    - **Default:** 8080
+    - **Required:** No (defaults to 8080 if not set)
 
 **TypeScript interface:**
 
@@ -27,6 +39,17 @@ interface IServerConfig {
   };
 }
 ```
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const serverConfig = config?.get<IServerConfig>('server');
+```
+
+If config is missing, the server will default to port 8080. If invalid, an error is thrown at startup.
 
 ---
 

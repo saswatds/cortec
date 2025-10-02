@@ -107,7 +107,18 @@ await ctx.load();
 
 ## Configuration Options
 
-This package does not require configuration. It is purely for type definitions and shared interfaces.
+This package does **not** require configuration. It is purely for type definitions and shared interfaces used by other Cortec modules.
+
+- **No config needed:** You do not need to add anything to your `config/default.yml` or other config files for this package.
+- **Usage:** Simply import types and interfaces from `@cortec/types` in your modules and packages.
+
+Example:
+
+```typescript
+import type { IModule, IContext, Sig } from '@cortec/types';
+```
+
+All configuration for Cortec modules is handled in their respective packages. See each module's README for detailed configuration instructions.
 
 ## When to Use
 

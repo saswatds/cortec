@@ -10,16 +10,53 @@ This module also sets up global handlers for uncaught exceptions and unhandled p
 
 ## Configuration Options
 
-The New Relic agent is configured via environment variables and/or a `newrelic.js` config file as per the [official documentation](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/).
+**Where to put config:**
+You can configure New Relic via environment variables, a `newrelic.js` file, or a YAML config (e.g., `config/default.yml`). The agent will automatically pick up environment variables and config files as per [official documentation](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/).
 
-Common environment variables include:
+**Schema/Structure:**
 
-- `NEW_RELIC_LICENSE_KEY`: Your New Relic license key (required).
-- `NEW_RELIC_APP_NAME`: The name of your application.
-- `NEW_RELIC_LOG_LEVEL`: Logging verbosity (`info`, `debug`, etc.).
-- `NEW_RELIC_ENABLED`: Enable/disable the agent (`true`/`false`).
+- Environment variables (recommended for secrets):
 
-You can also provide additional configuration in `config/newrelic.js` or `config/default.yml` if your project uses centralized config management.
+  - `NEW_RELIC_LICENSE_KEY`: Your New Relic license key (**required**)
+  - `NEW_RELIC_APP_NAME`: Application name (string)
+  - `NEW_RELIC_LOG_LEVEL`: Logging verbosity (`info`, `debug`, etc.)
+  - `NEW_RELIC_ENABLED`: Enable/disable agent (`true`/`false`)
+  - `NEW_RELIC_DISTRIBUTED_TRACING_ENABLED`: Enable distributed tracing (`true`/`false`)
+  - ...and more, see [full list](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/).
+
+- YAML config example (`config/default.yml`):
+
+```yaml
+newrelic:
+  app_name: 'MyApp'
+  license_key: 'YOUR_LICENSE_KEY'
+  log_level: 'info'
+  distributed_tracing:
+    enabled: true
+  error_collector:
+    enabled: true
+  # See official docs for all options
+```
+
+**Field-by-field explanation:**
+
+- `app_name`: Name of your application as shown in New Relic dashboard.
+- `license_key`: Your New Relic license key (keep this secret).
+- `log_level`: Verbosity of agent logs (`info`, `debug`, `warn`, `error`).
+- `distributed_tracing.enabled`: Enables distributed tracing for requests.
+- `error_collector.enabled`: Enables error collection and reporting.
+- Additional fields are available for fine-tuning agent behavior (see [docs](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/)).
+
+**How config is loaded:**
+The agent automatically loads config from environment variables, `newrelic.js`, or YAML config.
+Within Cortec, you can access config via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const nrConfig = config?.get<any>('newrelic');
+```
+
+If config is missing or invalid, the agent will log errors and may not start.
 
 ---
 

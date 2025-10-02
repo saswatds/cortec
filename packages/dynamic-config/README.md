@@ -6,23 +6,36 @@
 
 ## Configuration Options
 
-The configuration for dynamic-config is defined using a Zod schema and typically looks like this:
+**Where to put config:**
+Place your dynamic config in `config/default.yml` (or your environment-specific config file).
 
-```ts
-{
-  source: {
-    type: string; // e.g., 'mongodb'
-    mongodb: {
-      name: string;       // MongoDB database name
-      collection: string; // MongoDB collection name
-    }
-  },
-  ttl?: number;           // Optional: refresh interval in milliseconds
-  default: any;           // Default config value (validated by schema)
-}
+**Schema/Structure:**
+
+```yaml
+dynamic-config:
+  source:
+    type: mongodb # Source type, currently only 'mongodb' is supported
+    mongodb:
+      name: mydb # MongoDB database name
+      collection: configCollection # MongoDB collection name for configs
+  ttl: 300000 # Optional: refresh interval in milliseconds (default: 5 minutes)
+  default:
+    featureEnabled: false # Default config values (validated by your schema)
+    maxLimit: 100
 ```
 
-Example YAML configuration:
+**Field-by-field explanation:**
+
+- `dynamic-config`: Root key for dynamic config.
+- `source`: Specifies where to load config from.
+  - `type`: Source type. Only `"mongodb"` is supported.
+  - `mongodb`: MongoDB connection details.
+    - `name`: The identity/name of the MongoDB instance (must match your MongoDB config).
+    - `collection`: The collection in MongoDB where configs are stored.
+- `ttl`: (Optional) How often to refresh config from the source, in milliseconds. Default is 5 minutes.
+- `default`: The default config object, validated by your Zod schema. Used as fallback if no config is found in the source.
+
+**Example YAML configuration:**
 
 ```yaml
 dynamic-config:
@@ -36,6 +49,17 @@ dynamic-config:
     featureEnabled: false
     maxLimit: 100
 ```
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime using your Zod schema.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const dynConfig = config?.get<any>('dynamic-config');
+```
+
+If config is missing or invalid, an error is thrown at startup. The module will periodically refresh config from MongoDB based on the `ttl` value, and you can manually call `refresh()` or `update()` as needed.
 
 ## Example Usage
 

@@ -6,29 +6,59 @@
 
 ## Configuration Options
 
-The Polka module expects its configuration under the `polka` key in your config files. The configuration schema is:
+**Where to put config:**
+Place your Polka config in `config/default.yml` (or your environment-specific config file).
 
-```js
-{
-  cors: CorsOptions, // CORS middleware options
-  helmet: HelmetOptions, // Helmet security middleware options
-  compression: CompressionOptions, // Compression middleware options
-  bodyParser: {
-    json: bodyParser.OptionsJson,
-    raw: bodyParser.Options,
-    text: bodyParser.OptionsText,
-    urlencoded: bodyParser.OptionsUrlencoded,
-  }
-}
+**Schema/Structure:**
+
+```yaml
+polka:
+  cors: # CORS middleware options
+    origin: '*' # Allowed origins (string or array)
+    methods: ['GET', 'POST'] # Allowed HTTP methods
+    credentials: false # Allow credentials (optional)
+  helmet: # Helmet security middleware options
+    contentSecurityPolicy: false
+    # ...other helmet options
+  compression: # Compression middleware options
+    threshold: 1024 # Minimum response size to compress (bytes)
+  bodyParser: # Body parser options for different content types
+    json:
+      limit: '1mb' # Max JSON body size
+    raw: {} # Options for raw body parsing
+    text: {} # Options for text body parsing
+    urlencoded:
+      extended: true # Use extended query string parsing
 ```
 
-Example YAML configuration:
+**Field-by-field explanation:**
+
+- `polka`: Root key for Polka config.
+- `cors`: [CORS](https://github.com/expressjs/cors#configuration-options) options.
+  - `origin`: Allowed origins (string, array, or boolean).
+  - `methods`: Allowed HTTP methods (array of strings).
+  - `credentials`: Allow credentials (boolean, optional).
+  - Other options as per CORS middleware.
+- `helmet`: [Helmet](https://helmetjs.github.io/) options for HTTP header security.
+  - `contentSecurityPolicy`: Enable/disable CSP (boolean).
+  - Other options as per Helmet middleware.
+- `compression`: [Compression](https://github.com/expressjs/compression#options) options.
+  - `threshold`: Minimum response size to compress (bytes).
+  - Other options as per compression middleware.
+- `bodyParser`: Options for parsing request bodies.
+  - `json`: Options for JSON bodies (e.g., `limit` for max size).
+  - `raw`: Options for raw bodies.
+  - `text`: Options for text bodies.
+  - `urlencoded`: Options for URL-encoded bodies (e.g., `extended`).
+
+**Example YAML configuration:**
 
 ```yaml
 polka:
   cors:
     origin: '*'
     methods: ['GET', 'POST']
+    credentials: false
   helmet:
     contentSecurityPolicy: false
   compression:
@@ -41,6 +71,17 @@ polka:
     urlencoded:
       extended: true
 ```
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const polkaConfig = config?.get<any>('polka');
+```
+
+If config is missing or invalid, an error is thrown at startup.
 
 ## Example Usage
 

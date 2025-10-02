@@ -6,14 +6,38 @@
 
 ## Configuration Options
 
-Logger configuration is typically provided via your application's configuration system (e.g., `config/default.yml` or similar). The main options are:
+**Where to put config:**
+Place your logger config in `config/default.yml` (or your environment-specific config file).
+
+**Schema:**
 
 ```yaml
 logger:
   level: info # Log level: 'trace', 'debug', 'info', 'warn', 'error', 'fatal'
 ```
 
-- `level` (string): The minimum log level to output. Defaults to `'info'` if not specified.
+**Field-by-field explanation:**
+
+- `logger`: Root key for logger config.
+- `level`: (string) The minimum log level to output. Valid values are `'trace'`, `'debug'`, `'info'`, `'warn'`, `'error'`, `'fatal'`. Defaults to `'info'` if not specified.
+
+**Example YAML:**
+
+```yaml
+logger:
+  level: debug
+```
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const loggerConfig = config?.get<{ level?: string }>('logger');
+```
+
+If config is missing, the logger defaults to `'info'` level.
 
 ## Example Usage
 

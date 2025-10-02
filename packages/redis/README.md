@@ -6,33 +6,53 @@
 
 ## Configuration Options
 
-The Redis module expects configuration in the following format (typically provided via your config files):
+**Where to put config:**
+Place your Redis config in `config/default.yml` (or your environment-specific config file).
 
-```js
-{
-  [identity: string]: {
-    connection: {
-      host: string,
-      port: number,
-      password?: string,
-      db?: number,
-      // Additional ioredis options...
-    },
-    maxRetries?: number,      // Maximum number of retry attempts
-    encryption?: boolean,     // Enable TLS encryption
-    cluster?: {
-      nodes: Array<{ host: string, port: number }>,
-      // Additional cluster options...
-    }
-  }
-}
+**Schema:**
+
+```yaml
+redis:
+  cache:
+    connection:
+      host: 'localhost'
+      port: 6379
+      password: 'secret' # optional
+      db: 0 # optional, default: 0
+    maxRetries: 5 # optional, default: 5
+    encryption: false # optional, enables TLS if true
+    cluster: # optional, enables Redis Cluster mode
+      nodes:
+        - host: 'localhost'
+          port: 6379
+        - host: 'localhost'
+          port: 6380
 ```
 
-- **identity**: A unique name for each Redis instance (e.g., "cache", "session").
-- **connection**: Standard Redis connection options.
-- **maxRetries**: Number of times to retry on connection errors.
-- **encryption**: If true, enables TLS for secure connections.
-- **cluster**: If provided, enables Redis Cluster mode with the specified nodes.
+**Field-by-field explanation:**
+
+- `redis`: Root key for Redis config.
+- `cache`: Identity/name for this Redis instance (can be any string, e.g. "session", "main", etc.).
+- `connection`: Connection options for [ioredis](https://github.com/luin/ioredis).
+  - `host`: Redis server hostname or IP.
+  - `port`: Redis server port.
+  - `password`: Password for authentication (optional).
+  - `db`: Database index (optional, default is 0).
+- `maxRetries`: Maximum number of retry attempts before giving up (optional, default is 5).
+- `encryption`: If true, enables TLS/SSL for secure connections (optional).
+- `cluster`: If present, enables Redis Cluster mode.
+  - `nodes`: List of cluster node objects, each with `host` and `port`.
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const redisConfig = config?.get<any>('redis');
+```
+
+If config is missing or invalid, an error is thrown at startup.
 
 ## Example Usage
 

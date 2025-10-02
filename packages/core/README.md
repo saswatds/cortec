@@ -14,27 +14,66 @@ Key features:
 
 ## Configuration Options
 
-The core service accepts the following configuration options (via the `service` object):
+**Where to put config:**
+You can pass configuration directly when constructing the core context, or load it from your `package.json` or a config file.
+
+**Schema:**
 
 ```typescript
 interface ICortecConfig {
-  printOpenHandles?: boolean; // Print open handles on exit (for debugging)
-  silent?: boolean; // Suppress logging output
-  loadTimeout?: number; // Timeout for loading modules (ms)
-  disposeTimeout?: number; // Timeout for disposing modules (ms)
+  name: string; // Application name (required)
+  version: string; // Application version (required)
+  printOpenHandles?: boolean; // Print open handles on exit (for debugging, optional, default: false)
+  silent?: boolean; // Suppress logging output (optional, default: false)
+  loadTimeout?: number; // Timeout for loading modules in ms (optional, default: 60000)
+  disposeTimeout?: number; // Timeout for disposing modules in ms (optional, default: 5000)
+  // ...other fields from package.json are allowed
 }
 ```
 
-These options are typically passed when instantiating the core context:
+**Field-by-field explanation:**
+
+- `name`: The name of your application. Used for identification and reporting (required).
+- `version`: The version of your application (required).
+- `printOpenHandles`: If true, prints open handles on exit for debugging resource leaks (optional).
+- `silent`: If true, disables logging output (optional).
+- `loadTimeout`: Maximum time (ms) to wait for all modules to load before timing out (optional).
+- `disposeTimeout`: Maximum time (ms) to wait for all modules to dispose before timing out (optional).
+- Other fields: You may include additional fields from your `package.json` for convenience.
+
+**Example YAML config (if using config files):**
+
+```yaml
+name: 'my-app'
+version: '1.0.0'
+printOpenHandles: true
+silent: false
+loadTimeout: 60000
+disposeTimeout: 5000
+```
+
+**How config is loaded:**
+You can pass the config object directly when constructing the core context:
 
 ```typescript
-const serviceConfig: ICortecConfig = {
+const cortec = new Cortec({
+  name: 'my-app',
+  version: '1.0.0',
   printOpenHandles: true,
   silent: false,
   loadTimeout: 60000,
   disposeTimeout: 5000,
-};
+});
 ```
+
+Or load from your `package.json`:
+
+```typescript
+const pkg = require('./package.json');
+const cortec = new Cortec(pkg);
+```
+
+If required fields (`name`, `version`) are missing, an error will be thrown at startup.
 
 ## Example Usage
 

@@ -10,28 +10,15 @@ This module is designed to work within the Cortec framework, allowing you to def
 
 ## Configuration Options
 
-Configuration for BullMQ is typically provided via your application's config system under the `bullmq` key. Below is the structure and explanation of the available options:
+**Where to put config:**
+Place your BullMQ config in `config/default.yml` (or your environment-specific config file).
 
-```ts
-interface BullConfig {
-  cache: string; // Name of the Redis cache instance to use
-  concurrency: number; // Number of concurrent jobs the worker can process
-  flow?: boolean; // Enable flow producer for complex job flows
-  options?: DefaultJobOptions; // BullMQ job options (e.g., attempts, backoff, etc.)
-}
-
-interface BullMQConfig {
-  queue?: { [name: string]: BullConfig };
-  producer?: { [name: string]: BullConfig };
-}
-```
-
-**Example config:**
+**Schema:**
 
 ```yaml
 bullmq:
   queue:
-    emailQueue:
+    jobs:
       cache: 'main'
       concurrency: 5
       options:
@@ -40,7 +27,52 @@ bullmq:
           type: 'exponential'
           delay: 1000
   producer:
-    reportFlow:
+    reports:
+      cache: 'main'
+      flow: true
+```
+
+**Field-by-field explanation:**
+
+- `bullmq`: Root key for BullMQ config.
+- `queue`: Map of queue names to queue config.
+  - `cache`: Redis cache identity to use (must match a configured Redis instance).
+  - `concurrency`: Number of concurrent jobs for the worker (integer, required).
+  - `options`: [BullMQ job options](https://docs.bullmq.io/job-options) (object, optional).
+    - `attempts`: Number of retry attempts for failed jobs (integer, optional).
+    - `backoff`: Backoff strategy for retries (object, optional).
+      - `type`: Backoff type, e.g. `"exponential"` or `"fixed"` (string).
+      - `delay`: Delay in milliseconds between retries (integer).
+- `producer`: Map of flow producer names to config.
+  - `cache`: Redis cache identity.
+  - `flow`: If true, enables flow producer (boolean, optional).
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const bullConfig = config?.get<any>('bullmq');
+```
+
+If config is missing or invalid, an error is thrown at startup.
+
+**Example config:**
+
+```yaml
+bullmq:
+  queue:
+    jobs:
+      cache: 'main'
+      concurrency: 5
+      options:
+        attempts: 3
+        backoff:
+          type: 'exponential'
+          delay: 1000
+  producer:
+    reports:
       cache: 'main'
       flow: true
 ```

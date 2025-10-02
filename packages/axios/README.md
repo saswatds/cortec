@@ -10,34 +10,58 @@ This module is designed for use in service-oriented architectures, allowing you 
 
 ## Configuration Options
 
-Configuration is provided via your config system under the `axios` key. The structure is:
+**Where to put config:**
+Place your Axios config in `config/default.yml` (or your environment-specific config file).
 
-```ts
-interface IAxiosConfig {
-  global?: AxiosRequestConfig; // Default options for all services
-  api: {
-    [serviceName: string]: AxiosRequestConfig; // Options per service
-  };
-}
-```
-
-**Example config:**
+**Schema:**
 
 ```yaml
 axios:
   global:
-    timeout: 5000
+    timeout: 5000 # Default timeout for all services (ms)
     headers:
-      User-Agent: 'MyApp/1.0'
+      User-Agent: 'MyApp/1.0' # Default headers for all requests
   api:
     github:
-      baseURL: 'https://api.github.com'
+      baseURL: 'https://api.github.com' # Base URL for the GitHub API
       headers:
-        Authorization: 'Bearer <token>'
+        Authorization: 'Bearer <token>' # Auth header for GitHub
     myService:
       baseURL: 'https://myservice.example.com'
-      timeout: 10000
+      timeout: 10000 # Override timeout for this service
 ```
+
+**Field-by-field explanation:**
+
+- `axios`: Root key for Axios config.
+- `global`: (optional) Default [AxiosRequestConfig](https://axios-http.com/docs/req_config) applied to all services.
+  - `timeout`: Default request timeout in milliseconds.
+  - `headers`: Default headers for all requests.
+  - Any other valid Axios config options.
+- `api`: Map of service names to their individual Axios config.
+  - Each key (e.g. `github`, `myService`) is a service name you will use in code.
+  - `baseURL`: The base URL for the service.
+  - `headers`: Service-specific headers.
+  - `timeout`: Service-specific timeout.
+  - Any other valid Axios config options.
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const axiosConfig = config?.get<any>('axios');
+```
+
+If config is missing or invalid, an error is thrown at startup.
+
+**Usage in Axios module:**
+
+- All services you want to use must be defined under `axios.api`.
+- If a service is missing, an error will be thrown at runtime.
+- You can override global config per service.
+- New Relic integration and request flags are supported for advanced instrumentation.
 
 ---
 

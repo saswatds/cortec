@@ -10,21 +10,23 @@ The module exposes methods to retrieve MongoDB clients and databases by identity
 
 ## Configuration Options
 
-The configuration for this module should be provided under the `mongodb` key in your config files. Each identity can have its own connection and options.
+**Where to put config:**
+Place your MongoDB config in `config/default.yml` (or your environment-specific config file).
+
+**Schema:**
 
 ```yaml
 mongodb:
   main:
     connection:
-      host: 'localhost'
-      database: 'mydb'
-      user: 'admin' # optional
-      password: 'secret' # optional
+      host: 'localhost' # MongoDB server hostname or IP
+      database: 'mydb' # Database name to connect to
+      user: 'admin' # optional, username for authentication
+      password: 'secret' # optional, password for authentication
       ssl: true # optional, enables TLS/SSL
     options:
-      # MongoClientOptions (see official MongoDB Node.js driver docs)
-      useUnifiedTopology: true
-      connectTimeoutMS: 30000
+      useUnifiedTopology: true # optional, MongoClientOptions
+      connectTimeoutMS: 30000 # optional, MongoClientOptions
   analytics:
     connection:
       host: 'analytics-db.local'
@@ -33,17 +35,34 @@ mongodb:
     options: {}
 ```
 
-**Connection Options:**
+**Field-by-field explanation:**
 
-- `host` (string): MongoDB server hostname or IP.
-- `database` (string): Database name to connect to.
-- `user` (string, optional): Username for authentication.
-- `password` (string, optional): Password for authentication.
-- `ssl` (boolean, optional): Enable SSL/TLS for the connection.
+- `mongodb`: Root key for MongoDB config.
+- `main`, `analytics`: Identity/name for this MongoDB instance (can be any string).
+- `connection`: Connection options for [MongoClient](https://mongodb.github.io/node-mongodb-native/4.0/classes/MongoClient.html).
+  - `host`: MongoDB server hostname or IP.
+  - `database`: Database name to connect to.
+  - `user`: Username for authentication (optional).
+  - `password`: Password for authentication (optional).
+  - `ssl`: If true, enables SSL/TLS for secure connections (optional).
+- `options`: Additional [MongoClientOptions](https://mongodb.github.io/node-mongodb-native/4.0/interfaces/MongoClientOptions.html) (optional).
 
-**Options:**
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
 
-- Any valid [MongoClientOptions](https://mongodb.github.io/node-mongodb-native/4.0/interfaces/MongoClientOptions.html).
+```typescript
+const config = ctx.provide<IConfig>('config');
+const mongoConfig = config?.get<any>('mongodb');
+```
+
+If config is missing or invalid, an error is thrown at startup.
+
+**Caveats:**
+
+- If `ssl: true` is set, the module will automatically use `/var/platform/rds-combined-ca-bundle.pem` as the CA file for SSL.
+- Each identity (e.g., `main`, `analytics`) creates a separate MongoDB client and database instance.
+- All configuration validation and loading is handled internally; errors will be thrown if required fields are missing or connections fail.
 
 ---
 

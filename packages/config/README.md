@@ -8,18 +8,58 @@ The module exposes both a legacy interface (`CortecConfig`) and a static utility
 
 ## Configuration Options
 
-Configuration is typically loaded from YAML files in your project's `config/` directory (e.g., `config/default.yml`). The structure and schema of each module's configuration is defined by that module.
+### Where to put config
 
-The main API is:
+Place your configuration files in the `config/` directory of your project (e.g., `config/default.yml`, `config/production.yml`). Each module expects its own section in the config file.
 
-```ts
+### How config is loaded
+
+The config is loaded automatically by the `@cortec/config` module (using the [`config`](https://www.npmjs.com/package/config) library). You access config values in code using:
+
+```typescript
+import { Config, z } from '@cortec/config';
+
+const schema = z.object({
+  host: z.string(),
+  port: z.number(),
+  password: z.string().optional(),
+});
+const redisConfig = Config.get('redis', schema);
+```
+
+If the configuration is missing or invalid, an error is thrown with details.
+
+### API
+
+```typescript
 Config.get<T>(path: string, schema?: z.Schema<T>): T
 ```
 
 - `path`: The configuration key or path (e.g., `"redis"`, `"server.http"`).
 - `schema`: A [zod](https://github.com/colinhacks/zod) schema describing the expected structure and types.
 
-If the configuration is missing or invalid, an error is thrown with details.
+### Example YAML
+
+```yaml
+redis:
+  host: 'localhost'
+  port: 6379
+  password: 'secret'
+server:
+  http:
+    port: 8080
+```
+
+### Field-by-field explanation
+
+- Each top-level key (e.g., `redis`, `server`) represents a module or feature.
+- The structure under each key is determined by the module's requirements.
+- Use a zod schema to validate the expected structure and types for each config section.
+
+### What happens if config is missing or invalid
+
+- If a config value is missing, `Config.get` throws an error with a helpful message.
+- If a config value does not match the provided schema, a validation error is thrown with details about the mismatch.
 
 ## Example Usage
 

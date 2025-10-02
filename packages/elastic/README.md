@@ -10,18 +10,49 @@ This module is designed to be used within the Cortec framework, providing a stan
 
 ## Configuration Options
 
-Configuration is expected under the `elastic` key in your config files (e.g., `config/default.yml`). The schema is as follows:
+**Where to put config:**
+Place your Elastic config in `config/default.yml` (or your environment-specific config file).
+
+**Schema:**
 
 ```yaml
 elastic:
   myClient:
     connection:
-      user: <string> # Username for authentication
-      password: <string> # Password for authentication
-      host: <string> # Hostname or IP of Elasticsearch node
-      port: <number> # Port number (default: 9200)
-      caFile: <string> # Path to CA certificate file (optional, for SSL)
+      user: 'elasticuser' # Username for authentication
+      password: 'elasticpass' # Password for authentication
+      host: 'localhost' # Hostname or IP of Elasticsearch node
+      port: 9200 # Port number (default: 9200)
+      caFile: '/path/to/ca.pem' # Optional, path to CA certificate file for SSL
+  analytics:
+    connection:
+      user: 'readonly'
+      password: 'readonlypass'
+      host: 'analytics.example.com'
+      port: 9200
 ```
+
+**Field-by-field explanation:**
+
+- `elastic`: Root key for Elastic config.
+- `myClient`, `analytics`: Identity/name for each Elasticsearch client (can be any string).
+- `connection`: Connection options for [@elastic/elasticsearch](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html).
+  - `user`: Username for authentication.
+  - `password`: Password for authentication.
+  - `host`: Hostname or IP address of the Elasticsearch node.
+  - `port`: Port number for the node (default: 9200).
+  - `caFile`: Path to CA certificate file for SSL connections (optional).
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const elasticConfig = config?.get<any>('elastic');
+```
+
+If config is missing or invalid, an error is thrown at startup.
 
 You may define multiple clients by specifying different keys under `elastic`.
 

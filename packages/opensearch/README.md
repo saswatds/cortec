@@ -6,41 +6,72 @@
 
 ## Configuration Options
 
-Configuration is provided as a map of identities to connection objects. Each connection can be enabled/disabled and supports authentication and SSL.
+**Where to put config:**
+Place your Opensearch config in `config/default.yml` (or your environment-specific config file).
 
-```ts
-{
-  [identity: string]: {
-    connection: {
-      enabled: boolean;         // Whether to instantiate this client
-      user: string;             // Username for authentication
-      password: string;         // Password for authentication
-      host: string;             // Hostname of the OpenSearch node
-      port: number;             // Port number
-      caFile?: string;          // Optional path to CA certificate file for SSL
-    }
-  }
-}
-```
-
-Example YAML configuration (`config/opensearch.yml`):
+**Schema:**
 
 ```yaml
-main:
-  connection:
-    enabled: true
-    user: 'admin'
-    password: 'secret'
-    host: 'opensearch.example.com'
-    port: 9200
-    caFile: '/etc/ssl/certs/opensearch-ca.pem'
-analytics:
-  connection:
-    enabled: false
-    user: 'readonly'
-    password: 'readonlypass'
-    host: 'analytics.example.com'
-    port: 9200
+opensearch:
+  main:
+    connection:
+      enabled: true # Whether to instantiate this client (required)
+      user: 'admin' # Username for authentication (required)
+      password: 'secret' # Password for authentication (required)
+      host: 'opensearch.example.com' # Hostname of the OpenSearch node (required)
+      port: 9200 # Port number (required)
+      caFile: '/etc/ssl/certs/opensearch-ca.pem' # Optional path to CA certificate file for SSL
+  analytics:
+    connection:
+      enabled: false
+      user: 'readonly'
+      password: 'readonlypass'
+      host: 'analytics.example.com'
+      port: 9200
+```
+
+**Field-by-field explanation:**
+
+- `opensearch`: Root key for Opensearch config.
+- `main`, `analytics`: Identity/name for each client (can be any string).
+- `connection`: Connection options for each client.
+  - `enabled`: If `true`, the client will be instantiated; if `false`, it will be skipped.
+  - `user`: Username for authentication.
+  - `password`: Password for authentication.
+  - `host`: Hostname or IP address of the OpenSearch node.
+  - `port`: Port number for the OpenSearch node.
+  - `caFile`: (Optional) Path to CA certificate file for SSL connections.
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const opensearchConfig = config?.get<any>('opensearch');
+```
+
+If config is missing or invalid, an error is thrown at startup.
+
+**Example YAML configuration:**
+
+```yaml
+opensearch:
+  main:
+    connection:
+      enabled: true
+      user: 'admin'
+      password: 'secret'
+      host: 'opensearch.example.com'
+      port: 9200
+      caFile: '/etc/ssl/certs/opensearch-ca.pem'
+  analytics:
+    connection:
+      enabled: false
+      user: 'readonly'
+      password: 'readonlypass'
+      host: 'analytics.example.com'
+      port: 9200
 ```
 
 ## Example Usage

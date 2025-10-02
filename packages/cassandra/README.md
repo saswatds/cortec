@@ -10,21 +10,22 @@ This module is designed to be used within the Cortec framework, leveraging its c
 
 ## Configuration Options
 
-The configuration for Cassandra clients should be provided under the `cassandra` key in your config files. Each client is identified by an `identity` string.
+**Where to put config:**
+Place your Cassandra config in `config/default.yml` (or your environment-specific config file).
 
-### Example Configuration
+**Schema:**
 
 ```yaml
 cassandra:
   main:
-    auth: 'aws' # or "default"
+    auth: 'aws' # "aws" for AWS SigV4, "default" for standard
     options:
       contactPoints:
         - 'cassandra.example.com'
       localDataCenter: 'us-east-1'
       caPath: '/path/to/ca.pem' # required for AWS SigV4
       keyspace: 'my_keyspace'
-      # ...other options from cassandra-driver
+      # ...other cassandra-driver options
   analytics:
     auth: 'default'
     options:
@@ -34,8 +35,30 @@ cassandra:
       keyspace: 'analytics'
 ```
 
-- **auth**: `"aws"` for AWS SigV4 authentication, `"default"` for standard authentication.
-- **options**: Options passed to the [cassandra-driver](https://docs.datastax.com/en/developer/nodejs-driver/latest/) client. For AWS, `caPath` is required for SSL.
+**Field-by-field explanation:**
+
+- `cassandra`: Root key for Cassandra config.
+- `main`, `analytics`: Identity/name for this Cassandra client (can be any string).
+- `auth`:
+  - `"aws"`: Use AWS SigV4 authentication (requires AWS credentials in environment).
+  - `"default"`: Use standard authentication.
+- `options`: Passed directly to the [cassandra-driver](https://docs.datastax.com/en/developer/nodejs-driver/latest/) client.
+  - `contactPoints`: List of Cassandra node hostnames/IPs.
+  - `localDataCenter`: Data center name for load balancing.
+  - `caPath`: Path to CA certificate file (required for AWS SigV4).
+  - `keyspace`: Default keyspace to use.
+  - Any other valid cassandra-driver options.
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+const config = ctx.provide<IConfig>('config');
+const cassandraConfig = config?.get<any>('cassandra');
+```
+
+If config is missing or invalid, an error is thrown at startup.
 
 ---
 

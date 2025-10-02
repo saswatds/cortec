@@ -6,18 +6,40 @@ The `@cortec/storage` package provides a unified interface for managing file sto
 
 ## Configuration Options
 
-The configuration for storage is defined as a record of storage identities, each specifying a directory and whether to create parent directories if they do not exist.
+**Where to put config:**
+Place your storage config in `config/default.yml` (or your environment-specific config file).
 
-```ts
-{
-  [identity: string]: {
-    dir: string;        // Directory path for storage
-    makeParent: boolean;// If true, create parent directories if missing
-  }
-}
+**Schema:**
+
+```yaml
+storage:
+  uploads:
+    dir: '/var/app/uploads'
+    makeParent: true
+  logs:
+    dir: '/var/app/logs'
+    makeParent: false
 ```
 
-Example configuration in your config file:
+**Field-by-field explanation:**
+
+- `storage`: Root key for Storage config.
+- `uploads`, `logs`: Identity/name for each storage instance (can be any string).
+- `dir`: Directory path for storage. This is where files will be read/written.
+- `makeParent`: If true, parent directories will be created automatically if missing.
+
+**How config is loaded:**
+The config is loaded automatically by the `@cortec/config` module and validated at runtime.
+Access it in code via:
+
+```typescript
+import { Config } from '@cortec/config';
+const storageConfig = Config.get('storage');
+```
+
+If config is missing or invalid, an error is thrown at startup.
+
+**Example YAML:**
 
 ```yaml
 storage:
