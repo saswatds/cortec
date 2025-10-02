@@ -36,7 +36,7 @@ export interface IOpensearch {
   client: (identity: string) => Client;
 }
 
-export class Opensearch implements IOpensearch, IModule {
+export default class Opensearch implements IOpensearch, IModule {
   name = 'opensearch';
   protected clients: { [identity: string]: Client } = {};
   private config: OpensearchConfig;
