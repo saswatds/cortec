@@ -1,6 +1,6 @@
 {
   "name": "@cortec/opensearch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Opensearch module for Cortec",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
