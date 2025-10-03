@@ -4,7 +4,7 @@ import { Client } from '@opensearch-project/opensearch';
 import fs from 'fs';
 
 const connectionSchema = z.object({
-  enabled: z.boolean(),
+  enabled: z.boolean().optional(),
   user: z.string(),
   password: z.string(),
   host: z.string(),
