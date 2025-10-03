@@ -47,7 +47,8 @@ export default class Opensearch implements IOpensearch, IModule {
 
   async load(_: IContext, sig: Sig): Promise<void> {
     for (const [identity, { connection }] of Object.entries(this.config)) {
-      if (!connection.enabled) {
+      // If the connection is explicitly disabled, skip it
+      if (connection.enabled === false) {
         sig
           .scope(this.name, identity)
           .info(
