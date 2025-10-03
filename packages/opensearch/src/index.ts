@@ -4,7 +4,6 @@ import { Client } from '@opensearch-project/opensearch';
 import fs from 'fs';
 
 const connectionSchema = z.object({
-  enabled: z.boolean().optional(),
   user: z.string(),
   password: z.string(),
   host: z.string(),
@@ -47,16 +46,6 @@ export default class Opensearch implements IOpensearch, IModule {
 
   async load(_: IContext, sig: Sig): Promise<void> {
     for (const [identity, { connection }] of Object.entries(this.config)) {
-      // If the connection is explicitly disabled, skip it
-      if (connection.enabled === false) {
-        sig
-          .scope(this.name, identity)
-          .info(
-            `skipping client instantiation for ${identity}: enabled flag is false`
-          );
-        continue;
-      }
-
       const node = `${connection.host}:${connection.port}`;
       const clientConfig: ClientConfig = {
         node,

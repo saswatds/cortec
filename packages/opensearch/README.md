@@ -15,7 +15,6 @@ Place your Opensearch config in `config/default.yml` (or your environment-specif
 opensearch:
   main:
     connection:
-      enabled: true # Whether to instantiate this client (required)
       user: 'admin' # Username for authentication (required)
       password: 'secret' # Password for authentication (required)
       host: 'opensearch.example.com' # Hostname of the OpenSearch node (required)
@@ -23,7 +22,6 @@ opensearch:
       caFile: '/etc/ssl/certs/opensearch-ca.pem' # Optional path to CA certificate file for SSL
   analytics:
     connection:
-      enabled: false
       user: 'readonly'
       password: 'readonlypass'
       host: 'analytics.example.com'
@@ -35,7 +33,6 @@ opensearch:
 - `opensearch`: Root key for Opensearch config.
 - `main`, `analytics`: Identity/name for each client (can be any string).
 - `connection`: Connection options for each client.
-  - `enabled`: If `true`, the client will be instantiated; if `false`, it will be skipped.
   - `user`: Username for authentication.
   - `password`: Password for authentication.
   - `host`: Hostname or IP address of the OpenSearch node.
@@ -59,7 +56,6 @@ If config is missing or invalid, an error is thrown at startup.
 opensearch:
   main:
     connection:
-      enabled: true
       user: 'admin'
       password: 'secret'
       host: 'opensearch.example.com'
@@ -67,7 +63,6 @@ opensearch:
       caFile: '/etc/ssl/certs/opensearch-ca.pem'
   analytics:
     connection:
-      enabled: false
       user: 'readonly'
       password: 'readonlypass'
       host: 'analytics.example.com'
@@ -112,7 +107,6 @@ console.log(result.body.hits.hits);
 
 ## Notes
 
-- Disabled clients (`enabled: false`) are skipped during instantiation.
 - CA certificates are loaded from the filesystem if provided.
 - Errors during connection or health check will throw and should be handled by the application.
 
