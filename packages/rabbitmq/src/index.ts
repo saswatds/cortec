@@ -81,7 +81,7 @@ class RabbitMQChannel {
     }
   }
 
-  consume(queue: string, consumer: IRabbitMQConsumer) {
+  async consume(queue: string, consumer: IRabbitMQConsumer) {
     // If the consumer is already bound to the queue, then reject the request
     if (this.consumers[queue]) {
       this.sig?.error(`consumer already bound to queue: ${queue}`);
@@ -91,7 +91,7 @@ class RabbitMQChannel {
     this.consumers[queue] = consumer;
 
     // Bind the consumer to the queue
-    this.bindConsumers();
+    await this.bindConsumers();
   }
 
   async create(connection: Connection) {
@@ -121,7 +121,7 @@ class RabbitMQChannel {
     }
 
     // Bind the consumers
-    this.bindConsumers();
+    await this.bindConsumers();
 
     // Listen for channel close
     channel.once('close', () => {
@@ -142,13 +142,14 @@ class RabbitMQChannel {
     this.boundConsumers = {};
   }
 
-  dispose() {
+  async dispose() {
     this.sig?.info(`disposing channel`);
-    this.channel?.removeAllListeners();
-
-    // Unbind all consumers
-    for (const queue of Object.values(this.boundConsumers)) {
-      this.channel?.cancel(queue.consumerTag);
+    if (this.channel) {
+      this.channel.removeAllListeners();
+      // Unbind all consumers
+      for (const queue of Object.values(this.boundConsumers)) {
+        await this.channel.cancel(queue.consumerTag).catch(() => null);
+      }
     }
 
     this.boundConsumers = {};
