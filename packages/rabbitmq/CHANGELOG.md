@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.2](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.15.1...@cortec/rabbitmq@1.15.2) (2025-10-06)
+
+### Bug Fixes
+
+- make consume and dispose methods asynchronous to handle binding and unbinding consumers properly ([a68e9a7](https://github.com/saswatds/cortec/commit/a68e9a7cf76f627b869d4f705b0850bda1f7a1fb))
+
 ## [1.15.1](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.15.0...@cortec/rabbitmq@1.15.1) (2025-10-02)
 
 **Note:** Version bump only for package @cortec/rabbitmq
