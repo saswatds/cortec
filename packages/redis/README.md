@@ -109,6 +109,33 @@ To gracefully close all Redis connections:
 await redisModule.dispose();
 ```
 
+## Testing: Using TestableCortecRedis
+
+For integration or unit tests, you can use `TestableCortecRedis` to spin up a disposable Redis container using [testcontainers](https://www.testcontainers.org/). This allows you to run tests against a real Redis instance without needing a local or shared Redis server.
+
+## Testing
+
+You can use `TestableCortecRedis` together with Cortec core to run integration tests against a real, disposable Redis instance—no manual setup required.
+
+```typescript
+import Cortec from '@cortec/core';
+import TestableCortecRedis from '@cortec/redis/testable';
+
+const cortec = new Cortec({ name: 'test-app', version: '1.0.0' });
+const redis = new TestableCortecRedis({ version: '7.2' }, true);
+
+cortec.use(redis);
+
+// After Cortec is loaded:
+const cache = redis.cache('cache');
+await cache.set('key', 'value');
+const value = await cache.get('key');
+console.log(value); // 'value'
+```
+
+- The Redis container is managed automatically by Cortec during the test lifecycle.
+- No need to manually configure host/port for tests—connection details are injected.
+
 ---
 
 For more details, see the implementation in `src/index.ts` and ensure your configuration matches your deployment needs (single-node or cluster).
