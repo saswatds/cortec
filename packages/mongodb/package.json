@@ -17,11 +17,23 @@
   "files": [
     "./dist"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    },
+    "./testable": {
+      "types": "./dist/testable.d.ts",
+      "require": "./dist/testable.js"
+    }
+  },
   "dependencies": {
     "@cortec/types": "workspace:*"
   },
   "devDependencies": {
     "@cortec/config": "workspace:*",
+    "testcontainers": "^11.7.1",
     "mongodb": "^5.1.0"
   },
   "typedoc": {

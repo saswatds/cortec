@@ -17,7 +17,6 @@ mongodb:
     connection:
       host: 'localhost'
       user: 'root'
-      password: null
       ssl: false
       database: 'test'
     options:
