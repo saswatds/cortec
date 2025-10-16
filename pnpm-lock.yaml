@@ -411,6 +411,9 @@ importers:
       '@types/async-retry':
         specifier: 1.4.9
         version: 1.4.9
+      testcontainers:
+        specifier: ^11.7.1
+        version: 11.7.1
 
   packages/redis:
     dependencies:

@@ -5,7 +5,7 @@ import MongoDB from '@cortec/mongodb/testable';
 import Newrelic from '@cortec/newrelic';
 import Polka from '@cortec/polka';
 // import Postgres from '@cortec/postgres';
-// import RabbitMQ from '@cortec/rabbitmq';
+import RabbitMQ from '@cortec/rabbitmq/testable';
 import Redis from '@cortec/redis/testable';
 // import Sentry from '@cortec/sentry';
 import Server from '@cortec/server';
@@ -26,7 +26,7 @@ const mongodb = new MongoDB({ version: '4.0' });
 // const dc = new DynamicConfig(importantConfig);
 // const sentry = new Sentry();
 const axios = new Axios(['echo']);
-// const rabbitmq = new RabbitMQ();
+const rabbitmq = new RabbitMQ({ version: '3-management' });
 // const postgres = new Postgres();
 
 cortec.use(newrelic);
@@ -34,7 +34,7 @@ cortec.use(newrelic);
 cortec.use(redis);
 cortec.use(mongodb);
 // cortec.use(postgres);
-// cortec.use(rabbitmq);
+cortec.use(rabbitmq);
 // cortec.use(dc);
 cortec.use(axios);
 cortec.use(polka);
@@ -49,10 +49,10 @@ cortec.load().then(async () => {
   //   dc.update({ abc: 'count+' + count }).catch(console.error);
   // }, 60000);
 
-  // const channel = rabbitmq.channel('primary');
+  const channel = rabbitmq.channel('primary');
 
   // // Create test queue
-  // await channel.$channel?.assertQueue('test', { durable: true });
+  await channel.$channel?.assertQueue('test', { durable: true });
 
   // channel.prefetch(10);
 

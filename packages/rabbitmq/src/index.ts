@@ -212,7 +212,7 @@ const maskPassword = (str: string, charsToShow = 2) => {
 
 export default class RabbitMQ implements IModule, IRabbitMQ {
   name = 'rabbitmq';
-  private config: RabbitMQConfig;
+  protected config: RabbitMQConfig;
   private $connections: { [identity: string]: Connection } = {};
   private $channel: { [identity: string]: RabbitMQChannel } = {};
 
