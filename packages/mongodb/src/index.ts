@@ -1,4 +1,4 @@
-import type { IConfig } from '@cortec/config';
+import { Config, z } from '@cortec/config';
 import type { IContext, IModule, Sig } from '@cortec/types';
 import type { Db, MongoClientOptions } from 'mongodb';
 import { MongoClient } from 'mongodb';
@@ -9,29 +9,54 @@ export interface IMongoDb {
   healthCheck(): Promise<void>;
 }
 
+const DBConfigSchema = z.record(
+  z.string(),
+  z.object({
+    connection: z.object({
+      host: z.string(),
+      database: z.string(),
+      user: z.string(),
+      password: z.string().optional(),
+      ssl: z.boolean().optional(),
+    }),
+    options: z.record(z.any()),
+  })
+);
+
+type DBConfig = z.infer<typeof DBConfigSchema>;
+
 export default class CortecMongoDb implements IModule, IMongoDb {
   name = 'mongodb';
+
+  protected dbConfig: DBConfig;
   private clients: { [name: string]: MongoClient } = {};
   private dbs: { [name: string]: Db } = {};
-  async load(ctx: IContext, sig: Sig) {
-    const config = ctx.provide<IConfig>('config');
-    const dbConfig = config?.get<any>(this.name);
 
-    for (const identity in dbConfig) {
-      const { connection, options } = dbConfig[identity],
+  constructor() {
+    this.dbConfig = Config.get(this.name, DBConfigSchema);
+  }
+
+  async load(ctx: IContext, sig: Sig) {
+    for (const [identity, instance] of Object.entries(this.dbConfig)) {
+      const { connection, options } = instance,
         url = connection.password
           ? `mongodb://${connection.user}:${connection.password}@${connection.host}`
           : `mongodb://${connection.host}`;
 
       if (connection.ssl) {
-        options.tlsCAFile = '/var/platform/rds-combined-ca-bundle.pem';
-        options.tls = true;
-        options.sslValidate = true;
+        options['tlsCAFile'] = '/var/platform/rds-combined-ca-bundle.pem';
+        options['tls'] = true;
+        options['sslValidate'] = true;
       }
 
       sig
         .scope(this.name, identity)
-        .await('connecting to ' + url.replace(connection.password, '********'));
+        .await(
+          'connecting to ' +
+            (connection.password
+              ? url.replace(connection.password, '********')
+              : url)
+        );
 
       // eslint-disable-next-line no-await-in-loop
       const client = await MongoClient.connect(

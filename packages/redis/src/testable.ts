@@ -18,8 +18,10 @@ export default class TestableCortecRedis extends CortecRedis {
 
   async load(context: IContext, sig: Sig) {
     sig
-      .scope(this.name, 'test-container')
-      .info('starting redis test container...');
+      .scope(this.name)
+      .info(
+        `starting redis test container with image redis:${this.testConfig.version}...`
+      );
     // We are going to create the test container and then override the config with the test container details
     this.container = await new GenericContainer(
       `redis:${this.testConfig.version}`
@@ -31,8 +33,8 @@ export default class TestableCortecRedis extends CortecRedis {
     const port = this.container.getMappedPort(6379);
 
     sig
-      .scope(this.name, 'test-container')
-      .success('redis running at ${host}:${port}');
+      .scope(this.name)
+      .success(`redis test container running on ${host}:${port}`);
 
     // Override the config with the test container details
     Object.entries(this.cacheConfig).forEach(([_, defaultConfig]) => {
