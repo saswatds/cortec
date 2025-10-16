@@ -14,7 +14,7 @@ export const importantConfig = z.object({
 export type ImportantConfig = z.infer<typeof importantConfig>;
 
 const Root = route({
-  modules: ['mongodb', 'redis'],
+  modules: ['redis'],
   schema: {
     query: z.object({
       q: z.string().optional(),
