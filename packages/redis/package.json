@@ -17,6 +17,17 @@
   "files": [
     "./dist"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    },
+    "./testable": {
+      "types": "./dist/testable.d.ts",
+      "require": "./dist/testable.js"
+    }
+  },
   "dependencies": {
     "@cortec/types": "workspace:*",
     "fast-safe-stringify": "2.1.1"
@@ -26,7 +37,8 @@
   },
   "devDependencies": {
     "@cortec/config": "workspace:*",
-    "ioredis": "^5.3.1"
+    "ioredis": "^5.3.1",
+    "testcontainers": "^11.7.1"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

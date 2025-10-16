@@ -5,7 +5,7 @@ server:
 polka:
   bodyParser:
     json:
-      limit: "100kb"
+      limit: '100kb'
       strict: false
   helmet: {}
 
@@ -15,33 +15,31 @@ sentry:
 mongodb:
   test:
     connection:
-      host: "localhost"
-      user: "root"
+      host: 'localhost'
+      user: 'root'
       password: null
       ssl: false
-      database: "test"
+      database: 'test'
     options:
-      replicaSet: "rs0"
+      replicaSet: 'rs0'
       useNewUrlParser: true
       useUnifiedTopology: true
 
 dynamic-config:
   source:
-    type: "mongodb"
+    type: 'mongodb'
     mongodb:
       name: test
-      collection: "config"
+      collection: 'config'
   default:
-    abc: "default"
+    abc: 'default'
 
 redis:
   test:
     connection:
-      host: "localhost"
+      host: 'localhost'
       port: 6379
-      password: null
       showFriendlyErrorStack: true
-    cluster: false
     encryption: false
     maxRetries: 3
 
@@ -49,35 +47,35 @@ newrelic:
   agent_enabled: false
   license_key: null
   logging:
-    level: "error" # We will only emit logs to new relic if level is error
+    level: 'error' # We will only emit logs to new relic if level is error
 
 custom:
-  key: "value"
+  key: 'value'
 
 axios:
   api:
     echo:
-      baseURL: "https://postman-echo.com"
+      baseURL: 'https://postman-echo.com'
 
 rabbitmq:
   primary:
     connection:
-      protocol: "amqp"
-      hostname: "localhost"
+      protocol: 'amqp'
+      hostname: 'localhost'
       port: 5672
-      username: "root"
-      password: "password"
+      username: 'root'
+      password: 'password'
 
 storage:
   test:
-    dir: ".storage"
+    dir: '.storage'
     makeParent: false
 
 postgres:
   test:
     connection:
-      host: "localhost"
+      host: 'localhost'
       port: 5432
-      user: "root"
-      password: "password"
-      database: "test_db"
+      user: 'root'
+      password: 'password'
+      database: 'test_db'

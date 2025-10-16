@@ -1,4 +1,4 @@
-import type { IConfig } from '@cortec/config';
+import { Config, z } from '@cortec/config';
 import type { IContext, IModule, Sig } from '@cortec/types';
 import stringify from 'fast-safe-stringify';
 import type { Cluster, RedisOptions } from 'ioredis';
@@ -65,20 +65,34 @@ const defaultRedisConfig: RedisOptions = {
   keepAlive: 10000,
 };
 
+const RedisConfigSchema = z.record(
+  z.string(),
+  z.object({
+    connection: z.object({
+      host: z.string(),
+      port: z.number(),
+      password: z.string().optional(),
+    }),
+    encryption: z.boolean().optional(),
+    cluster: z
+      .object({
+        nodes: z.array(z.any()).optional(),
+      })
+      .optional(),
+    maxRetries: z.number(),
+  })
+);
+type RedisConfig = z.infer<typeof RedisConfigSchema>;
+
 export default class CortecRedis implements IModule, IRedis {
   name = 'redis';
-  private transformObjects: boolean;
+
+  protected cacheConfig: RedisConfig;
   private $cache: { [name: string]: Cluster | Redis } = {};
 
   constructor(transformObjects = false) {
-    this.transformObjects = transformObjects;
-  }
-
-  async load(ctx: IContext, sig: Sig) {
-    const config = ctx.provide<IConfig>('config');
-    const cacheConfig = config?.get<any>(this.name);
-
-    if (this.transformObjects) {
+    this.cacheConfig = Config.get(this.name, RedisConfigSchema);
+    if (transformObjects) {
       Redis.Command.setArgumentTransformer('hset', (args) => {
         if (args.length === 2 && typeof args[1] === 'object') {
           args = args.slice(0, 1).concat(objectToArray(args[1]));
@@ -90,19 +104,20 @@ export default class CortecRedis implements IModule, IRedis {
         return Array.isArray(result) ? arrayToObject(result) : result;
       });
     }
+  }
 
-    Object.keys(cacheConfig).forEach((identity) => {
-      const defaultConfig = cacheConfig[identity] || {},
-        redisOptions = {
-          ...defaultRedisConfig,
-          ...defaultConfig.connection,
-        };
+  async load(ctx: IContext, sig: Sig) {
+    Object.entries(this.cacheConfig).forEach(([identity, defaultConfig]) => {
+      const redisOptions = {
+        ...defaultRedisConfig,
+        ...defaultConfig.connection,
+      };
 
-      redisOptions.reconnectOnError = (err: Error) =>
-        err.message && err.message.startsWith('READONLY');
+      redisOptions.reconnectOnError = (err: Error): boolean =>
+        !!(err.message && err.message.startsWith('READONLY'));
       redisOptions.retryStrategy = (times: number) => {
         if (times >= defaultConfig.maxRetries) {
-          return false;
+          return null;
         }
 
         // eslint-disable-next-line no-magic-numbers
@@ -125,22 +140,21 @@ export default class CortecRedis implements IModule, IRedis {
       const clusterOptions = defaultConfig.cluster || {},
         { nodes = [] } = clusterOptions;
 
-      // Delete the nodes property from options
-      delete clusterOptions.nodes;
+      // Redis options without host and port
+      const { host, port, ...rest } = redisOptions;
 
       // Add the master node to nodes list
       nodes.unshift({
-        host: redisOptions.host,
-        port: redisOptions.port,
+        host: host,
+        port: port,
       });
 
-      // We can now delete the host and port from redisOptions
-      delete redisOptions.host;
-      delete redisOptions.port;
+      // Delete the nodes property from options
+      delete clusterOptions.nodes;
 
       this.$cache[identity] = new Redis.Cluster(nodes, {
         ...clusterOptions,
-        redisOptions,
+        ...rest,
       });
     });
 
@@ -175,7 +189,7 @@ export default class CortecRedis implements IModule, IRedis {
     return cache;
   }
 
-  healthCheck(): Promise<void> {
+  async healthCheck() {
     return Promise.all(
       Object.values(this.$cache).map((redis) => redis.ping())
     ).then(() => undefined);
