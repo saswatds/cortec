@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.4](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.15.3...@cortec/rabbitmq@1.15.4) (2025-10-17)
+
+**Note:** Version bump only for package @cortec/rabbitmq
+
 ## [1.15.3](https://github.com/saswatds/cortec/compare/@cortec/rabbitmq@1.15.2...@cortec/rabbitmq@1.15.3) (2025-10-17)
 
 **Note:** Version bump only for package @cortec/rabbitmq
