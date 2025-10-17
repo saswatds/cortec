@@ -22,16 +22,16 @@ export default class TestableCortecMongodb extends CortecMongodb {
       .info(
         `starting mongodb test container with image mongo:${this.testConfig.version}...`
       );
+
     // We are going to create the test container and then override the config with the test container details
     this.container = await new GenericContainer(
       `mongo:${this.testConfig.version}`
     )
       .withExposedPorts(27017)
-      .withCommand(['mongod', '--bind_ip_all', '--replSet', 'rs0'])
       .withHealthCheck({
         test: [
           'CMD-SHELL',
-          'echo \'rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27017"}]})\' | mongo --port 27017 --quiet || true; test "$(echo \'db.isMaster().ismaster\' | mongo --port 27017 --quiet)" = "true"',
+          'mongo --eval "db.adminCommand(\'ping\')" --port 27017 --quiet',
         ],
         interval: 5_000,
         startPeriod: 30_000,
@@ -49,6 +49,7 @@ export default class TestableCortecMongodb extends CortecMongodb {
     Object.entries(this.dbConfig).forEach(([_, defaultConfig]) => {
       defaultConfig.connection.host = `${host}:${port}`;
       defaultConfig.connection.ssl = false;
+      defaultConfig.options['replicaSet'] = undefined;
     });
 
     return super.load(context, sig);
