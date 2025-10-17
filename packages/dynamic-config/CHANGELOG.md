@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.7](https://github.com/saswatds/cortec/compare/@cortec/dynamic-config@1.4.6...@cortec/dynamic-config@1.4.7) (2025-10-17)
+
+**Note:** Version bump only for package @cortec/dynamic-config
+
 ## [1.4.6](https://github.com/saswatds/cortec/compare/@cortec/dynamic-config@1.4.5...@cortec/dynamic-config@1.4.6) (2025-10-17)
 
 **Note:** Version bump only for package @cortec/dynamic-config
