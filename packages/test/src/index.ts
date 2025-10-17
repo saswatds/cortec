@@ -1,13 +1,13 @@
 import Axios from '@cortec/axios';
 import Cortec from '@cortec/core';
 // import DynamicConfig from '@cortec/dynamic-config';
-import MongoDB from '@cortec/mongodb/testable';
+import { TestableCortecMongoDB } from '@cortec/mongodb';
 import Newrelic from '@cortec/newrelic';
-import Opensearch from '@cortec/opensearch/testable';
+import { TestableCortecOpensearch } from '@cortec/opensearch';
 import Polka from '@cortec/polka';
 // import Postgres from '@cortec/postgres';
-import RabbitMQ from '@cortec/rabbitmq/testable';
-import Redis from '@cortec/redis/testable';
+import { TestableCortecRabbitMQ } from '@cortec/rabbitmq';
+import { TestableCortecRedis } from '@cortec/redis';
 // import Sentry from '@cortec/sentry';
 import Server from '@cortec/server';
 
@@ -22,13 +22,13 @@ const cortec = new Cortec({
 const newrelic = new Newrelic();
 const polka = new Polka(Router);
 const server = new Server(polka.name);
-const redis = new Redis({ version: 'latest' });
-const mongodb = new MongoDB({ version: '4.0' });
+const redis = new TestableCortecRedis({ version: 'latest' });
+const mongodb = new TestableCortecMongoDB({ version: '4.0' });
 // const dc = new DynamicConfig(importantConfig);
 // const sentry = new Sentry();
 const axios = new Axios(['echo']);
-const rabbitmq = new RabbitMQ({ version: '3-management' });
-const opensearch = new Opensearch({ version: '3' });
+const rabbitmq = new TestableCortecRabbitMQ({ version: '3-management' });
+const opensearch = new TestableCortecOpensearch({ version: '3' });
 // const postgres = new Postgres();
 
 cortec.use(newrelic);

@@ -2,16 +2,16 @@ import type { IContext, Sig } from '@cortec/types';
 import type { StartedTestContainer } from 'testcontainers';
 import { GenericContainer } from 'testcontainers';
 
-import CortecMongodb from '.';
+import { CortecMongoDB } from './main';
 
-export type TestableCortecMongodbConfig = {
+export type TestableCortecMongoDBConfig = {
   version: string;
 };
 
-export default class TestableCortecMongodb extends CortecMongodb {
-  private testConfig: TestableCortecMongodbConfig;
+export class TestableCortecMongoDB extends CortecMongoDB {
+  private testConfig: TestableCortecMongoDBConfig;
   private container?: StartedTestContainer;
-  constructor(config: TestableCortecMongodbConfig) {
+  constructor(config: TestableCortecMongoDBConfig) {
     super();
     this.testConfig = config;
   }

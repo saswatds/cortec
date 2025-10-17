@@ -1,13 +1,13 @@
 import type { StartedOpenSearchContainer } from '@testcontainers/opensearch';
 import { OpenSearchContainer } from '@testcontainers/opensearch';
 
-import CortecOpensearch from './';
+import { CortecOpensearch } from './main';
 
 export type TestableCortecOpensearchConfig = {
   version: string;
 };
 
-export default class TestableCortecOpensearch extends CortecOpensearch {
+export class TestableCortecOpensearch extends CortecOpensearch {
   private testConfig: TestableCortecOpensearchConfig;
   private container?: StartedOpenSearchContainer;
 

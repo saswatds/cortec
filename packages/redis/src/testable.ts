@@ -2,13 +2,13 @@ import type { IContext, Sig } from '@cortec/types';
 import type { StartedTestContainer } from 'testcontainers';
 import { GenericContainer } from 'testcontainers';
 
-import CortecRedis from '.';
+import { CortecRedis } from './main';
 
 export type TestableCortecRedisConfig = {
   version: string;
 };
 
-export default class TestableCortecRedis extends CortecRedis {
+export class TestableCortecRedis extends CortecRedis {
   private testConfig: TestableCortecRedisConfig;
   private container?: StartedTestContainer;
   constructor(config: TestableCortecRedisConfig, transformObject?: boolean) {

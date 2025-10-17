@@ -1,5 +1,5 @@
 import type { IConfig } from '@cortec/config';
-import type Redis from '@cortec/redis';
+import type { IRedis } from '@cortec/redis';
 import type { IContext, IModule, Sig } from '@cortec/types';
 import type { DefaultJobOptions, Processor } from 'bullmq';
 import { FlowProducer, Queue, Worker } from 'bullmq';
@@ -34,7 +34,7 @@ export default class CortecBullMQ implements IModule, IBullMQ {
   }
 
   async load(ctx: IContext, sig: Sig) {
-    const redis = ctx.require<Redis>('redis');
+    const redis = ctx.require<IRedis>('redis');
     const config = ctx.require<IConfig>('config');
     const bullConfig = config?.get<BullMQConfig>(this.name);
 

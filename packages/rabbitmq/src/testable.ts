@@ -2,16 +2,16 @@ import type { IContext, Sig } from '@cortec/types';
 import type { StartedTestContainer } from 'testcontainers';
 import { GenericContainer } from 'testcontainers';
 
-import CortecRabbitmq from '.';
+import { CortecRabbitMQ } from './main';
 
-export type TestableCortecRabbitmqConfig = {
+export type TestableCortecRabbitMQConfig = {
   version: string;
 };
 
-export default class TestableCortecRabbitmq extends CortecRabbitmq {
-  private testConfig: TestableCortecRabbitmqConfig;
+export class TestableCortecRabbitMQ extends CortecRabbitMQ {
+  private testConfig: TestableCortecRabbitMQConfig;
   private container?: StartedTestContainer;
-  constructor(config: TestableCortecRabbitmqConfig) {
+  constructor(config: TestableCortecRabbitMQConfig) {
     super();
     this.testConfig = config;
   }
