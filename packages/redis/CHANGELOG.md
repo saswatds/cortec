@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.0](https://github.com/saswatds/cortec/compare/@cortec/redis@1.12.1...@cortec/redis@1.13.0) (2025-10-17)
+
+### Features
+
+- implement testable cortec libraries ([d1de316](https://github.com/saswatds/cortec/commit/d1de316fe5ef714e89ae053ebaca29d5a8f8f500))
+
 ## [1.12.1](https://github.com/saswatds/cortec/compare/@cortec/redis@1.12.0...@cortec/redis@1.12.1) (2025-10-02)
 
 **Note:** Version bump only for package @cortec/redis
