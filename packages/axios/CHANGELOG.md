@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.7](https://github.com/saswatds/cortec/compare/@cortec/axios@2.4.6...@cortec/axios@2.4.7) (2025-10-17)
+
+**Note:** Version bump only for package @cortec/axios
+
 ## [2.4.6](https://github.com/saswatds/cortec/compare/@cortec/axios@2.4.5...@cortec/axios@2.4.6) (2025-10-17)
 
 **Note:** Version bump only for package @cortec/axios

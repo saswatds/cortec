@@ -1,6 +1,6 @@
 {
   "name": "@cortec/axios",
-  "version": "2.4.6",
+  "version": "2.4.7",
   "description": "<description>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

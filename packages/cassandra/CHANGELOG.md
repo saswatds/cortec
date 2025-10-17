@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.3](https://github.com/saswatds/cortec/compare/@cortec/cassandra@1.7.2...@cortec/cassandra@1.7.3) (2025-10-17)
+
+**Note:** Version bump only for package @cortec/cassandra
+
 ## [1.7.2](https://github.com/saswatds/cortec/compare/@cortec/cassandra@1.7.1...@cortec/cassandra@1.7.2) (2025-10-02)
 
 **Note:** Version bump only for package @cortec/cassandra
