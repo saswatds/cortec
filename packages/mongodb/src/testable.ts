@@ -53,7 +53,7 @@ export default class TestableCortecMongodb extends CortecMongodb {
 
     return super.load(context, sig);
   }
-  async dispose(): Promise<void> {
+  async dispose() {
     await super.dispose();
     await this.container?.stop();
   }

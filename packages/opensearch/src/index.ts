@@ -9,6 +9,7 @@ const connectionSchema = z.object({
   host: z.string(),
   port: z.coerce.number(),
   caFile: z.string().optional(),
+  rejectUnauthorized: z.boolean().optional(),
 });
 const configSchema = z.record(
   z.string(),
@@ -28,6 +29,7 @@ type ClientConfig = {
   ssl?: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ca: any;
+    rejectUnauthorized?: boolean;
   };
 };
 
@@ -38,7 +40,7 @@ export interface IOpensearch {
 export default class Opensearch implements IOpensearch, IModule {
   name = 'opensearch';
   protected clients: { [identity: string]: Client } = {};
-  private config: OpensearchConfig;
+  protected config: OpensearchConfig;
 
   constructor() {
     this.config = Config.get<OpensearchConfig>('opensearch', configSchema);
@@ -53,6 +55,10 @@ export default class Opensearch implements IOpensearch, IModule {
           username: connection.user,
           password: connection.password,
         },
+        ssl: {
+          ca: undefined,
+          rejectUnauthorized: !!connection.rejectUnauthorized,
+        },
       };
 
       if (connection.caFile) {
@@ -60,6 +66,7 @@ export default class Opensearch implements IOpensearch, IModule {
           ca: fs.readFileSync(connection.caFile),
         };
       }
+
       const client = new Client(clientConfig);
 
       sig.scope(this.name, identity).await(`connecting to ${node}`);
