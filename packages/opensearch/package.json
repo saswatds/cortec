@@ -17,17 +17,6 @@
   "files": [
     "./dist"
   ],
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js"
-    },
-    "./testable": {
-      "types": "./dist/testable.d.ts",
-      "require": "./dist/testable.js"
-    }
-  },
   "dependencies": {
     "@cortec/config": "workspace:*",
     "@cortec/types": "workspace:*",
