@@ -303,6 +303,9 @@ importers:
       '@cortec/newrelic':
         specifier: workspace:*
         version: link:../newrelic
+      '@testcontainers/opensearch':
+        specifier: ^11.7.1
+        version: 11.7.1
 
   packages/polka:
     dependencies:
@@ -514,6 +517,9 @@ importers:
       '@cortec/newrelic':
         specifier: workspace:*
         version: link:../newrelic
+      '@cortec/opensearch':
+        specifier: workspace:*
+        version: link:../opensearch
       '@cortec/polka':
         specifier: workspace:*
         version: link:../polka
@@ -1986,6 +1992,9 @@ packages:
   '@temporalio/workflow@1.12.1':
     resolution: {integrity: sha512-r2d2tzEf6zJENewZMku1ge53QO52ZTN8bJXp8zzerPYyMx9Iqhg3Ck1ckrdpxpDw9gxBYZsRbwS2vpiq53ZKRQ==}
     engines: {node: '>= 18.0.0'}
+
+  '@testcontainers/opensearch@11.7.1':
+    resolution: {integrity: sha512-lRycm9Px1//JiZeJJvlpJbPwGYYP6FCleVuaFuA3K9+fRGKVrd7Igcr1CxQP77cWIasQHClvx9bTw9FC4vvCvw==}
 
   '@tootallnate/once@2.0.0':
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
@@ -6725,6 +6734,9 @@ packages:
   zod@3.23.5:
     resolution: {integrity: sha512-fkwiq0VIQTksNNA131rDOsVJcns0pfVUjHzLrNBiF/O/Xxb5lQyEXkhZWcJ7npWsYlvs+h0jFWXXy4X46Em1JA==}
 
+  zxcvbn@4.4.2:
+    resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
+
 snapshots:
 
   '@acuminous/bitsyntax@0.1.2':
@@ -8960,6 +8972,16 @@ snapshots:
     dependencies:
       '@temporalio/common': 1.12.1
       '@temporalio/proto': 1.12.1
+
+  '@testcontainers/opensearch@11.7.1':
+    dependencies:
+      testcontainers: 11.7.1
+      zxcvbn: 4.4.2
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - bare-buffer
+      - react-native-b4a
+      - supports-color
 
   '@tootallnate/once@2.0.0': {}
 
@@ -14477,3 +14499,5 @@ snapshots:
       zod: 3.23.5
 
   zod@3.23.5: {}
+
+  zxcvbn@4.4.2: {}

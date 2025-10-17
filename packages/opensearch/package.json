@@ -17,13 +17,25 @@
   "files": [
     "./dist"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    },
+    "./testable": {
+      "types": "./dist/testable.d.ts",
+      "require": "./dist/testable.js"
+    }
+  },
   "dependencies": {
     "@cortec/config": "workspace:*",
     "@cortec/types": "workspace:*",
     "@opensearch-project/opensearch": "^3.5.1"
   },
   "devDependencies": {
-    "@cortec/newrelic": "workspace:*"
+    "@cortec/newrelic": "workspace:*",
+    "@testcontainers/opensearch": "^11.7.1"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
