@@ -7,9 +7,11 @@ import exit from 'exit';
 import pEachSeries from 'p-each-series';
 import { timeout as pTimeout, TimeoutError } from 'promise-timeout';
 import { Signale } from 'signale';
-import { dump } from 'wtfnode';
 
 interface ICortecConfig extends Service {
+  /**
+   * @deprecated wtfnode is no longer supported as it causes issues with loading the project in certain environments.
+   */
   printOpenHandles?: boolean;
   silent?: boolean;
   loadTimeout?: number;
@@ -90,7 +92,6 @@ class Cortec implements IContext {
       })
       .finally(() => {
         logger.success('Exit (code: ' + code + ')');
-        this.service.printOpenHandles && dump();
 
         // A negative exit code will cause the process to not exit.
         // This is useful for testing purposes.
