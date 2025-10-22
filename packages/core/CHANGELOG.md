@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.0](https://github.com/saswatds/cortec/compare/@cortec/core@1.15.3...@cortec/core@1.16.0) (2025-10-22)
+
+### Features
+
+- removed wtf node ([cc19be3](https://github.com/saswatds/cortec/commit/cc19be3d495e3ede62e3e7cd34de8f83f128a93d))
+
 ## [1.15.3](https://github.com/saswatds/cortec/compare/@cortec/core@1.15.2...@cortec/core@1.15.3) (2025-10-17)
 
 **Note:** Version bump only for package @cortec/core
