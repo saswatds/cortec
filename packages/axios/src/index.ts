@@ -28,12 +28,12 @@ export interface IAxios {
 
 export enum RequestFlags {
   None = 0,
-  Notice4XX = 1 << 0,
+  Ignore4XX = 1 << 0,
   InstrumentUrl = 1 << 1,
   NoRetry = 1 << 2,
 }
 
-function match(trait: RequestFlags, flag: RequestFlags): boolean {
+function check(trait: RequestFlags, flag: RequestFlags): boolean {
   return (trait & flag) === flag;
 }
 
@@ -139,7 +139,7 @@ export default class Axios implements IModule, IAxios {
             `ExternalService/${capitalize(name)}`,
             () => {
               if (
-                match(flags, RequestFlags.InstrumentUrl) &&
+                check(flags, RequestFlags.InstrumentUrl) &&
                 typeof args[0] === 'string'
               ) {
                 //record the URL and the method of the request
@@ -160,7 +160,7 @@ export default class Axios implements IModule, IAxios {
                 startingDelay: 100,
                 retry: (err: A.AxiosError) => {
                   // If the request is marked as no retry, we should not retry
-                  if (match(flags, RequestFlags.NoRetry)) return false;
+                  if (check(flags, RequestFlags.NoRetry)) return false;
 
                   // If the error is not an axios error, we should not retry
                   if (!isAxiosError(err)) return false;
@@ -183,12 +183,11 @@ export default class Axios implements IModule, IAxios {
                 if (status >= 500)
                   nr.api.noticeError(new ExternalServiceError(name, err));
 
-                // 4xx are client side errors and must be ignored unless specifically
-                // asked to be reported
+                // 4xx are client errors, so we should log them and allow for ignoring them based on flags
                 if (
-                  match(flags, RequestFlags.Notice4XX) &&
                   status >= 400 &&
-                  status < 500
+                  status < 500 &&
+                  !check(flags, RequestFlags.Ignore4XX)
                 )
                   nr.api.noticeError(new ExternalServiceError(name, err));
 
