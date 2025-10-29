@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.8](https://github.com/saswatds/cortec/compare/@cortec/axios@2.4.7...@cortec/axios@2.4.8) (2025-10-29)
+
+### Bug Fixes
+
+- rename match function to check and update RequestFlags enum ([14c99fd](https://github.com/saswatds/cortec/commit/14c99fda4524ed3028ff31a9a7dba1b3d3d33758))
+
 ## [2.4.7](https://github.com/saswatds/cortec/compare/@cortec/axios@2.4.6...@cortec/axios@2.4.7) (2025-10-17)
 
 **Note:** Version bump only for package @cortec/axios
